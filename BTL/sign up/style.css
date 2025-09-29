@@ -1,10 +1,10 @@
 body{
-    background-image: url('img/nen_signup.jpg');
+    background-image: url('../img/nen_signup.jpg');
 }
 header{
     color:white;
     text-align:center;
-    background-image: url('img/nen_header_signup.jpg');
+    background-image: url('../img/nen_header_signup.jpg');
     width:30%;
     height:55px;
     margin:auto;
