@@ -1,0 +1,109 @@
+body{
+    background-image: url('img/nen_signup.jpg');
+}
+header{
+    color:white;
+    text-align:center;
+    background-image: url('img/nen_header_signup.jpg');
+    width:30%;
+    height:55px;
+    margin:auto;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    font-family:'courinew';
+}   
+
+
+main{
+    border-radius: 8px;
+    width:30%;
+    margin:0px auto;
+    background-color:#99b063;
+    text-align:center;
+    justify-content:center;
+    border:1px solid aliceblue;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3)
+}
+.hang1 h2,p {
+    margin:0;
+    color:white;
+}
+.hang1 p{
+    margin-bottom:10px;
+}
+.hang1{
+    border-bottom:1px solid grey;
+}
+.name{
+    display:flex;
+    margin:10px;
+    gap:5px;
+}
+input[type="text"]{
+    width:91.5%;
+    border:1px solid grey;
+    border-radius:5px;
+    padding:5px;
+}
+.birth p{
+    text-align:initial;
+    padding:10px;
+}
+.ngaythangnamsinh{
+    display:flex;
+    justify-content:space-around;
+    gap:10px;
+}
+select{
+    padding:5px;
+    width:100px;
+    border-radius:5px;
+}
+
+.gender p{
+    text-align: initial;
+    padding:5px;
+}
+.luachon{
+    display:flex;
+    gap:10px;
+    margin:10px;
+}
+.vien{
+    flex:1;
+    display:flex;
+    border:1px solid grey;
+    border-radius:5px;
+    justify-content: space-between;
+}
+input[type="tel"]{
+    width:91.5%;
+    border:1px solid grey;
+    border-radius:5px;
+    padding:5px;
+}
+input[type="password"]{
+    width:91.5%;
+    border:1px solid grey;
+    border-radius:5px;
+    padding:5px;
+    margin-top:5px;
+}
+.noidung{
+    text-align:initial;
+    margin:10px;
+    font-size:11px;
+}
+.sign{
+    justify-content: center;
+}
+.sign h2{
+    color:white;
+    border:1px solid grey;
+    background-color:#334e23;
+    width:40%;
+    border-radius:5px;
+    padding:5px;
+    margin:5px auto;
+}
