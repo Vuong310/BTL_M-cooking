@@ -90,7 +90,7 @@ input::placeholder{
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;/*đổi con trỏ thành hình bàn tay*/ 
-    white-space: nowrap;
+    white-space: nowrap; /*ngan cac chu xuong dong*/
 }
 .nut:hover {
     background-color: #e0d8c8;
