@@ -1,29 +1,41 @@
 body{
-    background-image: url('../img/nen_signup.jpg');
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f1e9d2;
+    margin:auto;
+    width:60%;
+    margin-top:10vh;
 }
 header{
-    color:white;
-    text-align:center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: url('../img/nen_header_signup.jpg');
-    width:30%;
     height:55px;
     margin:auto;
     border-radius: 8px;
     margin-bottom: 4px;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
-    font-family:'courinew';
+    /* box-shadow: 0 10px 15px rgba(0,0,0,0.3); */
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
 }   
-
-
 main{
     border-radius: 8px;
-    width:30%;
-    margin:0px auto;
+    width:100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    margin: auto;
     background-color:#99b063;
     text-align:center;
     justify-content:center;
-    border:1px solid aliceblue;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.3)
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    
 }
 .hang1 h2,p {
     margin:0;
@@ -32,60 +44,87 @@ main{
 .hang1 p{
     margin-bottom:10px;
 }
-.hang1{
-    border-bottom:1px solid grey;
+hr{
+    border: #324f23 1px solid;
 }
 .name{
     display:flex;
     margin:10px;
     gap:5px;
+    flex-wrap: wrap;
 }
 input[type="text"]{
     width:91.5%;
-    border:1px solid grey;
+    border:1px solid #99b063;
     border-radius:5px;
     padding:5px;
+    flex:1 1 100px; /*mở rộng khi thừa/thu nhỏ khi thiếu/kích thước ban đầu*/
 }
+input{
+    font-family: 'Courier New', Courier, monospace;
+    color:#99b063;
+}
+button{
+    border-radius: 8px;
+    background-color:#324f23;
+    padding:10px 20px;
+    /* margin: 50px auto; */
+    font-size: 16px;
+    cursor: pointer;
+    color:white;
+    white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .birth p{
     text-align:initial;
     padding:10px;
+    font-weight: bold;
 }
 .ngaythangnamsinh{
     display:flex;
     justify-content:space-around;
     gap:10px;
+    padding:10px;
+    flex-wrap: wrap;
 }
 select{
     padding:5px;
-    width:100px;
     border-radius:5px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #99b063;
+    flex: 1 1 50px;
 }
 
 .gender p{
     text-align: initial;
     padding:5px;
+    /* font-weight: bold; */
 }
 .luachon{
     display:flex;
     gap:10px;
     margin:10px;
+    margin-top: 5px;
+    flex-wrap: wrap; /*xuống dòng nếu không đủ*/
 }
 .vien{
-    flex:1;
+    flex:1 1 50px;
     display:flex;
-    border:1px solid grey;
+    border:1px solid #f1e9d2;
     border-radius:5px;
     justify-content: space-between;
+
 }
 input[type="tel"]{
     width:91.5%;
-    border:1px solid grey;
     border-radius:5px;
     padding:5px;
+    border: 1px solid #99b063;
 }
 input[type="password"]{
     width:91.5%;
-    border:1px solid grey;
+    border: 1px solid #99b063;
     border-radius:5px;
     padding:5px;
     margin-top:5px;
@@ -94,16 +133,4 @@ input[type="password"]{
     text-align:initial;
     margin:10px;
     font-size:11px;
-}
-.sign{
-    justify-content: center;
-}
-.sign h2{
-    color:white;
-    border:1px solid grey;
-    background-color:#334e23;
-    width:40%;
-    border-radius:5px;
-    padding:5px;
-    margin:5px auto;
 }

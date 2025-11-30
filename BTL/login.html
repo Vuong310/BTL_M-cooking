@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body{
-            background-color: #f1e9d2;
             display:flex;
             align-items:center;
             justify-content: center;
             height:90vh;
             font-family: 'Courier New', Courier, monospace;
             color:#f1e9d2;
+            background-color: #f1e9d2;
         }
         main{
             background-color:#9ab25d;
@@ -28,6 +28,7 @@
             border-radius: 10px;
             box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
             /*dịch bóng theo chiều ngang, dịch bóng theo chiều dọc, độ mờ bóng, độ lan, màu*/
+            /* flex-wrap: wrap; */
         }
         a{
             color:#f1e9d2;
@@ -47,7 +48,7 @@
             border-bottom: 1px #324f23 solid;
             padding:10px;
             display:flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: end;
             gap:20px;
             /* border: white 3px solid; */
@@ -56,11 +57,18 @@
             border-radius: 8px;
             background-color:#324f23;
             padding:10px 20px;
-            margin: 50px auto;
+            /* margin: 50px auto; */
             font-size: 16px;
             cursor: pointer;
             color:#f1e9d2;
+            white-space: nowrap;
             font-family: 'Courier New', Courier, monospace;
+        }
+        .nutbam{
+            display: flex;
+            justify-content: flex-start;
+            gap:30px;
+            margin: 50px auto;
         }
         .hinh{
             text-align: center;
@@ -89,8 +97,7 @@
 <body>
     <main>
         <div class="hinh">
-            <img src="img/login.png"><br>
-            <a href="#">Create an account</a>
+            <img src="img/login.png">
         </div>
         <div class="phai">
             <h1><b>Log In</b></h1>
@@ -108,6 +115,7 @@
                 </div>
                 <div class="nutbam">
                     <button><b>Log In</b></button>
+                    <button><b>Sign Up</b></button>
                 </div>
                 <!-- <div class="chanmain">
                     Or login with
