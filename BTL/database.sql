@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS loai_mon(
 );
 
 -- 4. Bảng công thức
-CREATE TABLE IF NOT EXISTS cong_thuc(
+CREATE TABLE IF NOT EXISTS mon_an(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	ten_mon_an VARCHAR(100) NOT NULL,
 	mo_ta TEXT,
@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS cong_thuc(
 	nguoi_dang_id INT,
 	ngay_dang DATE,
 	hinh_anh VARCHAR(255),
-    buoc_lam TEXT,
     trang_thai VARCHAR(20),
 	FOREIGN KEY (nguoi_dang_id) REFERENCES nguoi_dung(id)
 );
@@ -47,29 +46,37 @@ CREATE TABLE IF NOT EXISTS nguyen_lieu(
 	ten_nguyen_lieu VARCHAR(50)
 );
 
--- 6. Bảng liên kết công thức với nguyên liệu
-CREATE TABLE IF NOT EXISTS cong_thuc_nguyen_lieu(
+-- 6. Bảng liên kết món ăn với nguyên liệu
+CREATE TABLE IF NOT EXISTS mon_an_nguyen_lieu(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	cong_thuc_id INT,
+	mon_an_id INT,
 	nguyen_lieu_id INT,
 	so_luong VARCHAR(50),
-	FOREIGN KEY (cong_thuc_id) REFERENCES cong_thuc(id),
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id),
 	FOREIGN KEY (nguyen_lieu_id) REFERENCES nguyen_lieu(id)
 );
--- 7. Bảng liên kết công thức với loại món
-CREATE TABLE IF NOT EXISTS loai_mon_cong_thuc(
+-- 7. Bảng liên kết món ăn với loại món
+CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	cong_thuc_id INT,
+	mon_an_id INT,
 	loai_mon_id INT,
 	FOREIGN KEY (loai_mon_id) REFERENCES loai_mon(id),
-	FOREIGN KEY (cong_thuc_id) REFERENCES cong_thuc(id)
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
+);
+-- 8. Liên kết công thức với món ăn
+CREATE TABLE IF NOT EXISTS cong_thuc(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    mon_an_id INT,
+    buoc_lam TEXT,
+    foreign key (mon_an_id) references mon_an(id)
 );
 
 
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE loai_mon_cong_thuc;
-TRUNCATE TABLE cong_thuc_nguyen_lieu;
 TRUNCATE TABLE cong_thuc;
+TRUNCATE TABLE mon_an_loai_mon;
+TRUNCATE TABLE mon_an_nguyen_lieu;
+TRUNCATE TABLE mon_an;
 TRUNCATE TABLE nguyen_lieu;
 TRUNCATE TABLE loai_mon;
 TRUNCATE TABLE nguoi_dung;
@@ -124,52 +131,52 @@ INSERT INTO loai_mon(ten_loai) VALUES
 ('Từ Tinh bột'), ('Từ Rau củ'), ('Món Gia đình'), ('Món ăn nhanh'), 
 ('Món tại Nhà hàng'), ('Ẩm thực đường phố'), ('Muối lên men'), ('Ăn nhanh'),('Trung Đông');
 
-INSERT INTO cong_thuc (ten_mon_an, mo_ta, thoi_gian_nau, nguoi_dang_id, ngay_dang, hinh_anh, buoc_lam, trang_thai) VALUES
-('Phở Bò', 'Món phở truyền thống Việt Nam với nước dùng thơm ngon.', 60, 5, '2025-01-10', 'Pho_Bo.jpg', 'Chuẩn bị xương bò|Ninh nước dùng|Trụng bánh phở|Thêm thịt bò và rau thơm', 'da_duyet'),
-('Bún Chả', 'Đặc sản Hà Nội với thịt nướng và bún ăn kèm nước chấm.', 45, 8, '2025-01-12', 'Bun_Cha.jpg', 'Ướp thịt|Nướng thịt|Luộc bún|Pha nước chấm|Dọn ra ăn kèm rau sống', 'da_duyet'),
-('Sushi Nhật', 'Món ăn nổi tiếng của Nhật Bản với cơm cuộn và hải sản.', 50, 12, '2025-01-15', 'Sushi_Nhat.jpg', 'Nấu cơm|Chuẩn bị hải sản|Cuộn sushi|Cắt miếng|Trang trí và thưởng thức', 'cho_duyet'),
-('Pizza Ý', 'Bánh pizza Ý với phô mai và sốt cà chua đặc trưng.', 40, 7, '2025-01-20', 'Pizza_Y.jpg', 'Nhào bột|Phết sốt cà chua|Thêm phô mai và topping|Nướng bánh|Cắt và ăn nóng', 'da_duyet'),
-('Bánh Mì Việt Nam', 'Bánh mì kẹp thịt nổi tiếng của Việt Nam.', 20, 9, '2025-01-22', 'Banh_Mi_Viet_Nam.jpg', 'Chuẩn bị bánh mì|Làm nhân thịt|Thêm rau và nước sốt|Kẹp nhân vào bánh mì', 'da_duyet'),
-('Tacos Mexico', 'Món ăn đường phố Mexico với bánh ngô và nhân thịt.', 30, 14, '2025-01-25', 'Tacos_Mexico.jpg', 'Chuẩn bị bánh ngô|Làm nhân thịt|Thêm rau và phô mai|Cuộn lại và thưởng thức', 'cho_duyet'),
-('Cơm Tấm', 'Món cơm tấm đặc sản miền Nam Việt Nam.', 35, 6, '2025-01-28', 'Com_Tam.jpg', 'Nấu cơm tấm|Nướng sườn|Làm bì chả|Dọn cơm với nước mắm', 'da_duyet'),
-('Pad Thai', 'Món mì xào nổi tiếng của Thái Lan.', 25, 11, '2025-02-02', 'Pad_Thai.jpg', 'Ngâm mì|Xào tôm và trứng|Thêm sốt Pad Thai|Trộn mì|Ăn kèm lạc rang', 'cho_duyet'),
-('Bánh Xèo', 'Bánh xèo giòn rụm ăn kèm rau sống và nước chấm.', 30, 15, '2025-02-05', 'Banh_Xeo.jpg', 'Pha bột|Đổ bánh|Thêm nhân|Cuốn với rau sống|Chấm nước mắm', 'da_duyet'),
-('Kimchi Hàn Quốc', 'Món kimchi lên men nổi tiếng của Hàn Quốc.', 120, 18, '2025-02-08', 'Kimchi_Han_Quoc.jpg', 'Chuẩn bị cải thảo|Pha sốt ớt|Trộn kimchi|Ủ lên men|Ăn kèm cơm', 'cho_duyet'),
-('Bò Kho', 'Món bò kho Việt Nam thơm ngon.', 90, 20, '2025-02-10', 'Bo_Kho.jpg', 'Ướp thịt bò|Xào bò với gia vị|Ninh bò với nước|Ăn kèm bánh mì hoặc cơm', 'da_duyet'),
-('Hamburger Mỹ', 'Bánh hamburger với thịt bò và phô mai.', 25, 22, '2025-02-12', 'Hamburger_My.jpg', 'Nướng thịt bò|Chuẩn bị bánh mì|Thêm rau và phô mai|Kẹp nhân vào bánh', 'cho_duyet'),
-('Bánh Cuốn', 'Món bánh cuốn Việt Nam mềm mịn.', 40, 24, '2025-02-15', 'Banh_Cuon.jpg', 'Pha bột|Tráng bánh|Làm nhân|Cuốn bánh|Ăn kèm nước mắm', 'da_duyet'),
-('Curry Ấn Độ', 'Món cà ri đậm đà hương vị Ấn Độ.', 60, 26, '2025-02-18', 'Curry_An_Do.jpg', 'Xào hành tỏi|Thêm gia vị|Nấu thịt với nước sốt|Ăn kèm cơm hoặc bánh mì', 'cho_duyet'),
-('Bánh Chưng', 'Món bánh truyền thống Việt Nam dịp Tết.', 240, 28, '2025-02-20', 'Banh_Chung.jpg', 'Chuẩn bị lá dong|Làm nhân|Gói bánh|Luộc bánh nhiều giờ|Ăn cùng dưa hành', 'da_duyet'),
-('Spaghetti Ý', 'Món mì Ý với sốt cà chua và thịt bò.', 35, 10, '2025-02-22', 'Spaghetti_Y.jpg', 'Luộc mì|Làm sốt cà chua|Xào thịt bò|Trộn mì với sốt|Ăn nóng', 'cho_duyet'),
-('Bánh Bao', 'Bánh bao nhân thịt hấp nóng hổi.', 50, 13, '2025-02-25', 'Banh_Bao.jpg', 'Nhào bột|Làm nhân|Gói bánh|Hấp bánh|Ăn nóng', 'da_duyet'),
-('Falafel Trung Đông', 'Món chay nổi tiếng từ Trung Đông.', 40, 16, '2025-02-28', 'Falafel_Trung_Dong.jpg', 'Xay đậu|Trộn gia vị|Nặn viên|Chiên vàng|Ăn kèm bánh pita', 'cho_duyet'),
-('Bánh Tét', 'Món bánh truyền thống miền Nam Việt Nam.', 240, 19, '2025-03-02', 'Banh_Tet.jpg', 'Chuẩn bị lá chuối|Làm nhân|Gói bánh|Luộc bánh nhiều giờ|Ăn cùng dưa món', 'da_duyet'),
-('Ramen Nhật', 'Món mì ramen nổi tiếng của Nhật Bản.', 90, 21, '2025-03-05', 'Ramen_Nhat.jpg', 'Nấu nước dùng|Luộc mì|Chuẩn bị topping|Cho mì vào bát|Thêm nước dùng', 'cho_duyet'),
-('Bánh Khọt', 'Món bánh khọt giòn ngon của miền Nam.', 30, 23, '2025-03-08', 'Banh_Khot.jpg', 'Pha bột|Đổ bánh|Thêm nhân|Ăn kèm rau sống và nước mắm', 'da_duyet'),
-('Paella Tây Ban Nha', 'Món cơm hải sản nổi tiếng Tây Ban Nha.', 70, 25, '2025-03-10', 'Paella_Tay_Ban_Nha.jpg', 'Xào hành tỏi|Thêm hải sản|Nấu cơm với nước dùng|Trang trí với chanh', 'cho_duyet'),
-('Bánh Đúc', 'Món bánh đúc dân dã Việt Nam.', 40, 27, '2025-03-12', 'Banh_Duc.jpg', 'Pha bột|Đổ khuôn|Hấp bánh|Ăn kèm nước mắm', 'da_duyet'),
-('Shawarma Trung Đông', 'Món thịt nướng cuốn bánh pita.', 50, 29, '2025-03-15', 'Shawarma_Trung_Dong.jpg', 'Ướp thịt|Nướng thịt|Cắt lát|Cuốn với bánh pita|Ăn kèm rau', 'cho_duyet'),
-('Ức gà áp chảo', 'Món ăn ít dầu mỡ, giàu protein.', 25, 29, '2025-03-15', 'Uc_Ga_Ap_Chao.jpg', 'Ướp ức gà|Áp chảo không dầu|Thêm rau củ luộc|Dùng nóng', 'cho_duyet'),
-('Đậu hũ kho nấm', 'Món chay thanh đạm, đậm vị.', 30, 29, '2025-03-15', 'Dau_Hu_Kho_Nam.jpg', 'Cắt đậu hũ|Xào nấm|Kho cùng gia vị|Thêm hành lá', 'da_duyet'),
-('Canh chua chay', 'Món canh chua thanh mát với rau củ và đậu hũ.', 30, 29, '2025-03-15', 'Canh_Chua_Chay.jpg', 'Chuẩn bị rau củ|Cắt đậu hũ|Nấu nước dùng|Thêm gia vị chua|Cho rau vào', 'cho_duyet'),
-('Miến xào chay', 'Món miến xào với nấm, rau củ, ít dầu mỡ.', 25, 29, '2025-03-15', 'Mien_Xao_Chay.jpg', 'Ngâm miến|Xào rau củ|Thêm nấm|Cho miến vào|Nêm gia vị', 'da_duyet'),
-('Cà ri chay', 'Món cà ri thơm béo với khoai, cà rốt, đậu hũ.', 40, 29, '2025-03-15', 'Ca_Ri_Chay.jpg', 'Chuẩn bị rau củ|Xào sơ|Nấu với nước cốt dừa|Thêm gia vị cà ri|Ăn kèm bánh mì hoặc cơm', 'cho_duyet'),
-('Bánh Kem', 'Đồ ngọt sẽ giúp bản giảm stress!!', 90, 3, '2025-11-28', 'Banh_Kem.jpg', 'Làm côt bánh|Đánh kem phủ|Phủ và Trang trí', 'cho_duyet'),
-('Salad Hy Lạp', 'Salad rau củ tươi với phô mai feta và dầu ô liu.', 20, 29, '2025-03-15', 'Salad_Hy_Lap.jpg', 'Rửa rau|Cắt nhỏ|Trộn với dầu ô liu|Thêm phô mai feta', 'da_duyet'),
-('Bánh quy bơ', 'Bánh quy giòn thơm vị bơ.', 40, 29, '2025-03-15', 'Banh_Quy_Bo.jpg', 'Trộn bột|Nhào bột|Tạo hình|Nướng bánh', 'cho_duyet'),
-('Chè đậu xanh', 'Món chè ngọt mát, bổ dưỡng.', 40, 29, '2025-03-15', 'Che_Dau_Xanh.jpg', 'Nấu đậu xanh|Thêm đường|Cho nước cốt dừa|Ăn kèm đá', 'cho_duyet'),
-('Bánh su kem', 'Bánh ngọt mềm với nhân kem béo ngậy.', 60, 29, '2025-03-15', 'Banh_Su_Kem.jpg', 'Nấu bột|Tạo hình|Nướng bánh|Bơm kem vào nhân', 'da_duyet'),
-('Kem vani', 'Món kem mát lạnh vị vani.', 120, 29, '2025-03-15', 'Kem_Vani.jpg', 'Đánh trứng sữa|Thêm vani|Đông lạnh|Xới kem', 'cho_duyet'),
-('Bánh mochi', 'Bánh ngọt Nhật Bản dẻo thơm.', 50, 29, '2025-03-15', 'Banh_Mochi.jpg', 'Trộn bột nếp|Nhào bột|Tạo hình|Thêm nhân|Hấp chín', 'da_duyet'),
-('Panna cotta', 'Món tráng miệng Ý mềm mịn, thơm béo.', 180, 29, '2025-03-15', 'Panna_Cotta.jpg', 'Nấu kem sữa|Thêm gelatin|Đổ khuôn|Làm lạnh|Trang trí trái cây', 'da_duyet'),
-('Bánh flan', 'Món bánh ngọt mềm mịn với caramel.', 60, 29, '2025-03-15', 'Banh_Flan.jpg', 'Nấu caramel|Đánh trứng sữa|Đổ khuôn|Hấp cách thủy|Làm lạnh', 'cho_duyet'),
-('Trà chanh', 'Nước uống giải khát mát lạnh, chua ngọt.', 10, 29, '2025-03-15', 'Tra_Chanh.jpg', 'Pha trà|Thêm đường|Vắt chanh|Cho đá|Khuấy đều', 'da_duyet'),
-('Nước ép cam', 'Nước ép cam tươi mát giàu vitamin C.', 10, 29, '2025-03-15', 'Nuoc_Ep_Cam.jpg', 'Rửa cam|Cắt đôi|Vắt lấy nước|Thêm đá', 'cho_duyet'),
-('Cà phê sữa đá', 'Đồ uống truyền thống Việt Nam, đậm đà vị cà phê.', 10, 29, '2025-03-15', 'Ca_Phe_Sua_Da.jpg', 'Pha cà phê|Thêm sữa đặc|Cho đá|Khuấy đều', 'cho_duyet'),
-('Trà sữa trân châu', 'Thức uống ngọt ngào, béo ngậy với trân châu dai giòn.', 20, 29, '2025-03-15', 'Tra_Sua_Tran_Chau.jpg', 'Nấu trân châu|Pha trà|Thêm sữa|Cho đá|Trộn đều', 'da_duyet'),
-('Sinh tố dâu', 'Sinh tố trái dâu tươi mát, giàu vitamin.', 15, 29, '2025-03-15', 'Sinh_To_Dau.jpg', 'Rửa dâu|Cắt nhỏ|Xay với sữa|Thêm đá|Rót ra ly', 'cho_duyet'),
-('Nước ép táo', 'Nước ép táo ngọt dịu, tốt cho sức khỏe.', 10, 29, '2025-03-15', 'Nuoc_Ep_Tao.jpg', 'Rửa táo|Cắt miếng|Ép lấy nước|Thêm đá', 'cho_duyet'),
-('Soda chanh bạc hà', 'Đồ uống giải khát sảng khoái, mát lạnh.', 10, 29, '2025-03-15', 'Soda_Chanh_Bac_Ha.jpg', 'Vắt chanh|Thêm đường|Cho soda|Thêm lá bạc hà|Cho đá', 'da_duyet');
+INSERT INTO mon_an (ten_mon_an, mo_ta, thoi_gian_nau, nguoi_dang_id, ngay_dang, hinh_anh, trang_thai) VALUES
+('Phở Bò', 'Món phở truyền thống Việt Nam với nước dùng thơm ngon.', 60, 5, '2025-01-10', 'Pho_Bo.jpg', 'da_duyet'),
+('Bún Chả', 'Đặc sản Hà Nội với thịt nướng và bún ăn kèm nước chấm.', 45, 8, '2025-01-12', 'Bun_Cha.jpg', 'da_duyet'),
+('Sushi Nhật', 'Món ăn nổi tiếng của Nhật Bản với cơm cuộn và hải sản.', 50, 12, '2025-01-15', 'Sushi_Nhat.jpg', 'cho_duyet'),
+('Pizza Ý', 'Bánh pizza Ý với phô mai và sốt cà chua đặc trưng.', 40, 7, '2025-01-20', 'Pizza_Y.jpg', 'da_duyet'),
+('Bánh Mì Việt Nam', 'Bánh mì kẹp thịt nổi tiếng của Việt Nam.', 20, 9, '2025-01-22', 'Banh_Mi_Viet_Nam.jpg', 'da_duyet'),
+('Tacos Mexico', 'Món ăn đường phố Mexico với bánh ngô và nhân thịt.', 30, 14, '2025-01-25', 'Tacos_Mexico.jpg', 'cho_duyet'),
+('Cơm Tấm', 'Món cơm tấm đặc sản miền Nam Việt Nam.', 35, 6, '2025-01-28', 'Com_Tam.jpg', 'da_duyet'),
+('Pad Thai', 'Món mì xào nổi tiếng của Thái Lan.', 25, 11, '2025-02-02', 'Pad_Thai.jpg', 'cho_duyet'),
+('Bánh Xèo', 'Bánh xèo giòn rụm ăn kèm rau sống và nước chấm.', 30, 15, '2025-02-05', 'Banh_Xeo.jpg', 'da_duyet'),
+('Kimchi Hàn Quốc', 'Món kimchi lên men nổi tiếng của Hàn Quốc.', 120, 18, '2025-02-08', 'Kimchi_Han_Quoc.jpg', 'cho_duyet'),
+('Bò Kho', 'Món bò kho Việt Nam thơm ngon.', 90, 20, '2025-02-10', 'Bo_Kho.jpg', 'da_duyet'),
+('Hamburger Mỹ', 'Bánh hamburger với thịt bò và phô mai.', 25, 22, '2025-02-12', 'Hamburger_My.jpg', 'cho_duyet'),
+('Bánh Cuốn', 'Món bánh cuốn Việt Nam mềm mịn.', 40, 24, '2025-02-15', 'Banh_Cuon.jpg', 'da_duyet'),
+('Curry Ấn Độ', 'Món cà ri đậm đà hương vị Ấn Độ.', 60, 26, '2025-02-18', 'Curry_An_Do.jpg', 'cho_duyet'),
+('Bánh Chưng', 'Món bánh truyền thống Việt Nam dịp Tết.', 240, 28, '2025-02-20', 'Banh_Chung.jpg', 'da_duyet'),
+('Spaghetti Ý', 'Món mì Ý với sốt cà chua và thịt bò.', 35, 10, '2025-02-22', 'Spaghetti_Y.jpg', 'cho_duyet'),
+('Bánh Bao', 'Bánh bao nhân thịt hấp nóng hổi.', 50, 13, '2025-02-25', 'Banh_Bao.jpg', 'da_duyet'),
+('Falafel Trung Đông', 'Món chay nổi tiếng từ Trung Đông.', 40, 16, '2025-02-28', 'Falafel_Trung_Dong.jpg', 'cho_duyet'),
+('Bánh Tét', 'Món bánh truyền thống miền Nam Việt Nam.', 240, 19, '2025-03-02', 'Banh_Tet.jpg', 'da_duyet'),
+('Ramen Nhật', 'Món mì ramen nổi tiếng của Nhật Bản.', 90, 21, '2025-03-05', 'Ramen_Nhat.jpg', 'cho_duyet'),
+('Bánh Khọt', 'Món bánh khọt giòn ngon của miền Nam.', 30, 23, '2025-03-08', 'Banh_Khot.jpg', 'da_duyet'),
+('Paella Tây Ban Nha', 'Món cơm hải sản nổi tiếng Tây Ban Nha.', 70, 25, '2025-03-10', 'Paella_Tay_Ban_Nha.jpg', 'cho_duyet'),
+('Bánh Đúc', 'Món bánh đúc dân dã Việt Nam.', 40, 27, '2025-03-12', 'Banh_Duc.jpg', 'da_duyet'),
+('Shawarma Trung Đông', 'Món thịt nướng cuốn bánh pita.', 50, 29, '2025-03-15', 'Shawarma_Trung_Dong.jpg', 'cho_duyet'),
+('Ức gà áp chảo', 'Món ăn ít dầu mỡ, giàu protein.', 25, 29, '2025-03-15', 'Uc_Ga_Ap_Chao.jpg', 'cho_duyet'),
+('Đậu hũ kho nấm', 'Món chay thanh đạm, đậm vị.', 30, 29, '2025-03-15', 'Dau_Hu_Kho_Nam.jpg', 'da_duyet'),
+('Canh chua chay', 'Món canh chua thanh mát với rau củ và đậu hũ.', 30, 29, '2025-03-15', 'Canh_Chua_Chay.jpg', 'cho_duyet'),
+('Miến xào chay', 'Món miến xào với nấm, rau củ, ít dầu mỡ.', 25, 29, '2025-03-15', 'Mien_Xao_Chay.jpg', 'da_duyet'),
+('Cà ri chay', 'Món cà ri thơm béo với khoai, cà rốt, đậu hũ.', 40, 29, '2025-03-15', 'Ca_Ri_Chay.jpg', 'cho_duyet'),
+('Bánh Kem', 'Đồ ngọt sẽ giúp bản giảm stress!!', 90, 3, '2025-11-28', 'Banh_Kem.jpg', 'cho_duyet'),
+('Salad Hy Lạp', 'Salad rau củ tươi với phô mai feta và dầu ô liu.', 20, 29, '2025-03-15', 'Salad_Hy_Lap.jpg', 'da_duyet'),
+('Bánh quy bơ', 'Bánh quy giòn thơm vị bơ.', 40, 29, '2025-03-15', 'Banh_Quy_Bo.jpg', 'cho_duyet'),
+('Chè đậu xanh', 'Món chè ngọt mát, bổ dưỡng.', 40, 29, '2025-03-15', 'Che_Dau_Xanh.jpg', 'cho_duyet'),
+('Bánh su kem', 'Bánh ngọt mềm với nhân kem béo ngậy.', 60, 29, '2025-03-15', 'Banh_Su_Kem.jpg', 'da_duyet'),
+('Kem vani', 'Món kem mát lạnh vị vani.', 120, 29, '2025-03-15', 'Kem_Vani.jpg', 'cho_duyet'),
+('Bánh mochi', 'Bánh ngọt Nhật Bản dẻo thơm.', 50, 29, '2025-03-15', 'Banh_Mochi.jpg', 'da_duyet'),
+('Panna cotta', 'Món tráng miệng Ý mềm mịn, thơm béo.', 180, 29, '2025-03-15', 'Panna_Cotta.jpg', 'da_duyet'),
+('Bánh flan', 'Món bánh ngọt mềm mịn với caramel.', 60, 29, '2025-03-15', 'Banh_Flan.jpg', 'cho_duyet'),
+('Trà chanh', 'Nước uống giải khát mát lạnh, chua ngọt.', 10, 29, '2025-03-15', 'Tra_Chanh.jpg', 'da_duyet'),
+('Nước ép cam', 'Nước ép cam tươi mát giàu vitamin C.', 10, 29, '2025-03-15', 'Nuoc_Ep_Cam.jpg', 'cho_duyet'),
+('Cà phê sữa đá', 'Đồ uống truyền thống Việt Nam, đậm đà vị cà phê.', 10, 29, '2025-03-15', 'Ca_Phe_Sua_Da.jpg', 'cho_duyet'),
+('Trà sữa trân châu', 'Thức uống ngọt ngào, béo ngậy với trân châu dai giòn.', 20, 29, '2025-03-15', 'Tra_Sua_Tran_Chau.jpg', 'da_duyet'),
+('Sinh tố dâu', 'Sinh tố trái dâu tươi mát, giàu vitamin.', 15, 29, '2025-03-15', 'Sinh_To_Dau.jpg', 'cho_duyet'),
+('Nước ép táo', 'Nước ép táo ngọt dịu, tốt cho sức khỏe.', 10, 29, '2025-03-15', 'Nuoc_Ep_Tao.jpg', 'cho_duyet'),
+('Soda chanh bạc hà', 'Đồ uống giải khát sảng khoái, mát lạnh.', 10, 29, '2025-03-15', 'Soda_Chanh_Bac_Ha.jpg', 'da_duyet');
 
 INSERT INTO nguyen_lieu(ten_nguyen_lieu) VALUES
 ('Đường'),('Muối'),('Tiêu đen'),('Bột ngọt'),('Hạt nêm'),
@@ -206,14 +213,14 @@ INSERT INTO nguyen_lieu(ten_nguyen_lieu) VALUES
 ('Lạc rang'),('Sườn heo'),('Thính gạo rang'),('Bánh ngô (tortilla)'),('Phô mai bào'),
 ('Phô mai Mozzarella'),('Xúc xích'),('Bánh mì'),('Tương cà'),('Đậu bắp');
 
-INSERT INTO cong_thuc_nguyen_lieu(cong_thuc_id, nguyen_lieu_id, so_luong) VALUES
+INSERT INTO mon_an_nguyen_lieu(mon_an_id, nguyen_lieu_id, so_luong) VALUES
 (1, 60, '1-1.5 kg'), (1, 38, '500 gram'), (1, 91, '500 gram'), (1, 93, '2 thanh nhỏ (~5g)'), (1, 94, '3-4 cái (~5g)'), (1, 95, '2 quả (~3g)'), (1, 96, '2-3 cái'), (1, 97, '1 thìa cà phê (~3g)'), (1, 19, '1 củ (~50g)'), (1, 17, '3-4 củ (~40g)'), (1, 24, '1 củ (~150g)'), (1, 2, '2 muỗng canh'), (1, 1, '2 muỗng canh'), (1, 6, '3 muỗng canh'), (1, 5, '1 muỗng canh'), (1, 3, '1/2 thìa cà phê'), (1, 16, '50g'), (1, 27, '25g'), (1, 26, '25g'), (1, 115, '200g'), (1, 87, '2 quả'), (1, 20, '2-3 quả'),
 (2, 39, '(Ba chỉ) 500g'), (2, 39, '(Nạc vai) 300g'), (2, 35, '1kg'), (2, 146, ''), (2, 6, '8 thìa canh'), (2, 1, '5 thìa canh'), (2, 78, '1 thìa canh'), (2, 3, '1/2 thìa cà phê'), (2, 17, '1 củ'), (2, 18, '1 củ'), (2, 147, '2 thìa canh'), (2, 75, '200ml'), (2, 20, '2 quả'), (2, 22, '1 củ'), (2, 148, '1 miếng nhỏ'),
 (3, 34, '500g'), (3, 147, '80ml'), (3, 1, '40g'), (3, 2, '10g'), (3, 41, ''), (3, 46, ''), (3, 42, ''), (3, 149, ''), (3, 150, '6-8 lá'), (3, 101, ''), (3, 22, ''), (3, 9, ''), (3, 151, ''), (3, 152, ''),
 (4, 31, '250g'), (4, 116, '5g'), (4, 75, '150ml'), (4, 2, '1/2 thìa cà phê'), (4, 7, '1 thìa canh'), (4, 13, '3-4 thìa canh'), (4, 181, '150g'), (4, 182, '3-4 cái'),
 (5, 182, '2 cái'), (5, 38, '200g'), (5, 12, '2 lát/50g'), (5, 108, ''), (5, 101, ''), (5, 15, '2-3 thìa'), (5, 184, '2-3 thìa'), (5, 2, ''), (5, 3, ''), (5, 7, ''),
 (6, 179, '6-8 cái'), (6, 38, '150g'), (6, 40, '150g'), (6, 2, '2g'), (6, 3, '1g'), (6, 20, ''), (6, 108, ''), (6, 23, '2 quả'), (6, 180, '50g'),
-(7, 34, '500g'), (7, 176, '400g'), (7, 39, '200g'), (7, 178, ''), (7, 44, '2 quả'), (7, 6, '3 thìa'), (7, 1, '2 thìa'), (7, 75, '100ml'), (7, 87, '18'), (7, 20, ''), (7, 146, ''),
+(7, 34, '500g'), (7, 176, '400g'), (7, 39, '200g'), (7, 178, ''), (7, 44, '2 quả'), (7, 6, '3 thìa'), (7, 1, '2 thìa'), (7, 75, '100ml'), (7, 87, ''),(7,18,''), (7, 20, ''), (7, 146, ''),
 (8, 175, '200g'), (8, 42, '200g'), (8, 44, '2 quả'), (8, 115, '100g'), (8, 16, '30g'), (8, 6, '1 thìa'), (8, 1, '1 thìa'), (8, 174, ''), (8, 7, '2 thìa canh'), (8, 177, '30g'),
 (9, 153, '400g'), (9, 75, '500ml'), (9, 132, '200ml'), (9, 2, '1/2 thìa cà phê'), (9, 16, '30g'), (9, 39, '(Ba chỉ) 200g'), (9, 42, '200g'), (9, 115, '200g'), (9, 146, ''), (9, 6, '4 thìa'), (9, 1, '2 thìa'), (9, 87, ''), (9, 18, ''), (9, 20, ''),
 (10, 88, '3kg'), (10, 92, '240g'), (10, 98, '350g'), (10, 16, '130g'), (10, 19, '20g'), (10, 18, '80g'), (10, 22, '300g'), (10, 84, '300g'), (10, 24, '1 củ'), (10, 106, '70g'), (10, 107, '50g'), (10, 1, '150g'), (10, 2, '100g'),
@@ -253,7 +260,7 @@ INSERT INTO cong_thuc_nguyen_lieu(cong_thuc_id, nguyen_lieu_id, so_luong) VALUES
 (44, 84, '4 quả'), (44, 1, '150 gam'), (44, 87, '1/2 quả'), (44, 75, '100 ml'),
 (45, 142, '200 ml'), (45, 87, '1 quả'), (45, 130, '50 gam'), (45, 129, '100 ml'), (45, 143, '20 ml'), (45, 1, '50 gam'), (45, 2, '5 gam');
 
-INSERT INTO loai_mon_cong_thuc(cong_thuc_id, loai_mon_id) VALUES 
+INSERT INTO mon_an_loai_mon(mon_an_id, loai_mon_id) VALUES 
 (1, 1), (1, 3), (1, 9), (1, 15), (1, 17), (1, 19), (1, 31), (1, 33), (1, 37), (1, 38), 
 (2, 1), (1, 3), (1, 9), (1, 14), (1, 15), (1, 16), (1, 17), (1, 19), (1, 28), (1, 31), (1, 33), (1, 37), (1, 38), 
 (3, 1), (3, 5), (3, 9), (3, 14), (3, 16), (3, 19), (3, 23), (3, 32), (3, 33), (3, 37), 
@@ -299,4 +306,292 @@ INSERT INTO loai_mon_cong_thuc(cong_thuc_id, loai_mon_id) VALUES
 (43, 22), (43, 21), (42, 23), (42, 2),
 (44, 22), (44, 23), (44, 36), (44, 2),
 (45, 22), (45, 23), (45, 36), (45, 2);
+
+INSERT INTO cong_thuc(mon_an_id, buoc_lam) VALUES 
+(1, 'Rửa sạch xương, chần nước sôi để loại bỏ mùi và bọt bẩn.'),
+(1, 'Nướng sơ gừng, hành tím, hành tây để tăng hương vị.'),
+(1, 'Cho xương vào nồi lớn, thêm nước, ninh lửa nhỏ ít nhất 3–4 giờ để lấy vị ngọt tự nhiên.'),
+(1, 'Thêm quế, hồi, thảo anh, gừng, hành nướng vào nồi.'),
+(1, 'Nêm muối, đường phèn, nước mắm vừa ăn.'),
+(1, 'Hớt bọt thường xuyên để nước trong.'),
+(1, 'Trụng bánh phở tươi qua nước sôi, cho vào tô.'),
+(1, 'Thái thịt mỏng, trụng trong nước dùng cho chín tái, bỏ vào tô.'),
+(1, 'Xếp thịt lên bánh phở, rắc hành, rau mùi, giá đỗ, chan nước dùng; Thêm chanh ớt.'),
+
+(2, 'Thịt ba chỉ thái mỏng, thịt nạc vai băm nhỏ vo viên.'),
+(2, 'Ướp thịt với mắm, đường, mật ong, hành tỏi băm, tiêu; Để gia vị thấm trong 30 phút.'),
+(2, 'Nướng thịt ba chỉ và chả viên trên than hoa hoặc bếp nướng điện.'),
+(2, 'Trụng bún qua nước sôi'),
+(2, 'Hòa nước mắm, đường, giấm, nước lọc theo tỷ lệ; Thêm tỏi, ớt băm, cà rốt và đu đủ ngâm chua; Nêm theo sở thích.'),
+(2, 'Cho bún, rau sống, thịt ra đĩa; Nước chấm múc ra bát nhỏ và thưởng thức.'),
+
+(3, 'Nấu cơm, cơm chín thì trộn với giấm gạo, đường và muối sau đó để nguội.'),
+(3, 'Thái mỏng cá hồi, cá ngừ.'),
+(3, 'Luộc tôm, bóc vỏ'),
+(3, 'Rau củ cắt sợi dài.'),
+(3, 'Trải lá rong biển ra, dàn đều cơm lên, chừa mép 2cm'),
+(3, 'Xếp hải sản, rau củ lên; Cuốn lại.'),
+(3, 'Dùng dao cắt từng cuộn vừa ăn, có thể mài sắc và dùng dao qua nước để ko dính cơm.'),
+(3, 'Xếp ra đĩa, trang trí, ăn kèm với gừng ngâm, nước tương và wasabi.'),
+
+(4, 'Trộn bột mì, men nở, muối, nước ấm, dầu ăn và nhào đến khi bột mịn, để nghỉ 1 giờ cho nở.'),
+(4, 'Cán bột thành hình tròn mỏng và phết đều sốt cà chua lên mặt.'),
+(4, 'Rắc phô mai, thái lát xúc xích trải lên.'),
+(4, 'Nướng ở nhiệt độ 200°C trong 15–20 phút đến khi phô mai chảy và vỏ vàng giòn.'),
+(4, 'Nếu dùng đế có sẵn thì nướng ở nhiệt độ 200°C trong 10-15 phút.'),
+(4, 'Lấy bánh ra cắt thành miếng, ăn khi nóng.'),
+(5, 'Nướng sơ bánh mì.'),
+(5, 'Ướp thịt với muối, tiêu và dầu sau đó xào lên, khi gần chín cho phô mai vào để tan chảy phủ lên thịt.'),
+(5, 'Cho xà lách, rưa chuột vào bánh mì, thêm tương ớt, tương cà.'),
+(5, 'Cho thịt phủ phô mai vào, kẹp lại và thưởng thức.'),
+
+(6, 'Hâm nóng bánh ngô trên chảo khô cho mềm.'),
+(6, 'Xào thịt bò/gà xay với dầu ăn, tiêu, ớt.'),
+(6, 'Cho xà lách, cà chua thái hạt lựu vào bánh ngô.'),
+(6, 'Thêm thịt xào và rắc phô mai bào lên.'),
+(6, 'Gập bánh ngô lại thành hình bán nguyệt, ăn nóng và có thể chấm sốt cà chua hoặc tương ớt.'),
+
+(7, 'Vo gạo, nấu cơm; Khi chín xới cho tơi.'),
+(7, 'Ướp sườn với nước mắm, đường, tỏi, hành tím trong 30 phút.'),
+(7, 'Nướng thịt trên than hoặc lò nướng cho vàng thơm.'),
+(7, 'Bì: thịt heo luộc thái sợi, trộn với thính gạo rang.'),
+(7, 'Chả trứng: đánh trứng với chút nước mắm, hấp chín.'),
+(7, 'Pha nước mắm chua ngọt từ mắm, đường, nước lọc, chanh, tỏi và ớt.'),
+(7, 'Cho cơm ra đĩa, thêm sườn, bì, chả trứng.'),
+(7, 'Chan nước mắm chua ngọt vào.'),
+(7, 'Ăn kèm với dưa chuột, cà chua, rau thơm.'),
+
+(8, 'Ngâm mì gạo khô trong nước ấm khoảng 30 phút cho mềm và để ráo.'),
+(8, 'Phi chút dầu và cho tôm vào xào chín.'),
+(8, 'Đẩy tôm sang một bên và đập trứng vào đảo đều.'),
+(8, 'Pha sốt từ nước mắm, đường thốt nốt và me chua hoặc pha sẵn.'),
+(8, 'Cho sốt Pad Thai vào chảo, đảo đều với tôm và trứng.'),
+(8, 'Cho thêm mì gạo đã ngâm vào chảo đảo đều cho thấm sốt.'),
+(8, 'Thêm giá đỗ, hành lá và đảo nhanh tay.'),
+(8, 'Ăn nóng, có thể thêm chanh và ớt nếu thích.'),
+
+(9, 'Trộn bột bánh xèo với nước lọc, nước cốt dừa và muối.'),
+(9, 'Khuấy đều cho mịn, thêm hành lá cắt nhỏ rồi để bột nghỉ 30 phút.'),
+(9, 'Làm nóng chảo, cho chút dầu ăn vào.'),
+(9, 'Múc một vá bột, tráng đều mặt chảo.'),
+(9, 'Đậy nắp khoảng 1 phút cho bánh chín giòn.'),
+(9, 'Cho thịt ba chỉ thái mỏng, tôm đã bóc vỏ và làm sạch, giá đỗ lên mặt bánh.'),
+(9, 'Gập đôi bánh lại, chiên thêm cho giòn vàng.'),
+(9, 'Pha nước mắm chua ngọt: nước mắm, đường, nước, chanh, tỏi và ớt băm.'),
+(9, 'Lấy bánh xèo ra đĩa, ăn kèm rau sống.'),
+(9, 'Cuộn và chấm nước mắm chua ngọt.'),
+
+(10, 'Cắt cải thảo, ngâm muối 2–3 giờ.'),
+(10, 'Nấu hồ bột nếp, để nguội.'),
+(10, 'Trộn hồ với bột ớt, tỏi, gừng, nước mắm, táo/lê xay.'),
+(10, 'Trộn rau củ vào sốt.'),
+(10, 'Phết sốt lên cải thảo.'),
+(10, 'Ủ kimchi 1–2 ngày, sau đó bảo quản lạnh.'),
+
+(11, 'Ướp thịt bò với gia vị.'),
+(11, 'Phi hành tỏi, xào thịt cho săn.'),
+(11, 'Cho nước, sả, cà chua vào hầm.'),
+(11, 'Thêm cà rốt, khoai tây.'),
+(11, 'Nêm lại, thêm bột năng nếu cần.'),
+(11, 'Ăn kèm bánh mì hoặc hủ tiếu.'),
+
+(12, 'Trộn thịt bò xay với gia vị, nặn miếng.'),
+(12, 'Nướng hoặc áp chảo thịt.'),
+(12, 'Nướng sơ bánh burger.'),
+(12, 'Xếp lớp rau, thịt, phô mai, sốt.'),
+(12, 'Kẹp lại và dùng nóng.'),
+(13, 'Pha bột gạo + bột năng + nước.'),
+(13, 'Xào nhân thịt, mộc nhĩ, nấm.'),
+(13, 'Tráng bánh bằng chảo hoặc nồi hấp.'),
+(13, 'Cuốn nhân vào bánh'),
+
+(14, 'Ăn kèm chả lụa, rau sống, nước mắm.'),
+(14, 'Ướp thịt với sữa chua, gia vị'),
+(14, 'Phi hành tỏi, gừng.'),
+(14, 'Xào cà chua, thêm gia vị masala.'),
+(14, 'Cho thịt vào hầm mềm.'),
+(14, 'Thêm kem hoặc sữa chua.'),
+(14, 'Rắc rau mùi, ăn kèm cơm hoặc bánh naan.'),
+
+(15, 'Ngâm gạo nếp, đậu xanh.'),
+(15, 'Hấp đậu, giã nhuyễn.'),
+(15, 'Ướp thịt ba chỉ'),
+(15, 'Gói bánh bằng lá dong'),
+(15, 'Luộc bánh 8 – 10 giờ'),
+(15, 'Ép bánh, để nguội'),
+
+(16, 'Luộc mì với muối'),
+(16, 'Phi hành tỏi, xào thịt bò'),
+(16, 'Thêm cà chua, sốt cà, gia vị.'),
+(16, 'Nấu sốt sánh lại.'),
+(16, 'Trộn mì với sốt, rắc phô mai.'),
+
+(17, 'Trộn bột mì, men, đường, nhào và ủ.'),
+(17, 'Xào nhân thịt, mộc nhĩ, nấm.'),
+(17, 'Nặn bánh, cho trứng cút vào giữa.'),
+(17, 'Hấp bánh 15 – 20 phút'),
+
+(18, 'Ngâm đậu gà qua đêm'),
+(18, 'Xay đậu với hành, tỏi, rau thơm, gia vị'),
+(18, 'Trộn bột mì, để lạnh'),
+(18, 'Nặn viên, chiên giòn'),
+(18, 'Ăn kèm bánh pita, rau, sốt tahini'),
+
+(19, 'Ngâm gạo nếp trong nước khoảng 8 tiếng rồi vớt gạo nếp ra rổ để ráo nước, rắc thêm 4g muối xóc đều'),
+(19, 'Ngâm đậu xanh trong nước khoảng 4 tiếng, sau đó hấp hoặc nấu mềm rồi đánh mịn. Thịt ướp muối, tiêu, hành'),
+(19, 'Rửa lá chuối, lau khô, hơ mềm'),
+(19, 'Gói bánh: xếp lá, trải nếp → nhân → nếp, cuộn chặt, buộc dây lạt.'),
+(19, 'Luộc bánh ngập nước 5-8 giờ, thỉnh thoảng thêm nước'),
+(19, 'Vớt và ép bánh, để ráo, nén nhẹ'),
+
+(20, 'Cho xương gà vào hầm 2-3 giờ, thêm tỏi, gừng, muối, nước tương, miso (nếu dùng)'),
+(20, 'Thịt heo ướp muối, đường, nước tương, nướng hoặc luộc mềm.'),
+(20, 'Luộc mì ramen 2–3 phút cho mềm, vớt ra, để ráo'),
+(20, 'Trứng luộc lòng đào, nấm mèo thái nhỏ, hành lá cắt nhuyễn, rong biển'),
+(20, 'Cho mì vào bát, rưới nước dùng'),
+(20, 'Xếp thịt, trứng, nấm, rau,...'),
+
+(21, 'Trộn bột mì + bột gạo + nước cốt dừa + nước lọc + chút muối, khuấy đều, để 30 phút'),
+(21, 'Rửa sạch tôm, cắt đôi, ướp muối + tiêu + hành lá'),
+(21, 'Đổ bột, đặt tôm rồi đậy nắp và chiên lửa vừa đến khi bánh giòn, tôm chín'),
+(21, 'Dọn bánh nóng với rau sống, nước mắm chua ngọt và đu đủ xanh nếu có'),
+
+(22, 'Rửa sạch hải sản, lột vỏ tôm, thịt cắt miếng vừa ăn, gạo vo sạch để ráo, rau củ thái nhỏ'),
+(22, 'Xào tỏi + hành tây, cho thịt và ớt chuông, cà chua vào xào sơ'),
+(22, 'Thêm gạo vào xào cùng thịt, đổ nước dùng + saffron + muối + tiêu, nấu lửa vừa'),
+(22, 'Xếp tôm, mực, nghêu lên nấu đến chín rồi rắc đậu hà lan'),
+(23, 'Trộn bột với nước và muối, khuấy đều'),
+(23, 'Nấu trên lửa vừa, khuấy liên tục đến khi đặc sánh'),
+(23, 'Cho khuôn để nguội'),
+
+(24, 'Trộn thịt với tỏi, gia vị, dầu oliu, để 30-60 phút'),
+(24, 'Áp chảo hoặc nướng thịt đến chín vàng'),
+(24, 'Làm nóng bánh mì dẹt'),
+(24, 'Đặt rau sống, thịt lên bánh thêm sốt'),
+
+(25, 'Rắc muối, tiêu, tỏi băm, để 10-15 phút'),
+(25, 'Cho dầu hoặc bơ'),
+(25, 'Để lửa vừa, chiên mỗi bên 4-6 phút cho vàng và chín đều'),
+(25, 'Rắc rau thơm, cắt lát'),
+
+(26, 'Phi thơm hành tỏi với dầu ăn'),
+(26, 'Cho nấm vào xào sơ, nêm muối, tiêu, nước mắm, đường'),
+(26, 'Thêm đậu hũ, đun nhỏ lửa 5-10 phút cho thấm gia vị'),
+(26, 'Thêm hành lá'),
+
+(27, 'Phi thơm hành, tỏi với dầu ăn'),
+(27, 'Xào cà chua, dứa, thêm chút muối + đường'),
+(27, 'Đổ nước lọc, thêm me chua, đun sôi'),
+(27, 'Cho rau củ và đậu hũ rồi nấu chín mềm'),
+(27, 'Thêm nước cốt chanh, rắc rau thơm'),
+
+(28, 'Ngâm miến cho mềm, để ráo.'),
+(28, 'Bắp cải thái sợi, hành tím cắt lát.'),
+(28, 'Phi hành tím, cho bắp cải vào xào.'),
+(28, 'Thêm miến, nêm nước tương, hạt nêm, tiêu.'),
+(28, 'Đảo đều 3–4 phút, nêm lại, tắt bếp.'),
+
+(29, 'Sơ chế rau củ, cắt khúc.'),
+(29, 'Chiên sơ khoai tây, cà rốt cho vàng.'),
+(29, 'Xào rau củ với bột cà ri.'),
+(29, 'Thêm nước cốt dừa, nấu sôi nhỏ lửa đến khi mềm.'),
+(29, 'Nêm muối, đường, ăn kèm bánh mì hoặc cơm.'),
+
+(30, 'Nướng bánh bông lan (làm cốt bánh).'),
+(30, 'Đánh kem tươi hoặc kem bơ để phủ.'),
+(30, 'Phết kem lên cốt bánh, trang trí bằng trái cây hoặc socola.'),
+(30, 'Làm lạnh trước khi dùng.'),
+
+(31, 'Sơ chế rau củ, cắt miếng vừa ăn.'),
+(31, 'Pha sốt: dầu olive + muối + tiêu.'),
+(31, 'Trộn rau củ với sốt, thêm phô mai feta.'),
+(31, 'Ăn ngay khi còn tươi.'),
+
+(32, 'Đun chảy bơ, trộn với đường, trứng, vani.'),
+(32, 'Rây bột mì vào, trộn thành khối bột mịn.'),
+(32, 'Tạo hình bánh (hoa, tròn, thanh).'),
+(32, 'Nướng 180–200°C khoảng 13–15 phút.'),
+(32, 'Để nguội, bảo quản hộp kín.'),
+
+(33, 'Ngâm đậu xanh 2–4 giờ.'),
+(33, 'Nấu đậu đến khi mềm.'),
+(33, 'Thêm đường, muối, vani.'),
+(33, 'Cho nước cốt dừa vào, khuấy đều.'),
+(33, 'Ăn nóng hoặc để lạnh.'),
+
+(34, 'Nấu bơ + nước + muối, cho bột mì vào khuấy.'),
+(34, 'Thêm trứng, đánh đều thành hỗn hợp mịn.'),
+(34, 'Bắt bột lên khay, nướng 200°C ~20 phút.'),
+(34, 'Làm nhân kem (sữa, đường, trứng, kem tươi).'),
+(34, 'Bơm nhân vào vỏ bánh.'),
+
+(35, 'Đun sữa + vani, đánh lòng đỏ với đường.'),
+(35, 'Trộn hỗn hợp, đun nhỏ lửa thành custard.'),
+(35, 'Thêm whipping cream, để nguội.'),
+(35, 'Cho vào máy làm kem hoặc cấp đông, khuấy đều mỗi 30 phút.'),
+(35, 'Ăn kèm socola chip hoặc trái cây.'),
+
+(36, 'Nấu nhân đậu đỏ nhuyễn, vo viên.'),
+(36, 'Trộn bột nếp với nước, hấp chín.'),
+(36, 'Nhào bột đến khi dẻo, chia nhỏ.'),
+(36, 'Bọc nhân đậu đỏ, vo tròn.'),
+(36, 'Lăn qua bột ngô rang để chống dính.'),
+
+(37, 'Nấu kem sữa: Cho sữa tươi, kem tươi và đường vào nồi, đun nhỏ lửa đến khi nóng (không để sôi).'),
+(37, 'Thêm gelatin: Ngâm gelatin trong nước lạnh 5 phút → vớt ra cho vào nồi kem sữa, khuấy tan.'),
+(37, 'Thêm vani và rum: Cho vani và rượu rum vào khuấy đều.'),
+(37, 'Đổ khuôn: Rót hỗn hợp vào từng khuôn nhỏ.'),
+(37, 'Làm lạnh: Cho vào tủ mát 3–4 giờ đến khi đông lại.'),
+(37, 'Trang trí: Rắc cacao hoặc thêm trái cây.'),
+
+(38, 'Nấu caramel: Đun đường đến khi chuyển màu nâu vàng → thêm vài giọt chanh → đổ vào khuôn.'),
+(38, 'Đánh trứng – sữa: Trộn sữa tươi + sữa đặc, khuấy đều. Thêm trứng vào và khuấy nhẹ (không tạo bọt).'),
+(38, 'Lọc hỗn hợp: Để flan mịn hơn.'),
+(38, 'Đổ khuôn: Rót lên lớp caramel.'),
+(38, 'Hấp cách thủy: Hấp nhỏ lửa 20–30 phút, đậy nắp bằng khăn để không đọng nước.'),
+(38, 'Làm lạnh: 2 giờ.'),
+
+(39, 'Pha trà đen với nước nóng rồi để nguội.'),
+(39, 'Thêm đường + mật ong, khuấy tan.'),
+(39, 'Vắt chanh, lọc hạt.'),
+(39, 'Cho đá vào ly.'),
+(39, 'Rót trà và khuấy đều.'),
+(39, 'Trang trí bạc hà.'),
+(40, 'Rửa cam.'),
+(40, 'Cắt đôi và vắt lấy nước.'),
+(40, 'Thêm đường nếu muốn ngọt.'),
+(40, 'Cho đá và thưởng thức.'),
+
+(41, 'Pha cà phê phin với nước nóng.'),
+(41, 'Cho sữa đặc vào ly.'),
+(41, 'Rót cà phê vào ly đã có sữa.'),
+(41, 'Khuấy đều rồi thêm đá.'),
+
+(42, 'Nấu trân châu: Luộc trân châu 15–20 phút → ngâm nước đường đen.'),
+(42, 'Pha trà: Hãm trà đen với nước nóng → để nguội.'),
+(42, 'Làm hỗn hợp trà sữa: Trộn trà + sữa tươi + bột sữa béo → khuấy tan.'),
+(42, 'Cho trân châu vào ly → thêm đá → rót trà sữa lên → khuấy đều.'),
+
+(43, 'Sơ chế dâu: Rửa sạch, bỏ cuống, cắt đôi.'),
+(43, 'Xay lần 1: Cho dâu → sữa → đường → mật ong → nước cốt chanh vào máy xay.'),
+(43, 'Xay đến khi hỗn hợp mịn và hòa quyện.'),
+(43, 'Xay lần 2: Thêm đá → xay tiếp cho đến khi đá nhuyễn.'),
+(43, 'Rót ra ly, trang trí vài lát dâu hoặc lá bạc hà nếu thích.'),
+(43, 'Thưởng thức ngay khi lạnh để ngon nhất.'),
+
+(44, 'Sơ chế táo: Rửa sạch, gọt vỏ (nếu muốn), cắt miếng nhỏ.'),
+(44, 'Cho táo vào máy ép để lấy nước.'),
+(44, 'Thêm vài giọt nước cốt chanh để giữ màu táo không bị thâm.'),
+(44, 'Cho đá vào ly trước.'),
+(44, 'Rót nước ép táo vào ly.'),
+(44, 'Cho đường + 100 ml nước lọc vào → khuấy nhẹ cho vừa khẩu vị.'),
+(44, 'Có thể trang trí bằng vài lát táo mỏng.'),
+
+(45, 'Vắt nước cốt chanh vào ly.'),
+(45, 'Thêm đường → khuấy cho tan hoàn toàn.'),
+(45, 'Rót 20 ml siro bạc hà vào hỗn hợp.'),
+(45, 'Cho đá vào ly.'),
+(45, 'Đổ soda từ từ vào để giữ độ gas.'),
+(45, 'Khuấy nhẹ tay.'),
+(45, 'Trang trí bằng lá bạc hà và 1 lát chanh trên miệng ly.');
 
