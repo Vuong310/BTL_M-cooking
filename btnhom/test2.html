@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm món</title>
+    <style>
+        body{
+            width:70%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: beige;
+            color:cadetblue;
+        }
+        input::placeholder{
+            color: cadetblue;
+        }
+        a{
+            text-decoration:none;
+        }
+        h1{
+            text-align: center;
+        }
+        p{
+            font-weight: bold;
+            font-size: large;
+        }
+        input{
+            width:100%;
+            border:none;
+            max-width: fit-content;
+        }
+        form{
+            display:flex;
+            flex-direction: column;
+            gap:5px;
+            border:2px solid white;
+            padding:10px;
+
+        }
+        .tren{
+            display:flex;
+            justify-content: space-around;
+            /* gap:10px; */
+        }
+        .nguyenlieu{
+            display:flex;
+            gap:20px;
+            padding-bottom: 5px;
+        }
+        .nut{
+            border-radius: 8px;
+            background-color:#324f23;
+            padding:10px 20px;
+            /* margin: 50px auto; */
+            font-size: 16px;
+            cursor: pointer;
+            color:#f1e9d2;
+            white-space: nowrap;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        li{
+            padding-inline-start: 0;
+        }
+        .them{
+            margin-top:10px;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Thêm món ăn mới</h1>
+    <form action="">
+        <div class = "tren">
+            <div>
+                <p>Hình ảnh minh họa</p>
+                <input type="file" name="img">
+            </div>
+            <div>
+                <div>
+                    <p>Tên món ăn</p>
+                    <input type="text" name="ten_mon_an" placeholder="Nhập tên món ăn">
+                </div>
+                <div>
+                    <p>Mô tả ngắn gọn</p>
+                    <textarea name="mo_ta" id="" placeholder="Nhập mô tả"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="tren">
+
+            <div id="nguyenlieu-container">
+                <p>Nguyên liệu</p>
+                <div class="nguyenlieu">
+                    <select name="nguyenlieu" id="">
+                        <option value="1">11</option>
+                        <option value="2">22</option>
+                        <option value="3">33</option>
+                        <option value="4">44</option>
+                    </select>
+                    <input type="text" placeholder="Định lượng">
+                </div>
+                <div class="nguyenlieu">
+                    <select name="nguyenlieu" id="">
+                        <option value="1">11</option>
+                        <option value="2">22</option>
+                        <option value="3">33</option>
+                        <option value="4">44</option>
+                    </select>
+                    <input type="text" placeholder="Định lượng">
+                </div>
+                <div class="them">
+                    <a href="" class="nut" onclick="">Thêm</a>
+                </div>
+            </div>
+            <div>
+                <p>Các bước thực hiện</p>
+                <ol>
+                    <li><textarea name="buoc1" id=""></textarea></li>
+                    <li><textarea name="buoc2" id=""></textarea></li>
+                </ol>
+                <div class="them">
+                    <a href="" class="nut">Thêm</a>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:10px;display:flex;justify-content: center;">
+            <input type="submit" value="Thêm mới" class="nut">
+        </div>
+    </form>
+    <script>
+        function themNguyenLieu() {
+            const container = document.getElementById("nguyenlieu-container");
+
+            const html = `
+            <div class="nguyenlieu">
+                <select name="nguyenlieu" id="">
+                    <option value="1">11</option>
+                    <option value="2">22</option>
+                    <option value="3">33</option>
+                    <option value="4">44</option>
+                </select>
+                <input type="text" placeholder="Định lượng">
+            </div>
+            `;
+
+            container.insertAdjacentHTML("beforeend", html);
+        }
+    </script>
+</body>
+</html>

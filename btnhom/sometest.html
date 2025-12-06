@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm món ăn mới</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+  <h2>Thêm món ăn mới</h2>
+  <form id="foodForm">
+    <!-- Tên món -->
+    <div class="mb-3">
+      <label class="form-label">Tên món ăn</label>
+      <input type="text" class="form-control" name="tenMon" required>
+    </div>
+
+    <!-- Mô tả -->
+    <div class="mb-3">
+      <label class="form-label">Mô tả ngắn gọn</label>
+      <textarea class="form-control" name="moTa" rows="2"></textarea>
+    </div>
+
+    <!-- Nguyên liệu (tag input) -->
+    <div class="mb-3">
+      <label class="form-label">Nguyên liệu đã chọn:</label>
+      <div id="selectedIngredients" class="d-flex flex-wrap gap-2"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Chọn nguyên liệu</label>
+      <select id="ingredientSelect" class="form-select">
+        <option value="">-- Chọn nguyên liệu --</option>
+        <option value="Thịt gà">Thịt gà</option>
+        <option value="Thịt bò">Thịt bò</option>
+        <option value="Cá hồi">Cá hồi</option>
+        <option value="Rau muống">Rau muống</option>
+        <option value="Hành lá">Hành lá</option>
+      </select>
+      <input type="text" class="form-control mt-2" id="newIngredient" placeholder="Thêm nguyên liệu mới nếu chưa có">
+      <button type="button" class="btn btn-secondary mt-2" id="addNewIngredient">+ Thêm nguyên liệu mới</button>
+    </div>
+
+    <!-- Công thức -->
+    <div id="stepsContainer" class="mb-3">
+      <label class="form-label">Các bước nấu</label>
+      <div class="step mb-2">
+        <input type="text" class="form-control" name="steps[]" placeholder="Bước 1">
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary mb-3" onclick="addStep()">+ Thêm bước</button>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Lưu món ăn</button>
+  </form>
+
+  <script>
+    const select = document.getElementById('ingredientSelect');
+    const container = document.getElementById('selectedIngredients');
+    const addNewBtn = document.getElementById('addNewIngredient');
+    const newIngredientInput = document.getElementById('newIngredient');
+
+    // Hàm thêm chip
+    function addChip(value) {
+      if (!value) return;
+
+      // Kiểm tra trùng
+      const existing = [...container.querySelectorAll('.chip')].some(chip => chip.dataset.value === value);
+      if (existing) return;
+
+      const chip = document.createElement('div');
+      chip.className = 'chip badge bg-primary d-flex align-items-center';
+      chip.dataset.value = value;
+      chip.innerHTML = `${value} <span class="ms-2" style="cursor:pointer;">❌</span>`;
+
+      chip.querySelector('span').addEventListener('click', () => {
+        container.removeChild(chip);
+      });
+
+      container.appendChild(chip);
+    }
+
+    // Chọn từ select
+    select.addEventListener('change', function() {
+      addChip(this.value);
+      this.value = "";
+    });
+
+    // Thêm nguyên liệu mới
+    addNewBtn.addEventListener('click', () => {
+      const value = newIngredientInput.value.trim();
+      if (value) {
+        addChip(value);
+        newIngredientInput.value = "";
+      }
+    });
+
+    // Thêm bước công thức
+    function addStep() {
+      const container = document.getElementById('stepsContainer');
+      const stepCount = container.querySelectorAll('.step').length + 1;
+      const div = document.createElement('div');
+      div.className = 'step mb-2';
+      div.innerHTML = `<input type="text" class="form-control" name="steps[]" placeholder="Bước ${stepCount}">`;
+      container.appendChild(div);
+    }
+
+    // Submit form
+    document.getElementById('foodForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Lấy danh sách nguyên liệu từ chip
+      const ingredients = [...container.querySelectorAll('.chip')].map(chip => chip.dataset.value);
+
+      // Lấy các bước
+      const steps = [...document.querySelectorAll('input[name="steps[]"]')].map(step => step.value);
+
+      const data = {
+        tenMon: this.tenMon.value,
+        moTa: this.moTa.value,
+        nguyenLieu: ingredients,
+        steps: steps
+      };
+
+      console.log("Dữ liệu gửi lên backend:", data);
+      alert("Món ăn đã được gửi để duyệt!");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+
+form{
+    background-color: #9ab25b;
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+    gap:5px;
+    margin:auto;
+    width:30%;
+    border-radius: 10px;
+    padding:10px;
+    box-shadow: 0 15px 20px rgba(0,0,0,0.3);
+    color:#f1e9d2;
+    font-weight:bold;
+
+}
+body{
+    background-color:#f1e9d2;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top:15vh;
+}
+h2{
+    text-align:center;
+}
+.tendangnhap{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+input, select{
+    width:100%;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    border:1px solid #f1e9d2;
+}
+select{
+    width:100%;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+input[type="submit"]{
+    color: #f1e9d2;
+    background-color: #324f23;
+    font-size: 16px;
+    border-radius: 10px; 
+    padding:5px 20px;
+    font-weight:bold;
+    cursor: pointer;/*đổi con trỏ thành hình bàn tay */
+}
