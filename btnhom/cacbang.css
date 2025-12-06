@@ -1,0 +1,55 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    display:flex;
+    flex-direction: column;
+    margin-top:10vh;
+}
+a{
+    text-decoration: none;
+}
+.nut{
+    color: #f1e9d2;
+    background-color: #324f23;
+    font-size: 16px;
+    border-radius: 10px; 
+    padding:10px 30px;
+    margin-left: 10px;
+    /* cursor: pointer;đổi con trỏ thành hình bàn tay */
+}
+.nutcapnhat{
+    background-color: #f1e9d2;
+    color:#324f23;
+    border-radius: 10px;
+    padding:5px 10px;
+    border: 1px solid #324f23; 
+    margin:5px;
+}
+.nutxoa{
+    background-color: red;
+    color: #f1e9d2;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding:5px 10px;
+    margin:5px;
+}
+.nut, .nutxoa, .nutcapnhat{
+    font-weight: bold;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+.dau{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.chucnang{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    padding:5px;
+}
