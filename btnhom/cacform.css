@@ -27,11 +27,14 @@ h2{
     justify-content: space-between;
     align-items:center;
 }
-input, select{
+input, select, textarea{
     width:100%;
     font-family: 'Courier New', Courier, monospace;
     border-radius: 5px;
     border:1px solid #f1e9d2;
+}
+button{
+    font-family: 'Courier New', Courier, monospace;
 }
 select{
     width:100%;
@@ -46,4 +49,14 @@ input[type="submit"]{
     padding:5px 20px;
     font-weight:bold;
     cursor: pointer;/*đổi con trỏ thành hình bàn tay */
+}
+.nut{
+    color: #f1e9d2;
+    background-color: #324f23;
+    font-size: 16px;
+    border-radius: 10px; 
+    padding:10px 30px;
+    margin-left: 10px;
+    font-weight:bold;
+    /* cursor: pointer;đổi con trỏ thành hình bàn tay */
 }

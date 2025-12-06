@@ -22,7 +22,7 @@
                 <ul>
                     <li><a href="admin.php?page=trangchu">Trang chủ</a></li>
                     <li><a href="admin.php?page=nguoidung">Người dùng</a></li>
-                    <li><a href="admin.php?page=congthuc">Công thức</a></li>
+                    <li><a href="admin.php?page=monan">Món ăn</a></li>
                     <li><a href="admin.php?page=nguyenlieu">Nguyên liệu</a></li>
                     <li><a href="admin.php?page=loaimon">Loại món</a></li>
                 </ul>
@@ -53,17 +53,17 @@
                         include "nguoidung/xoanguoidung.php";
                         break;
 
-                    case 'congthuc':
-                        include "congthuc/congthuc.php";
+                    case 'monan':
+                        include "monan/monan.php";
                         break;
-                    case 'themcongthuc':
-                        include "congthuc/themcongthuc.php";
+                    case 'themmonan':
+                        include "monan/themmonan.php";
                         break;
-                    case 'capnhatcongthuc':
-                        include "congthuc/capnhatcongthuc.php";
+                    case 'capnhatmonan':
+                        include "monan/capnhatmonan.php";
                         break;
-                    case 'xoacongthuc':
-                        include "congthuc/xoacongthuc.php";
+                    case 'xoamonan':
+                        include "monan/xoamonan.php";
                         break;
 
                     case 'nguyenlieu':
