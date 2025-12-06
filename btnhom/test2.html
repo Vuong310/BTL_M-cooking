@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm món</title>
+    <link rel="stylesheet" href="cacform.css">
     <style>
+        form{
+            width:70%;
+        }
         body{
             width:70%;
             margin: auto;
             display: flex;
             flex-direction: column;
-            background-color: beige;
-            color:cadetblue;
-        }
-        input::placeholder{
-            color: cadetblue;
+            color:#324f23;
         }
         a{
             text-decoration:none;
@@ -26,10 +26,11 @@
             font-weight: bold;
             font-size: large;
         }
-        input{
+        input, select, textarea{
             width:100%;
             border:none;
-            max-width: fit-content;
+            /* max-width: fit-content; */
+            color:#324f23;
         }
         form{
             display:flex;
@@ -39,27 +40,10 @@
             padding:10px;
 
         }
-        .tren{
-            display:flex;
-            justify-content: space-around;
-            /* gap:10px; */
-        }
         .nguyenlieu{
             display:flex;
             gap:20px;
             padding-bottom: 5px;
-        }
-        .nut{
-            border-radius: 8px;
-            background-color:#324f23;
-            padding:10px 20px;
-            /* margin: 50px auto; */
-            font-size: 16px;
-            cursor: pointer;
-            color:#f1e9d2;
-            white-space: nowrap;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
         }
         li{
             padding-inline-start: 0;
@@ -70,13 +54,16 @@
             align-items: center; 
             justify-content: center;
         }
-
+        .tendangnhap{
+            justify-content: space-around;
+            align-items: baseline;
+        }
     </style>
 </head>
 <body>
     <h1>Thêm món ăn mới</h1>
-    <form action="">
-        <div class = "tren">
+    <form action="" method="post">
+        <div class = "tendangnhap">
             <div>
                 <p>Hình ảnh minh họa</p>
                 <input type="file" name="img">
@@ -92,9 +79,9 @@
                 </div>
             </div>
         </div>
-        <div class="tren">
+        <div class="tendangnhap">
 
-            <div id="nguyenlieu-container">
+            <div class="nguyenlieudiv">
                 <p>Nguyên liệu</p>
                 <div class="nguyenlieu">
                     <select name="nguyenlieu" id="">
@@ -115,17 +102,17 @@
                     <input type="text" placeholder="Định lượng">
                 </div>
                 <div class="them">
-                    <a href="" class="nut" onclick="">Thêm</a>
+                    <button type="button" class="nut" onclick="themNguyenLieu()">Thêm</button>
                 </div>
             </div>
             <div>
                 <p>Các bước thực hiện</p>
-                <ol>
+                <ol class = "thembuoc">
                     <li><textarea name="buoc1" id=""></textarea></li>
                     <li><textarea name="buoc2" id=""></textarea></li>
                 </ol>
                 <div class="them">
-                    <a href="" class="nut">Thêm</a>
+                    <button type="button" class="nut" onclick="themBuoc()">Thêm</button>
                 </div>
             </div>
         </div>
@@ -135,8 +122,6 @@
     </form>
     <script>
         function themNguyenLieu() {
-            const container = document.getElementById("nguyenlieu-container");
-
             const html = `
             <div class="nguyenlieu">
                 <select name="nguyenlieu" id="">
@@ -148,8 +133,13 @@
                 <input type="text" placeholder="Định lượng">
             </div>
             `;
-
-            container.insertAdjacentHTML("beforeend", html);
+            document.getElementsByClassName("them")[0].insertAdjacentHTML("beforebegin", html);
+        }
+        let demBuoc = 2;
+        function themBuoc(){
+            demBuoc++;
+            const html = `<li><textarea name="buoc${demBuoc}"></textarea>`;
+            document.getElementsByClassName("thembuoc")[0].insertAdjacentHTML("beforeend",html);
         }
     </script>
 </body>
