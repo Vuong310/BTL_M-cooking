@@ -9,8 +9,12 @@
         if(mysqli_num_rows($result)>0){
             session_start();
             $_SESSION["username"] = $username;
-            header('location: admin.php');
-            exit();
+            if($username === 'admin' && $password === 'admin123'){
+                header('location: admin.php');
+            }
+            else{
+                header('location: ../BTL/index.php?page=trangchu');
+            }
         }
         else{
             echo "<p class='warning'>Sai thông tin đăng nhập</p>";
