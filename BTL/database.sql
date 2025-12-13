@@ -594,4 +594,3 @@ INSERT INTO cong_thuc(mon_an_id, buoc_lam) VALUES
 (45, 'Đổ soda từ từ vào để giữ độ gas.'),
 (45, 'Khuấy nhẹ tay.'),
 (45, 'Trang trí bằng lá bạc hà và 1 lát chanh trên miệng ly.');
-
