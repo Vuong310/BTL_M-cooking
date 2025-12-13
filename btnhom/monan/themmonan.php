@@ -90,7 +90,7 @@
     <form action="admin.php?page=themmonan" method="post" enctype="multipart/form-data">
         <h2>Thêm món ăn</h2>
         <div>
-            <p>Tên món an</p>
+            <p>Tên món ăn</p>
             <input type="text" name="ten-mon-an" placeholder="Tên món ăn">
         </div>
         <div>
@@ -110,12 +110,15 @@
             <input type="text" name="ngay-dang" placeholder="Ngày đăng">
         </div>
         <div>
-            <p>poster</p>
+            <p>Poster</p>
             <input type="file" name="fileToUpload" >
         </div>
         <div>
             <p>Trạng thái</p>
-            <input type="text" name="trang-thai" placeholder="Trạng thái">
+            <select name="trang-thai" id="">
+                <option value="cho_duyet">Chờ duyệt</option>
+                <option value="da_duyet">Đã duyệt</option>
+            </select>
         </div>
         <div>
             <input type="submit" name="submit" value="Thêm mới">

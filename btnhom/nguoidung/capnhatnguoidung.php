@@ -38,7 +38,7 @@
         }
     ?>
     <form action="admin.php?page=capnhatnguoidung&id=<?php echo $id ?>" method="post">
-        <h2>Thêm người dùng</h2>
+        <h2>Cập nhật người dùng</h2>
         <div class="tendangnhap">
             <div>
                 <p>Tên đăng nhập</p>
@@ -80,7 +80,7 @@
             </select>
         </div>
         <div>
-            <input type="submit" value="Thêm mới">
+            <input type="submit" value="Cập nhật">
         </div>
 
     </form>

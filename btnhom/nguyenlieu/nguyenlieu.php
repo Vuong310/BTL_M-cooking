@@ -16,6 +16,7 @@
         <tr>
             <th>STT</th>
             <th>Nguyên liệu</th>
+            <th>Chức năng</th>
         </tr>
         <?php
             include('../btnhom/connect.php');
