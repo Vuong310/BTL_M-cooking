@@ -13,6 +13,7 @@
     </div>
     <table border=1>
         <tr>
+            <th>STT</th>
             <th>Tên món ăn</th>
             <th>Loại món</th>
             <th>Nguyên liệu</th>
@@ -38,12 +39,12 @@
                 LEFT JOIN mon_an_nguyen_lieu manl ON ma.id = manl.mon_an_id
                 LEFT JOIN nguyen_lieu nl ON manl.nguyen_lieu_id = nl.id
                 LEFT JOIN cong_thuc ct ON ma.id = ct.mon_an_id
-                GROUP BY ma.id
-                ORDER BY ma.id DESC;";
+                GROUP BY ma.id;";
         $result = mysqli_query($conn, $sql);
         while($cong_thuc = mysqli_fetch_assoc($result)){
         ?>
         <tr>
+            <td><?php echo $cong_thuc['mon_an_id']?></td>
             <td><?php echo $cong_thuc['ten_mon_an']?></td>
             <td><?php echo $cong_thuc['loai_mon']?></td>
             <td><?php echo $cong_thuc['nguyen_lieu']?></td>

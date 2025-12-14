@@ -1,96 +1,172 @@
+<?php
+include('connect.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // 1. Lấy dữ liệu cơ bản
+    $tenMonAn = $_POST['ten-mon-an'];
+    $moTa = $_POST['mo-ta'];
+    $thoiGianNau = $_POST['thoi-gian-nau'];
+    $ds_loaiMon = $_POST['loai-mon'] ?? [];
+    $ds_buocLam = $_POST['buoc'] ??[];
+
+    // 3. Thêm món ăn vào mon_an
+    $sqlMonAn = "INSERT INTO mon_an (ten_mon_an, mo_ta, thoi_gian_nau) 
+                 VALUES ('$tenMonAn', '$moTa', '$thoiGianNau')";
+    mysqli_query($conn, $sqlMonAn);
+    $monAnId = mysqli_insert_id($conn);
+
+    // 4. Thêm loại món (mon_an_loai_mon)
+    for ($i = 0; $i < count($ds_loaiMon); $i++) {
+        $id_loaiMon = $ds_loaiMon[$i];
+            mysqli_query($conn, "INSERT INTO mon_an_loai_mon(mon_an_id, loai_mon_id) VALUES ('$monAnId', '$id_loaiMon')");
+    }
+
+    // 5. Thêm nguyên liệu (mon_an_nguyen_lieu)
+    $ds_nguyenLieu = $_POST['nguyenlieu'] ?? [];
+    $ds_soLuong = $_POST['soluong'] ?? [];
+
+    for ($i = 0; $i < count($ds_nguyenLieu); $i++) {
+        $nguyenLieuId = $ds_nguyenLieu[$i];
+        $soLuong = $ds_soLuong[$i] ?? '';
+
+        if($nguyenLieuId && $soLuong){
+            mysqli_query($conn, "INSERT INTO mon_an_nguyen_lieu(mon_an_id, nguyen_lieu_id, so_luong) VALUES ('$monAnId', '$nguyenLieuId', '$soLuong')");
+        }
+    }
+
+    // 6. Thêm các bước làm (cong_thuc)
+    for ($i = 0; $i < count($ds_buocLam); $i++) {
+        $buoc_lam = trim($ds_buocLam[$i]);
+        if ($buoc_lam != '') {
+            mysqli_query(
+                $conn,
+                "INSERT INTO cong_thuc(mon_an_id, buoc_lam)
+                VALUES ('$monAnId', '$buoc_lam')"
+            );
+        }
+    }
+
+    // 7. Chuyển hướng về danh sách công thức
+    header('Location: admin.php?page=congthuc');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Thêm món ăn mới</title>
     <link rel="stylesheet" href="cacform.css">
+    <style>
+        form{width:70%; margin:auto; display:flex; flex-direction:column; gap:10px;}
+        input, select, textarea{width:100%; padding:5px;}
+        .nguyenlieu, .loaimon{display:flex; gap:10px; margin-bottom:5px;}
+        .them{display:flex; justify-content:center; margin-top:10px;}
+        h1{text-align:center;}
+    </style>
 </head>
 <body>
-    <?php
-        if((!empty($_POST['ten-mon-an'])) &&
-            (!empty($_POST['loai-mon'])) &&
-            (!empty($_POST['nguyen-lieu'])) &&
-            (!empty($_POST['thoi-gian-nau'])) &&
-            (!empty($_POST['mo-ta'])) &&
-            (!empty($_POST['buoc-lam']))){
+    <h1>Thêm món ăn mới</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        <p>Tên món ăn</p>
+        <input type="text" name="ten-mon-an" placeholder="Nhập tên món ăn" required>
 
-            include('connect.php');
-            $tenMonAn = $_POST['ten-mon-an'];
-            $loaiMon = $_POST['loai-mon'];
-            $nguyenLieu = $_POST['nguyen-lieu'];
-            $thoiGianNau = $_POST['thoi-gian-nau'];
-            $moTa = $_POST['mo-ta'];
-            $buocLam = $_POST['buoc-lam'];
+        <p>Mô tả ngắn gọn</p>
+        <textarea name="mo-ta" placeholder="Nhập mô tả" required></textarea>
 
-            /* THÊM VÀO BẢNG mon_an */
-            $sqlMonAn = "INSERT INTO mon_an(ten_mon_an, thoi_gian_nau, mo_ta) VALUES ('$tenMonAn','$thoiGianNau','$moTa')";
-            mysqli_query($conn, $sqlMonAn);
+        <p>Thời gian nấu (phút)</p>
+        <input type="number" name="thoi-gian-nau" placeholder="Nhập thời gian nấu" required>
 
-            $idMonAn = mysqli_insert_id($conn);
-
-            /* THÊM BƯỚC LÀM VÀO BẢNG cong_thuc */
-            $sqlCongThuc = "INSERT INTO cong_thuc(mon_an_id,buoc_lam) VALUES ('$idMonAn','$buocLam')";
-            mysqli_query($conn, $sqlCongThuc);
-
-            /* THÊM LOẠI MÓN */
-            foreach ($loaiMon as $idLoaiMon) {
-                $sqlLoai = "INSERT INTO mon_an_loai_mon(mon_an_id,loai_mon_id) VALUES ('$idMonAn','$idLoaiMon')";
-                mysqli_query($conn, $sqlLoai);
-            }
-
-            /* THÊM NGUYÊN LIỆU */
-            foreach ($nguyenLieu as $idNguyenLieu) {
-                $sqlNguyenLieu = "INSERT INTO mon_an_nguyen_lieu(mon_an_id,nguyen_lieu_id) VALUES ('$idMonAn','$idNguyenLieu')";
-                mysqli_query($conn, $sqlNguyenLieu);
-            }
-
-            header('location: admin.php?page=congthuc');
-            exit;
-        }
-        else{
-            echo "<p class='error'>Vui lòng điền đầy đủ thông tin!</p>";
-        }
-    ?>
-    <form action="admin.php?page=themcongthuc" method="post">
-        <h2>Thêm công thức</h2>
-        <div>
-            <p>Tên món ăn</p>
-            <input type="text" name="ten-mon-an">
+        <p>Loại món</p>
+        <div class="loaimon-wrapper">
+            <div class="loaimon">
+                <select name="loai-mon[]">
+                    <?php
+                        $res = mysqli_query($conn, "SELECT * FROM loai_mon");
+                        while($row = mysqli_fetch_assoc($res)){
+                            echo "<option value='{$row['id']}'>{$row['ten_loai']}</option>";
+                        }
+                    ?>
+                </select>
+            </div>
         </div>
-        <div>
-            <p>Loại món</p>
-            <select name="loai-mon[]" multiple>
-                <?php
-                $sql = "SELECT * FROM loai_mon";
-                $result = mysqli_query($conn, $sql);
-
-                while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                    <option value="<?php echo $row['id'] ?>"><?php echo $row['ten_loai'] ?></option>;
-                <?php } ?>
-            </select>
-        </div>
-        <div>
-            <p>Nguyên liệu</p>
-            <input type="text" name="nguyen-lieu">
-        </div>
-        <div>
-            <p>Thời gian nấu</p>
-            <input type="text" name="thoi-gian-nau">
-        </div>
-        <div>
-            <p>Mô tả</p>
-            <textarea name="mo-ta" id=""></textarea>
-        </div>
-        <div>
-            <p>Bước làm</p>
-            <textarea name="buoc-lam" id=""></textarea>
-        </div>
-        <div class="sua">
-            <input type="submit" value="Thêm mới" style="margin: 15px 0 10px 0; width: 50%;">
+        <div class="them">
+            <button type="button" onclick="themLoaiMon()">Thêm loại món</button>
         </div>
 
+        <p>Nguyên liệu</p>
+        <div class="nguyenlieu-wrapper">
+            <div class="nguyenlieu">
+                <select name="nguyenlieu[]">
+                    <?php
+                        $res = mysqli_query($conn, "SELECT * FROM nguyen_lieu");
+                        while($row = mysqli_fetch_assoc($res)){
+                            echo "<option value='{$row['id']}'>{$row['ten_nguyen_lieu']}</option>";
+                        }
+                    ?>
+                </select>
+                <input type="text" name="soluong[]" placeholder="Định lượng">
+            </div>
+        </div>
+        <div class="them">
+            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+        </div>
+
+        <p>Các bước thực hiện</p>
+        <ol class="thembuoc">
+            <li><textarea name="buoc[]"></textarea></li>
+            <li><textarea name="buoc[]"></textarea></li>
+        </ol>
+        <div class="them">
+            <button type="button" onclick="themBuoc()">Thêm bước</button>
+        </div>
+
+        <div class="them">
+            <input type="submit" value="Thêm món">
+        </div>
     </form>
+
+    <script>
+        function themHTML(wrapper, html){
+            document.querySelector(wrapper).insertAdjacentHTML('beforeend', html);
+        }
+
+        function themLoaiMon(){
+            themHTML('.loaimon-wrapper', `
+                <div class="loaimon">
+                    <select name="loai-mon[]">
+                        <?php
+                            $res = mysqli_query($conn, "SELECT * FROM loai_mon");
+                            while($row = mysqli_fetch_assoc($res)){
+                                echo "<option value='{$row['id']}'>{$row['ten_loai']}</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+            `);
+        }
+
+        function themNguyenLieu(){
+            themHTML('.nguyenlieu-wrapper', `
+                <div class="nguyenlieu">
+                    <select name="nguyenlieu[]">
+                        <?php
+                            $res = mysqli_query($conn, "SELECT * FROM nguyen_lieu");
+                            while($row = mysqli_fetch_assoc($res)){
+                                echo "<option value='{$row['id']}'>{$row['ten_nguyen_lieu']}</option>";
+                            }
+                        ?>
+                    </select>
+                    <input type="text" name="soluong[]" placeholder="Định lượng">
+                </div>
+            `);
+        }
+
+        function themBuoc(){
+            themHTML('.thembuoc', `<li><textarea name="buoc[]"></textarea></li>`);
+        }
+    </script>
 </body>
 </html>

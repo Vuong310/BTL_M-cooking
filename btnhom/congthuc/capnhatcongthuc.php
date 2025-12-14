@@ -1,136 +1,182 @@
+<?php
+include('connect.php');
+$id = $_GET['id'];
+
+$sql = "
+SELECT 
+    ma.*,
+    GROUP_CONCAT(DISTINCT lm.id) AS loai_ids,
+    GROUP_CONCAT(DISTINCT CONCAT(nl.id,':',manl.so_luong)) AS nl_data,
+    GROUP_CONCAT(DISTINCT ct.buoc_lam SEPARATOR '||') AS buoc_data
+FROM mon_an ma
+LEFT JOIN mon_an_loai_mon malm ON ma.id = malm.mon_an_id
+LEFT JOIN loai_mon lm ON malm.loai_mon_id = lm.id
+LEFT JOIN mon_an_nguyen_lieu manl ON ma.id = manl.mon_an_id
+LEFT JOIN nguyen_lieu nl ON manl.nguyen_lieu_id = nl.id
+LEFT JOIN cong_thuc ct ON ma.id = ct.mon_an_id
+WHERE ma.id='$id'
+GROUP BY ma.id
+";
+$data = mysqli_fetch_assoc(mysqli_query($conn,$sql));
+
+/* TÁCH DỮ LIỆU */
+$loaiIds = $data['loai_ids'] ? explode(',',$data['loai_ids']) : [];
+$nlArr   = $data['nl_data'] ? explode(',',$data['nl_data']) : [];
+$buocArr = $data['buoc_data'] ? explode('||',$data['buoc_data']) : [];
+
+/* DỮ LIỆU CHO SELECT */
+$allLoai = mysqli_fetch_all(mysqli_query($conn,"SELECT * FROM loai_mon"),MYSQLI_ASSOC);
+$allNL   = mysqli_fetch_all(mysqli_query($conn,"SELECT * FROM nguyen_lieu"),MYSQLI_ASSOC);
+
+/* XỬ LÝ SUBMIT */
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $ten = $_POST['ten_mon_an'];
+    $moTa = $_POST['mo_ta'];
+    $tg = $_POST['thoi_gian_nau'];
+
+    $sql = "UPDATE mon_an SET ten_mon_an='$ten', mo_ta='$moTa', thoi_gian_nau='$tg' WHERE id='$id'";
+    mysqli_query($conn, $sql);
+    header('Location: admin.php?page=congthuc');
+    exit();
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cập nhật món ăn</title>
     <link rel="stylesheet" href="cacform.css">
+    <style>
+        form{
+            width:70%; 
+            margin:auto; 
+            display:flex; 
+            flex-direction:column; 
+            gap:10px;
+        }
+        input, select, textarea{
+            width:100%; 
+            padding:5px;
+        }
+        .nguyenlieu, .loaimon{
+            display:flex; 
+            gap:10px; 
+            margin-bottom:5px;
+        }
+        .them{
+            display:flex; 
+            justify-content:center; 
+            margin-top:10px;
+        }
+        h1{
+            text-align:center;
+        }
+        .box{
+            margin-right:10px;
+        }
+    </style>
 </head>
 <body>
-    <?php
-        include('connect.php');
-        $id = $_GET['id'];
-        $sql = "SELECT 
-                    ma.id AS mon_an_id,
-                    ma.ten_mon_an,
-                    GROUP_CONCAT(DISTINCT lm.ten_loai SEPARATOR ', ') AS loai_mon,
-                    GROUP_CONCAT(DISTINCT 
-                        CONCAT(nl.ten_nguyen_lieu, ' (', manl.so_luong, ')')
-                        SEPARATOR ', ') AS nguyen_lieu,
-                    ma.thoi_gian_nau,
-                    ma.mo_ta,
-                    GROUP_CONCAT(DISTINCT ct.buoc_lam ORDER BY ct.id SEPARATOR ' | ') AS buoc_lam
-                FROM mon_an ma
-                LEFT JOIN mon_an_loai_mon malm ON ma.id = malm.mon_an_id
-                LEFT JOIN loai_mon lm ON malm.loai_mon_id = lm.id
-                LEFT JOIN mon_an_nguyen_lieu manl ON ma.id = manl.mon_an_id
-                LEFT JOIN nguyen_lieu nl ON manl.nguyen_lieu_id = nl.id
-                LEFT JOIN cong_thuc ct ON ma.id = ct.mon_an_id
-                WHERE ma.id='$id'
-                GROUP BY ma.id;";
-        $result = mysqli_query($conn, $sql);
-        $congThuc = mysqli_fetch_assoc($result);
-
-        
-        if(isset($_POST['submit'])){
-            $tenMonAn = $_POST['ten-mon-an'];
-            $loaiMon = $_POST['loai-mon'];
-            $nguyenLieu = $_POST['nguyen-lieu'];
-            $thoiGianNau = $_POST['thoi-gian-nau'];
-            $moTa = $_POST['mo-ta'];
-            $buocLam = $_POST['buoc-lam'];
-
-            if($tenMonAn && $loaiMon && $nguyenLieu && $thoiGianNau && $moTa && $buocLam){
-            
-                // 1. Cập nhật thông tin món ăn
-                $sqlMonAn = "UPDATE mon_an SET ten_mon_an='$tenMonAn', thoi_gian_nau='$thoiGianNau', mo_ta='$moTa' WHERE id='$id'";
-                mysqli_query($conn, $sqlMonAn);
-
-                // 2. Cập nhật loại món
-                mysqli_query($conn, "DELETE FROM mon_an_loai_mon WHERE mon_an_id='$id'");
-                $loai = array_map('trim', explode(',', $loaiMon));
-                foreach($loai as $loaiItem){
-                    // Lấy id loại món
-                    $res = mysqli_query($conn, "SELECT id FROM loai_mon WHERE ten_loai='$loaiItem'");
-                    if(mysqli_num_rows($res) > 0){
-                        $row = mysqli_fetch_assoc($res);
-                        $loaiId = $row['id'];
-                        mysqli_query($conn, "INSERT INTO mon_an_loai_mon(mon_an_id, loai_mon_id) VALUES ('$id', '$loaiId')");
-                    }
-                }
-
-                // 3. Cập nhật nguyên liệu
-                mysqli_query($conn, "DELETE FROM mon_an_nguyen_lieu WHERE mon_an_id='$id'");
-
-                // Tách các nguyên liệu theo dấu phẩy
-                $nguyenArr = array_map('trim', explode(',', $nguyenLieu));
-
-                foreach($nguyenArr as $nguyen){
-                    // Dùng regex để tách tên và số lượng theo dấu ngoặc
-                    if(preg_match('/^(.*?)\s*\((.*?)\)$/', $nguyen, $matches)){
-                        $tenNL = trim($matches[1]);  // Tên nguyên liệu
-                        $soLuong = trim($matches[2]); // Số lượng
-
-                        // Lấy id nguyên liệu từ bảng nguyen_lieu
-                        $res = mysqli_query($conn, "SELECT id FROM nguyen_lieu WHERE ten_nguyen_lieu='$tenNL'");
-                        if(mysqli_num_rows($res) > 0){
-                            $row = mysqli_fetch_assoc($res);
-                            $nlId = $row['id'];
-
-                            // Chèn vào bảng mon_an_nguyen_lieu
-                            mysqli_query($conn, "INSERT INTO mon_an_nguyen_lieu(mon_an_id, nguyen_lieu_id, so_luong) VALUES ('$id', '$nlId', '$soLuong')");
-                        }
-                    }
-                }
-
-                // 4. Cập nhật các bước làm
-                mysqli_query($conn, "DELETE FROM cong_thuc WHERE mon_an_id='$id'");
-                $buocArr = explode("\n", $buocLam);
-                foreach($buocArr as $buoc){
-                    $buoc = trim($buoc);
-                    if($buoc != ''){
-                        mysqli_query($conn, "INSERT INTO cong_thuc(mon_an_id, buoc_lam) VALUES ('$id', '$buoc')");
-                    }
-                }
-
-                header('location: admin.php?page=congthuc');
-                exit();
-            }
-            else{
-                echo "<p class='error'>Vui lòng điền đầy đủ thông tin!</p>";
-            }
-        }
-    ?>
-    <form action="admin.php?page=capnhatcongthuc&id=<?php echo $id ?>" method="post">
-        <h2>Cập nhật công thức</h2>
-        <div>
+    <h1>Cập nhật món ăn</h1>
+    <form method="post">
+        <div class="box">
             <p>Tên món ăn</p>
-            <input type="text" name="ten-mon-an" value="<?php echo $congThuc['ten_mon_an']?>">
+            <input type="text" name="ten_mon_an" value="<?= $data['ten_mon_an'] ?>">
         </div>
-        <div>
-            <p>Loại món</p>
-            <input type="text" name="loai-mon" value="<?php echo $congThuc['loai_mon']?>">
-        </div>
-        <div>
-            <p>Nguyên liệu</p>
-            <input type="text" name="nguyen-lieu" value="<?php echo $congThuc['nguyen_lieu']?>">
-        </div>
-        <div>
-            <p>Thời gian nấu</p>
-            <input type="text" name="thoi-gian-nau" value="<?php echo $congThuc['thoi_gian_nau']?>">
-        </div>
-        <div>
+        <div class="box">
             <p>Mô tả</p>
-            <textarea type="text" name="mo-ta"><?php echo $congThuc['mo_ta']?></textarea>
+            <textarea name="mo_ta"><?= $data['mo_ta'] ?></textarea>
         </div>
-        <div>
-            <p>Bước làm</p>
-            <textarea type="text" name="buoc-lam"><?php echo $congThuc['buoc_lam']?></textarea>
-        </div>
-        <div class="sua">
-            <input type="submit" name="submit" value="Cập nhật" style="margin: 15px 0 10px 0; width: 50%;">
+        <div class="box">
+            <p>Thời gian nấu</p>
+            <input type="number" name="thoi_gian_nau" value="<?= $data['thoi_gian_nau'] ?>">
+        </div>  
+
+        <!-- LOẠI MÓN -->
+        <p>Loại món</p>
+        <div class="loaimon-wrapper">
+            <div class="loaimon">
+                <select name="loai_mon[]" multiple>
+                    <?php
+                    for($i=0;$i<count($allLoai);$i++){
+                        $selected = in_array($allLoai[$i]['id'],$loaiIds) ? 'selected' : '';
+                        echo "<option value='{$allLoai[$i]['id']}' $selected>
+                                {$allLoai[$i]['ten_loai']}
+                            </option>";
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
 
+        <!-- NGUYÊN LIỆU -->
+        <p>Nguyên liệu</p>
+        <div class="nguyenlieu-wrapper">
+        <?php
+        for($i=0;$i<count($nlArr);$i++){
+            list($nlId,$sl) = explode(':',$nlArr[$i]);
+        ?>
+            <div class="nguyenlieu">
+                <select name="nguyen_lieu[]">
+                    <?php
+                    for($j=0;$j<count($allNL);$j++){
+                        $selected = ($allNL[$j]['id']==$nlId)?'selected':'';
+                        echo "<option value='{$allNL[$j]['id']}' $selected>
+                                {$allNL[$j]['ten_nguyen_lieu']}
+                            </option>";
+                    }
+                    ?>
+                </select>
+                <input type="text" name="so_luong[]" value="<?= $sl ?>" placeholder="Định lượng">
+            </div>
+        <?php } ?>
+        </div>
+
+        <div class="them">
+            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+        </div>
+
+        <!-- CÁC BƯỚC -->
+        <p>Các bước thực hiện</p>
+        <ol class="box">
+            <?php
+                for($i=0;$i<count($buocArr);$i++){
+                    echo "<li><textarea name='buoc[]'>{$buocArr[$i]}</textarea></li>";
+                }
+            ?>
+        </ol>
+
+        <div class="them">
+            <button type="button" onclick="themBuoc()">Thêm bước</button>
+        </div>
+        <div class="them">
+            <input type="submit" value="Cập nhật món">
+        </div>
     </form>
+
+    <script>
+        function themNguyenLieu(){
+            var div = document.createElement("div");
+            div.className = "nguyenlieu";
+
+            div.innerHTML =
+                '<select name="nguyen_lieu[]">' +
+                '<?php
+                    for($i=0;$i<count($allNL);$i++){
+                        echo "<option value=\"{$allNL[$i]['id']}\">{$allNL[$i]['ten_nguyen_lieu']}</option>";
+                    }
+                ?>' +
+                '</select>' +
+                '<input type="text" name="so_luong[]" placeholder="Định lượng">';
+
+            document.getElementsByClassName("nguyenlieu-wrapper")[0].appendChild(div);
+        }
+        function themBuoc(){
+            var li = document.createElement("li");
+            li.innerHTML = '<textarea name="buoc[]"></textarea>';
+            document.getElementsByClassName("thembuoc")[0].appendChild(li);
+        }
+    </script>
+
 </body>
 </html>
