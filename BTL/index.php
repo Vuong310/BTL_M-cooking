@@ -63,7 +63,22 @@
             ?>
         </main>
         <footer>
-            <p>Chú Thích</p>
+            <div style="background-color: #9ab25d; color: white; border-top-left-radius: 10px ;border-top-right-radius: 10px ;">
+                <div style="padding: 30px;">
+                    <b>Lời muốn nói</b>
+                    <p>Gửi lời cảm ơn chân thành đến các bạn!</p>
+                    Member:
+                    <ul>
+                        <li>
+                            <p>Nguyễn Kiều Vy - 2321050005</p>
+                            <p>Vương Hà Linh - 2321050007</p>
+                            <p>Phạm Hương Giang - 2321050010</p>
+                            <p>Phạm Thị Huế - 2321050052</p>
+                            <p>Cao Thị Thu Quyên - 2321050058</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </footer>
     </div>
     
