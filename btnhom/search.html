@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tìm kiếm món ăn</title>
+  <style>
+    .hidden { 
+      display: none; /*ẩn khỏi giao diện*/
+    }
+  </style>
+</head>
+<body>
+  <!-- id là định danh dùng js -->
+  <input id="search" type="text" placeholder="Nhập tên món..." />
+
+  <div id="list">
+    <div class="i1">món 1</div>
+    <div class="i1">món 2</div>
+    <div class="i1">món 3</div>
+    <div class="i1">món 4</div>
+    <div class="i1">món 5</div>
+  </div>
+
+  <script>
+    const search = document.getElementById('search'); /*Lấy phần tử có id="search" và gán vào biến search*/
+    const items = document.querySelectorAll('#list .i1'); /*Lấy all phần tử bên trong #list có class i1*/
+
+    search.addEventListener('input', () => { 
+      // addEventListener('input',...): gắn 1 trình lắng nghe sự kiện cho ô nhập
+      // sự kiện xảy ra khi người dùng gõ, xóa hoặc thay đổi nd trong ô
+      // sk xảy ra thì hàm () => {} được thực thi
+      const q = search.value.trim().toLowerCase();          // search.value: lấy nd hiện tại ở ô nhập; trim(): bỏ khoảng trắng ở đầu; 
+      items.forEach(el => {                                 // forEach(): duyệt qua từng phần tử trong ds; e: đại diện cho 1 món cụ thể
+        const text = el.textContent.toLowerCase();          // el.textContent: lấy nội dung chữ bên trong phần tử (ví dụ "món 3").
+        el.classList.toggle('hidden', !text.includes(q));
+        // el.classList.toggle('hidden', condition): condition là true thì thêm class="hidden"; false thì bỏ
+        // text.includes(q): kết quả món (text) có chứa chuỗi người dùng nhâp (q) không: nếu có trả về true, không thì false
+        // !text.includes(q): đảo kq lại: 
+            // nếu món ko chứa từ khóa -> true -> thêm class="hidden" -> món bị ẩn
+            // nếu món chứa từ khóa -> false -> bỏ class="hidden" -> món hiện ra
+      });
+    });
+  </script>
+</body>
+</html>
