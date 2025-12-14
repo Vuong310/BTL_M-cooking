@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS loai_mon(
 	ten_loai VARCHAR(20)
 );
 
--- 4. Bảng công thức
+-- 4. Bảng món ăn 
 CREATE TABLE IF NOT EXISTS mon_an(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	ten_mon_an VARCHAR(100) NOT NULL,
