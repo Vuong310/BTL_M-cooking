@@ -1,8 +1,8 @@
 # Đứa con lai của
-5. NKV
-7. VHL
-10. PHG
-52. PTH
-58. CTTQ
-
+- NKV (5)
+- VHL (7)
+- PHG (10)
+- PTH (52)
+- CTTQ (58)
+<br>
 - và C, CGPT, G
