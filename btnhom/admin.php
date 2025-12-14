@@ -39,7 +39,7 @@
             if(isset($_GET['page'])){
                 switch ($_GET['page']) {
                     case 'trangchu':
-                        include "trangchu.php";
+                        include "../BTL/trangchu.php";
                         break;
                     case 'nguoidung':
                         include "nguoidung/nguoidung.php";
