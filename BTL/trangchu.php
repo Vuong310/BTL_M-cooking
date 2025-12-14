@@ -13,7 +13,7 @@
             <img src="img/logo.png" style="width: 100%; margin-top: 10vh; margin-bottom: 50px;">
         </div>
         <div style="text-align: center;">
-            <b style="font-size: 50px">  Hãy chọn món ăn mà bạn muốn</b>
+            <b style="font-size: 50px">Hãy chọn món ăn mà bạn muốn</b>
         </div>
         <div class="menu" style="margin-top: 30px;">
             <?php
