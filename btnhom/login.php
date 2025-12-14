@@ -10,14 +10,18 @@
             session_start();
             $_SESSION["username"] = $username;
             if($username === 'admin' && $password === 'admin123'){
-                header('location: admin.php');
+                header('location: admin.php?page=nguoidung');
             }
             else{
                 header('location: ../BTL/index.php?page=trangchu');
             }
         }
         else{
-            echo "<p class='warning'>Sai thông tin đăng nhập</p>";
+            // echo "<p class='warning'>Sai thông tin đăng nhập</p>";
+            $warning = True;
+            // <?php
+            //     echo "<script>alert('Xin chào! Đây là thông báo từ PHP');</script>";
+            // 
         }
     }
 ?>
@@ -33,6 +37,7 @@
             /* background-color: #f1e9d2; */
             display:flex;
             align-items:center;
+            flex-direction:column;
             justify-content: center;
             margin:auto;
             height:90vh;
@@ -109,6 +114,10 @@
             gap:30px;
             margin: 50px auto;
         }
+        .warning{
+            color:red;
+            font-weight:bold;
+        }
         .hinh{
             text-align: center;
             margin:20px;
@@ -149,12 +158,12 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                     <input type="password" name="mk" placeholder="Password">
                 </div>
-                <div style="margin-top:10px">
+                <!-- <div style="margin-top:10px">
                     <input type="checkbox" name="rmb">Remember me
-                </div>
+                </div> -->
                 <div class="nutbam">
                     <input class = "nut" type="submit" value="Log In">
-                    <button><a class="nut" href="./sign up/signup.php">Sign Up</a></button>
+                    <button><a class="nut" href="signup/signup.php">Sign Up</a></button>
                     <!-- <button><b>Log In</b></button>
                     <button><b>Sign Up</b></button> -->
                 </div>
@@ -169,6 +178,11 @@
             </form>
         </div>
     </main>
+    <?php
+        if($warning === True){
+            echo "<script>alert('Bạn đã nhập sai tên tài khoản hoặc mật khẩu, vui lòng nhập lại!');</script>";
+        }
+    ?>
     
     
 </body>

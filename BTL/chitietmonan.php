@@ -10,11 +10,12 @@
             display: flex;
             flex-direction: column;
             color:#324f23;
-            margin:10vh auto;
+            margin:20vh auto;
             margin-bottom:0;
         }
         h2{
             text-align:left;
+            font-size:30px;
         }
         a{
             text-decoration:none;
@@ -28,6 +29,7 @@
         }
         li{
             padding-inline-start: 0;
+            font-size:20px;
         }
         .container{
             background-color: #9ab25b;
@@ -74,7 +76,7 @@
                  <img src="img/login.png" alt="" style="width:300px; height:300px">
             </div>
             <div>
-                <h1><?php echo $monAn['ten_mon_an']; ?></h1>
+                <h1 style="font-size:50px"><?php echo $monAn['ten_mon_an']; ?></h1>
                 <p><?php echo $monAn['mo_ta']; ?></p>
                 <p>Người đăng: <?php echo " " . $monAn['ho_ten']; ?></p>
                 <p>Ngày đăng: <?php echo " " . $monAn['ngay_dang']; ?></p>

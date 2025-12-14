@@ -18,6 +18,7 @@
         (!empty($_POST['mat-khau'])) &&
         (!empty($_POST['ho-ten'])) &&
         (!empty($_POST['ngay-sinh'])) &&
+        (!empty($_POST['gioi-tinh'])) &&
         (!empty($_POST['sdt'])) &&
         (!empty($_POST['email'])) &&
         (!empty($_POST['vai-tro']))){
@@ -26,10 +27,11 @@
             $hoTen = $_POST['ho-ten'];
             $ngaySinh = $_POST['ngay-sinh'];
             $sdt = $_POST['sdt'];
+            $gioiTinh = $_POST['gioi-tinh'];
             $email = $_POST['email'];
             $vaiTro = $_POST['vai-tro'];
             include('connect.php');
-            $sql = "UPDATE `nguoi_dung` SET `ten_dang_nhap`='$tenDangNhap',`mat_khau`='$matKhau',`ho_ten`='$hoTen',`email`='$email',`sdt`='$sdt',`vai_tro_id`='$vaiTro',`ngay_sinh`='$ngaySinh' WHERE id='$id'";
+            $sql = "UPDATE `nguoi_dung` SET `ten_dang_nhap`='$tenDangNhap',`mat_khau`='$matKhau',`ho_ten`='$hoTen',gioi_tinh='$gioiTinh',`email`='$email',`sdt`='$sdt',`vai_tro_id`='$vaiTro',`ngay_sinh`='$ngaySinh' WHERE id='$id'";
             mysqli_query($conn, $sql);
             header('location: admin.php?page=nguoidung');
         }
@@ -52,6 +54,15 @@
         <div>
             <p>Họ và tên</p>
             <input type="text" name="ho-ten" value="<?php echo $nguoiDung['ho_ten']?>">
+        </div>
+        <div>
+            <p>Giới tính</p>
+            <select name="gioi-tinh">
+                <option value="0">--Chọn giới tính--</option>
+                <option value="Nam"<?php echo $nguoiDung['gioi_tinh']=="Nam" ? "selected":""?>>Nam</option>
+                <option value="Nữ"<?php echo $nguoiDung['gioi_tinh']=="Nữ" ? "selected":""?>>Nữ</option>
+                <option value="Khác"<?php echo $nguoiDung['gioi_tinh']=="Khác" ? "selected":""?>>Khác</option>
+            </select>
         </div>
         <div>
             <p>Ngày sinh</p>

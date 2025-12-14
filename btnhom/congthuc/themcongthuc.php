@@ -60,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Thêm món ăn mới</title>
     <link rel="stylesheet" href="cacform.css">
     <style>
-        form{width:70%; margin:auto; display:flex; flex-direction:column; gap:10px;}
-        input, select, textarea{width:100%; padding:5px;}
+        form{width:60%; margin:auto; display:flex; flex-direction:column; gap:10px;}
+        /* input, select, textarea{width:100%; padding:5px;} */
         .nguyenlieu, .loaimon{display:flex; gap:10px; margin-bottom:5px;}
         .them{display:flex; justify-content:center; margin-top:10px;}
         h1{text-align:center;}
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="them">
-            <button type="button" onclick="themLoaiMon()">Thêm loại món</button>
+            <button type="button" class="nut" onclick="themLoaiMon()">Thêm loại món</button>
         </div>
 
         <p>Nguyên liệu</p>
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="them">
-            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+            <button type="button" class="nut" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
         </div>
 
         <p>Các bước thực hiện</p>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <li><textarea name="buoc[]"></textarea></li>
         </ol>
         <div class="them">
-            <button type="button" onclick="themBuoc()">Thêm bước</button>
+            <button type="button" class="nut" onclick="themBuoc()">Thêm bước</button>
         </div>
 
         <div class="them">

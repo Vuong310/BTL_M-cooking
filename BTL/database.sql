@@ -14,10 +14,11 @@ CREATE TABLE IF NOT EXISTS nguoi_dung(
 	ten_dang_nhap VARCHAR(50) NOT NULL,
 	mat_khau VARCHAR(50) NOT NULL,
 	ho_ten VARCHAR(50),
+    gioi_tinh VARCHAR(5),
 	email VARCHAR(50),
 	sdt VARCHAR(10),
 	vai_tro_id INT,
-	ngay_sinh DATETIME,
+	ngay_sinh DATE,
 	FOREIGN KEY (vai_tro_id) REFERENCES vai_tro(id)
 );
 
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS nguyen_lieu(
 	ten_nguyen_lieu VARCHAR(50)
 );
 
--- 6. Bảng liên kết món ăn với nguyên liệu
+-- 6. Bảng liên kết công thức với nguyên liệu
 CREATE TABLE IF NOT EXISTS mon_an_nguyen_lieu(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS mon_an_nguyen_lieu(
 	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id),
 	FOREIGN KEY (nguyen_lieu_id) REFERENCES nguyen_lieu(id)
 );
--- 7. Bảng liên kết món ăn với loại món
+-- 7. Bảng liên kết công thức với loại món
 CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,
@@ -63,7 +64,6 @@ CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	FOREIGN KEY (loai_mon_id) REFERENCES loai_mon(id),
 	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
 );
--- 8. Liên kết công thức với món ăn
 CREATE TABLE IF NOT EXISTS cong_thuc(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     mon_an_id INT,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS cong_thuc(
 
 
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE cong_thuc;
+truncate table cong_thuc;
 TRUNCATE TABLE mon_an_loai_mon;
 TRUNCATE TABLE mon_an_nguyen_lieu;
 TRUNCATE TABLE mon_an;
@@ -86,38 +86,38 @@ INSERT INTO vai_tro ( ten_vai_tro) VALUES
 ('Admin'),
 ('Người dùng');
 
-INSERT INTO nguoi_dung(ten_dang_nhap, mat_khau, ho_ten, email, sdt, vai_tro_id, ngay_sinh) VALUES
-('admin', 'admin123', 'Quản trị viên', 'admin@congthuc.vn', '0900000000', 1, '2000-01-01'),
-('linh01', 'pass123', 'Nguyễn Văn Linh', 'linh01@gmail.com', '0901000001', 2, '2000-03-15'),
-('mai02', 'pass123', 'Trần Thị Mai', 'mai02@gmail.com', '0901000002', 2, '2001-07-22'),
-('hoang03', 'pass123', 'Hoàng Minh', 'hoang03@gmail.com', '0901000003', 2, '2002-11-30'),
-('thu04', 'pass123', 'Lê Thu Hà', 'thu04@gmail.com', '0901000004', 2, '2003-05-10'),
-('khanh05', 'pass123', 'Phạm Khánh', 'khanh05@gmail.com', '0901000005', 2, '2004-08-18'),
-('anh06', 'pass123', 'Đỗ Anh Tuấn', 'anh06@gmail.com', '0901000006', 2, '2005-12-05'),
-('hoa07', 'pass123', 'Nguyễn Thị Hoa', 'hoa07@gmail.com', '0901000007', 2, '2006-04-27'),
-('minh08', 'pass123', 'Vũ Minh Quân', 'minh08@gmail.com', '0901000008', 2, '2007-09-09'),
-('hien09', 'pass123', 'Bùi Thị Hiền', 'hien09@gmail.com', '0901000009', 2, '2008-06-12'),
-('nam10', 'pass123', 'Trịnh Văn Nam', 'nam10@gmail.com', '0901000010', 2, '2009-02-20'),
-('lan11', 'pass123', 'Đặng Lan Anh', 'lan11@gmail.com', '0901000011', 2, '2000-10-01'),
-('son12', 'pass123', 'Ngô Văn Sơn', 'son12@gmail.com', '0901000012', 2, '2001-03-03'),
-('trang13', 'pass123', 'Phan Thị Trang', 'trang13@gmail.com', '0901000013', 2, '2002-07-07'),
-('tuan14', 'pass123', 'Lê Tuấn Kiệt', 'tuan14@gmail.com', '0901000014', 2, '2003-01-25'),
-('my15', 'pass123', 'Nguyễn Thị Mỹ', 'my15@gmail.com', '0901000015', 2, '2004-11-11'),
-('duy16', 'pass123', 'Trần Duy Hưng', 'duy16@gmail.com', '0901000016', 2, '2005-08-08'),
-('yen17', 'pass123', 'Lê Thị Yến', 'yen17@gmail.com', '0901000017', 2, '2006-09-19'),
-('phuc18', 'pass123', 'Nguyễn Phúc', 'phuc18@gmail.com', '0901000018', 2, '2007-05-05'),
-('nga19', 'pass123', 'Đinh Thị Nga', 'nga19@gmail.com', '0901000019', 2, '2008-12-12'),
-('huy20', 'pass123', 'Phạm Huy Hoàng', 'huy20@gmail.com', '0901000020', 2, '2009-06-06'),
-('thao21', 'pass123', 'Trần Thị Thảo', 'thao21@gmail.com', '0901000021', 2, '2000-02-02'),
-('long22', 'pass123', 'Ngô Văn Long', 'long22@gmail.com', '0901000022', 2, '2001-10-10'),
-('nhung23', 'pass123', 'Vũ Nhung', 'nhung23@gmail.com', '0901000023', 2, '2002-03-30'),
-('bao24', 'pass123', 'Lê Quốc Bảo', 'bao24@gmail.com', '0901000024', 2, '2003-09-15'),
-('giang25', 'pass123', 'Nguyễn Thị Giang', 'giang25@gmail.com', '0901000025', 2, '2004-07-07'),
-('quang26', 'pass123', 'Phan Quang', 'quang26@gmail.com', '0901000026', 2, '2005-01-01'),
-('thuong27', 'pass123', 'Đặng Thương', 'thuong27@gmail.com', '0901000027', 2, '2006-04-04'),
-('tam28', 'pass123', 'Trần Văn Tâm', 'tam28@gmail.com', '0901000028', 2, '2007-02-22'),
-('nhan29', 'pass123', 'Bùi Nhân', 'nhan29@gmail.com', '0901000029', 2, '2008-08-08'),
-('mai30', 'pass123', 'Lê Mai', 'mai30@gmail.com', '0901000030', 2, '2009-06-06');
+INSERT INTO nguoi_dung(ten_dang_nhap, mat_khau, ho_ten, gioi_tinh, email, sdt, vai_tro_id, ngay_sinh) VALUES
+('admin', 'admin123', 'Quản trị viên','', 'admin@congthuc.vn', '0900000000', 1, '2000-01-01'),
+('linh01', 'pass123', 'Nguyễn Văn Linh','Nam', 'linh01@gmail.com', '0901000001', 2, '2000-03-15'),
+('mai02', 'pass123', 'Trần Thị Mai','Nữ', 'mai02@gmail.com', '0901000002', 2, '2001-07-22'),
+('hoang03', 'pass123', 'Hoàng Minh','Nam', 'hoang03@gmail.com', '0901000003', 2, '2002-11-30'),
+('thu04', 'pass123', 'Lê Thu Hà','Nữ', 'thu04@gmail.com', '0901000004', 2, '2003-05-10'),
+('khanh05', 'pass123', 'Phạm Khánh','Nam', 'khanh05@gmail.com', '0901000005', 2, '2004-08-18'),
+('anh06', 'pass123', 'Đỗ Anh Tuấn','Nam', 'anh06@gmail.com', '0901000006', 2, '2005-12-05'),
+('hoa07', 'pass123', 'Nguyễn Thị Hoa','Nữ', 'hoa07@gmail.com', '0901000007', 2, '2006-04-27'),
+('minh08', 'pass123', 'Vũ Minh Quân','Nam', 'minh08@gmail.com', '0901000008', 2, '2007-09-09'),
+('hien09', 'pass123', 'Bùi Thị Hiền','Nữ', 'hien09@gmail.com', '0901000009', 2, '2008-06-12'),
+('nam10', 'pass123', 'Trịnh Văn Nam','Nam', 'nam10@gmail.com', '0901000010', 2, '2009-02-20'),
+('lan11', 'pass123', 'Đặng Lan Anh','Nữ', 'lan11@gmail.com', '0901000011', 2, '2000-10-01'),
+('son12', 'pass123', 'Ngô Văn Sơn','Nam', 'son12@gmail.com', '0901000012', 2, '2001-03-03'),
+('trang13', 'pass123', 'Phan Thị Trang','Nữ', 'trang13@gmail.com', '0901000013', 2, '2002-07-07'),
+('tuan14', 'pass123', 'Lê Tuấn Kiệt','Nam', 'tuan14@gmail.com', '0901000014', 2, '2003-01-25'),
+('my15', 'pass123', 'Nguyễn Thị Mỹ','Nữ', 'my15@gmail.com', '0901000015', 2, '2004-11-11'),
+('duy16', 'pass123', 'Trần Duy Hưng','Nam', 'duy16@gmail.com', '0901000016', 2, '2005-08-08'),
+('yen17', 'pass123', 'Lê Thị Yến','Nữ', 'yen17@gmail.com', '0901000017', 2, '2006-09-19'),
+('phuc18', 'pass123', 'Nguyễn Phúc','Nam', 'phuc18@gmail.com', '0901000018', 2, '2007-05-05'),
+('nga19', 'pass123', 'Đinh Thị Nga','Nữ', 'nga19@gmail.com', '0901000019', 2, '2008-12-12'),
+('huy20', 'pass123', 'Phạm Huy Hoàng','Nam', 'huy20@gmail.com', '0901000020', 2, '2009-06-06'),
+('thao21', 'pass123', 'Trần Thị Thảo','Nữ', 'thao21@gmail.com', '0901000021', 2, '2000-02-02'),
+('long22', 'pass123', 'Ngô Văn Long','Nam', 'long22@gmail.com', '0901000022', 2, '2001-10-10'),
+('nhung23', 'pass123', 'Vũ Nhung','Nữ', 'nhung23@gmail.com', '0901000023', 2, '2002-03-30'),
+('bao24', 'pass123', 'Lê Quốc Bảo','Nam', 'bao24@gmail.com', '0901000024', 2, '2003-09-15'),
+('giang25', 'pass123', 'Nguyễn Thị Giang', 'Nữ','giang25@gmail.com', '0901000025', 2, '2004-07-07'),
+('quang26', 'pass123', 'Phan Quang','Nam', 'quang26@gmail.com', '0901000026', 2, '2005-01-01'),
+('thuong27', 'pass123', 'Đặng Thương','Nam', 'thuong27@gmail.com', '0901000027', 2, '2006-04-04'),
+('tam28', 'pass123', 'Trần Văn Tâm','Nam', 'tam28@gmail.com', '0901000028', 2, '2007-02-22'),
+('nhan29', 'pass123', 'Bùi Nhân','Nam', 'nhan29@gmail.com', '0901000029', 2, '2008-08-08'),
+('mai30', 'pass123', 'Lê Mai','Nữ', 'mai30@gmail.com', '0901000030', 2, '2009-06-06');
 
 INSERT INTO loai_mon(ten_loai) VALUES
 ('Á'), ('Âu - Mỹ'), ('Việt Nam'), ('Trung Quốc'), 

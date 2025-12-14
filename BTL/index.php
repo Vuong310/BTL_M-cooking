@@ -13,7 +13,7 @@
         if(!isset($_SESSION["username"])){
             header('location: ../btnhom/login.php');
         }
-        include('../btnhom/connect.php');
+        // include('../btnhom/connect.php');
     ?>
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
         <header class="dautrang">
@@ -39,7 +39,7 @@
                         ?></p>
                     </div>
                     
-                    <button class="header"><a href="" class="">Log Out</a></button>
+                    <button class="header"><a href="../btnhom/login.php" class="">Log Out</a></button>
                     <!-- <button><b>Sign Up</b></button>
                     <button><b>Log In</b></button> -->
                 </div>

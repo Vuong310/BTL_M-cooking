@@ -1,10 +1,11 @@
 body{
-    background-image: url('../img/nen_signup.jpg');
+    background-color:#f1e9d2;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin:10vh auto;
 }
 header{
     color: white;
@@ -19,13 +20,13 @@ header{
     /* box-shadow: 0 10px 15px rgba(0,0,0,0.3); */
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     box-sizing: border-box;
 }   
 main{
     border-radius: 8px;
     width:100%;
-    max-width: 400px;
+    max-width: 500px;
     box-sizing: border-box;
     margin: auto;
     background-color:#99b063;
@@ -58,16 +59,17 @@ input{
     font-family: 'Courier New', Courier, monospace;
     color:#99b063;
 }
-button{
+.nut{
     border-radius: 8px;
     background-color:#324f23;
     padding:10px 20px;
-    /* margin: 50px auto; */
     font-size: 16px;
     cursor: pointer;
-    color:white;
+    color:#f1e9d2;
     white-space: nowrap;
     font-family: 'Courier New', Courier, monospace;
+    font-weight:bold;
+    border: 1px solid #f1e9d2;
 }
 
 .birth p{
@@ -81,7 +83,7 @@ button{
 }
 select{
     padding:5px;
-    width:100px;
+    width:150px;
     border-radius:5px;
     font-family: 'Courier New', Courier, monospace;
     border: 1px solid #99b063;
@@ -103,14 +105,9 @@ select{
     border:1px solid #f1e9d2;
     border-radius:5px;
     justify-content: space-between;
-}
-input[type="tel"]{
-    width:91.5%;
-    border-radius:5px;
     padding:5px;
-    border: 1px solid #99b063;
 }
-input[type="password"]{
+input{
     width:91.5%;
     border: 1px solid #99b063;
     border-radius:5px;
@@ -121,4 +118,8 @@ input[type="password"]{
     text-align:initial;
     margin:10px;
     font-size:11px;
+}
+a{
+    text-decoration:none;
+    color:#f1e9d2;
 }

@@ -17,6 +17,7 @@
             <th>Tên đăng nhập</th>
             <th>Mật khẩu</th>
             <th>Họ tên</th>
+            <th>Giới tính</th>
             <th>Email</th>
             <th>Số điện thoại</th>
             <th>Vai trò</th>
@@ -33,6 +34,7 @@
             <td><?php echo $row['ten_dang_nhap']?></td>
             <td><?php echo $row['mat_khau']?></td>
             <td><?php echo $row['ho_ten']?></td>
+            <td><?php echo $row['gioi_tinh']?></td>
             <td><?php echo $row['email']?></td>
             <td><?php echo $row['sdt']?></td>
             <td><?php echo $row['ten_vai_tro']?></td>
