@@ -13,7 +13,7 @@
             <div class="menu">
                 <?php
                     include('../btnhom/connect.php');
-                    $sql = "SELECT * from mon_an";
+                    $sql = "SELECT * from mon_an where trang_thai = 'da_duyet'";
                     $result = mysqli_query($conn,$sql);
                     while($row = mysqli_fetch_array($result)){
                 ?>

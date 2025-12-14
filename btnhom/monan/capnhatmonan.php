@@ -68,7 +68,10 @@
         </div>
         <div>
             <p>Trạng thái</p>
-            <input type="text" name="trang-thai" value="<?php echo $monAn['trang_thai']?>">
+            <select name="trang-thai" id="">
+                <option value="cho_duyet" <?php if($monAn['trang_thai']=='cho_duyet') echo 'selected'?>>Chờ duyệt</option>
+                <option value="da_duyet" <?php if($monAn['trang_thai']=='da_duyet') echo 'selected'?>>Đã duyệt</option>
+            </select>
         </div>
         <div>
             <input type="submit" name="submit" value="Thêm mới">

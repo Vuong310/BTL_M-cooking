@@ -25,6 +25,7 @@
                     <li><a href="admin.php?page=monan">Món ăn</a></li>
                     <li><a href="admin.php?page=nguyenlieu">Nguyên liệu</a></li>
                     <li><a href="admin.php?page=loaimon">Loại món</a></li>
+                    <li><a href="admin.php?page=congthuc">Công thức</a></li>
                 </ul>
             </nav>
             <div class="dangnhap">
@@ -91,6 +92,20 @@
                     case 'xoaloaimon':
                         include "loaimon/xoaloaimon.php";
                         break;
+
+                    case 'congthuc':
+                        include "congthuc/congthuc.php";
+                        break;
+                    case 'capnhatcongthuc':
+                        include "congthuc/capnhatcongthuc.php";
+                        break;
+                    case 'themcongthuc':
+                        include "congthuc/themcongthuc.php";
+                        break;
+                    case 'xoacongthuc':
+                        include "congthuc/xoacongthuc.php";
+                        break;
+
                     
                     // case 'dangxuat':
                     //     include "login.php";
