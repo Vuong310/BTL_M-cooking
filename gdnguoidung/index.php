@@ -21,10 +21,10 @@
         session_name('USERS');
         session_start();
         if(!isset($_SESSION["username"])){
-            header('location: ../btnhom/login.php');
+            header('location: ../login.php');
         }
         
-        // include('../btnhom/connect.php');
+        // include('../connect.php');
     ?>
     
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -53,7 +53,7 @@
                         ?></p>
                     </div>
                     
-                    <button class="header"><a href="../btnhom/login.php" class="">Log Out</a></button>
+                    <button class="header"><a href="../login/login.php" class="">Log Out</a></button>
                     <!-- <button><b>Sign Up</b></button>
                     <button><b>Log In</b></button> -->
                 </div>
