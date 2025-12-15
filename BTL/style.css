@@ -77,46 +77,26 @@ main{
 input::placeholder{
     font-family: 'Courier New', Courier, monospace;
 }
-/* .nut {
-    background-color: #f1e9d2;
-    color: #324f23;
-    padding: 10px;
-    border: none;
-    margin: 20px 10px;
-    border-radius: 10px;
-    font-size: 18px;
-    cursor: pointer;/*đổi con trỏ thành hình bàn tay*/ 
-    /* white-space: nowrap; ngan cac chu xuong dong 
-} */
-.menu{
-    display:flex;
-    flex-wrap:wrap;
-    width:90%;
-    margin:auto;
-    margin-top:80px;
-    justify-content: center;
-    gap:20px;
-}
 .monan img{
-    width:200px;
-    height:200px;
-    border-radius: 200px 200px 0 0;
+    width: 280px;
+    height: 270px; 
+    border-radius: 10px 10px 0 0 ;
 }
 .monan{
     flex:1 1 50px;
 }
 .monan:hover{
     box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    border-radius: 200px 200px 10px 10px;
+    border-radius: 10px;
 }
 .mota{
     background-color: #e0d9bf;
-    width: 160px;
+    width: 270px;
     border-radius: 0 0 10px 10px;
-    padding: 5px 20px;
+    padding: 5px 10px;
     margin-top:-4px;
     color:#324f23;
-    height:50px;
+    /* height:50px; */
     max-height: 50px;
 }
 .mota p{

@@ -48,15 +48,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <link rel="stylesheet" href="cacform.css">
     <style>
         form{
-            width:70%; 
+            width:60%; 
             margin:auto; 
             display:flex; 
             flex-direction:column; 
             gap:10px;
-        }
-        input, select, textarea{
-            width:100%; 
-            padding:5px;
         }
         .nguyenlieu, .loaimon{
             display:flex; 
@@ -98,7 +94,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             <div class="loaimon">
                 <select name="loai_mon[]" multiple>
                     <?php
-                    for($i=0;$i<count($allLoai);$i++){
+                    for($i=0; $i<count($allLoai); $i++){
                         $selected = in_array($allLoai[$i]['id'],$loaiIds) ? 'selected' : '';
                         echo "<option value='{$allLoai[$i]['id']}' $selected>
                                 {$allLoai[$i]['ten_loai']}
@@ -133,7 +129,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         </div>
 
         <div class="them">
-            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+            <button type="button" class="nut" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
         </div>
 
         <!-- CÁC BƯỚC -->
@@ -147,7 +143,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         </ol>
 
         <div class="them">
-            <button type="button" onclick="themBuoc()">Thêm bước</button>
+            <button type="button" class="nut" onclick="themBuoc()">Thêm bước</button>
         </div>
         <div class="them">
             <input type="submit" value="Cập nhật món">
