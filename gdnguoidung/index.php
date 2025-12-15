@@ -39,7 +39,7 @@
                 </form>
                 <nav class="header">
                     <ul>
-                        <li class="chon"><a href="index.php?page=trangchu">Trang chủ</a></li>
+                        <li class="chon"><a href="trangchu/index.php?page=trangchu">Trang chủ</a></li>
                         <li class="chon"><a href="index.php?page=hoso&tab=hosocanhan">Hồ sơ</a></li>
                         <li class="chon"><a href="index.php?page=themcongthuc">Thêm công thức</a></li>
                         <li class="chon"><a href="index.php?page=loc">Lọc</a></li>

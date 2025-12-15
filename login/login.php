@@ -13,7 +13,7 @@
                 session_name("ADMIN");
                 session_start();
                 $_SESSION['admin'] = $username;
-                header('Location: admin.php?page=nguoidung');
+                header('Location: ../gdadmin/admin.php?page=nguoidung');
                 exit;
             } 
             else {
@@ -21,7 +21,7 @@
                 session_name("USERS");
                 session_start();
                 $_SESSION['username'] = $username;
-                header('Location: ../gdadmin/index.php?page=trangchu');
+                header('Location: ../gdnguoidung/index.php?page=trangchu');
                 exit;
             }
         }
@@ -172,7 +172,7 @@
                 </div> -->
                 <div class="nutbam">
                     <input class = "nut" type="submit" value="Log In">
-                    <button><a class="nut" href="signup/signup.php">Sign Up</a></button>
+                    <button><a class="nut" href="../signup/signup.php">Sign Up</a></button>
                     <!-- <button><b>Log In</b></button>
                     <button><b>Sign Up</b></button> -->
                 </div>
