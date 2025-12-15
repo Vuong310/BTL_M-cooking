@@ -20,7 +20,6 @@
             <img src="img/logo.png">
             <nav class="header">
                 <ul>
-                    <li><a href="admin.php?page=trangchu">Trang chủ</a></li>
                     <li><a href="admin.php?page=nguoidung">Người dùng</a></li>
                     <li><a href="admin.php?page=monan">Món ăn</a></li>
                     <li><a href="admin.php?page=nguyenlieu">Nguyên liệu</a></li>
@@ -38,9 +37,6 @@
         <?php
             if(isset($_GET['page'])){
                 switch ($_GET['page']) {
-                    case 'trangchu':
-                        include "../BTL/trangchu.php";
-                        break;
                     case 'nguoidung':
                         include "nguoidung/nguoidung.php";
                         break;

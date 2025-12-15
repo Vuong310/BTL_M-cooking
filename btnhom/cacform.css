@@ -8,11 +8,9 @@ form{
     margin:auto;
     width:30%;
     border-radius: 10px;
-    padding:10px;
     box-shadow: 0 15px 20px rgba(0,0,0,0.3);
     color:#f1e9d2;
     font-weight:bold;
-
 }
 body{
     background-color:#f1e9d2;
@@ -32,14 +30,12 @@ input, select, textarea{
     font-family: 'Courier New', Courier, monospace;
     border-radius: 5px;
     border:1px solid #f1e9d2;
+    padding:5px;
+    /* margin:10px; */
+    padding-inline-start: 0;
 }
 button{
     font-family: 'Courier New', Courier, monospace;
-}
-select{
-    width:100%;
-    font-family: 'Courier New', Courier, monospace;
-
 }
 input[type="submit"]{
     color: #f1e9d2;

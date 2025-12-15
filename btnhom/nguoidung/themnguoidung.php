@@ -12,6 +12,7 @@
         (!empty($_POST['mat-khau'])) &&
         (!empty($_POST['ho-ten'])) &&
         (!empty($_POST['ngay-sinh'])) &&
+        (!empty($_POST['gioi-tinh'])) &&
         (!empty($_POST['sdt'])) &&
         (!empty($_POST['email'])) &&
         (!empty($_POST['vai-tro']))){
@@ -19,11 +20,12 @@
             $matKhau = $_POST['mat-khau'];
             $hoTen = $_POST['ho-ten'];
             $ngaySinh = $_POST['ngay-sinh'];
+            $gioiTinh = $_POST['gioi-tinh'];
             $sdt = $_POST['sdt'];
             $email = $_POST['email'];
             $vaiTro = $_POST['vai-tro'];
             include('connect.php');
-            $sql = "INSERT INTO nguoi_dung(ten_dang_nhap,mat_khau,ho_ten,sdt,email,vai_tro_id,ngay_sinh) VALUES ('$tenDangNhap','$matKhau','$hoTen','$sdt','$email','$vaiTro','$ngaySinh')";
+            $sql = "INSERT INTO nguoi_dung(ten_dang_nhap,mat_khau,ho_ten,gioi_tinh,sdt,email,vai_tro_id,ngay_sinh) VALUES ('$tenDangNhap','$matKhau','$hoTen','$gioiTinh','$sdt','$email','$vaiTro','$ngaySinh')";
             mysqli_query($conn, $sql);
             header('location: admin.php?page=nguoidung');
         }
@@ -48,6 +50,15 @@
             <input type="text" name="ho-ten">
         </div>
         <div>
+            <p>Giới tính</p>
+            <select name="gioi-tinh">
+                <option value="0">--Chọn giới tính--</option>
+                <option value="Nam">Nam</option>
+                <option value="Nu">Nữ</option>
+                <option value="Khac">Khác</option>
+            </select>
+        </div>
+        <div>
             <p>Ngày sinh</p>
             <input type="date" name="ngay-sinh">
         </div>
@@ -61,7 +72,7 @@
         </div>
         <div>
             <p>Vai trò</p>
-            <select name="vai-tro" id="">
+            <select name="vai-tro">
                 <option value="0">--Chọn vai trò--</option>
                 <option value="1">Admin</option>
                 <option value="2">Người dùng</option>
