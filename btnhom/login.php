@@ -1,4 +1,5 @@
 <?php
+    // session_start();
     include('connect.php');
     if(isset($_POST['ten']) && isset($_POST['mk'])){
         $username = $_POST['ten'];
@@ -7,13 +8,21 @@
         $result = mysqli_query($conn, $sql);
 
         if(mysqli_num_rows($result)>0){
-            session_start();
-            $_SESSION["username"] = $username;
-            if($username === 'admin' && $password === 'admin123'){
-                header('location: admin.php?page=nguoidung');
-            }
-            else{
-                header('location: ../BTL/index.php?page=trangchu');
+            if ($username === 'admin' && $password === 'admin123') {
+                // Đặt tên session riêng cho admin
+                session_name("ADMIN");
+                session_start();
+                $_SESSION['admin'] = $username;
+                header('Location: admin.php?page=nguoidung');
+                exit;
+            } 
+            else {
+                // Đặt tên session riêng cho user
+                session_name("USERS");
+                session_start();
+                $_SESSION['username'] = $username;
+                header('Location: ../BTL/index.php?page=trangchu');
+                exit;
             }
         }
         else{

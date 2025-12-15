@@ -6,13 +6,24 @@
     <title>BTL</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        li{
+            padding-inline-start: 0;
+            font-size: 15px !important;
+        }
+        .chon:hover{
+            border-bottom: 2px solid white;
+        }
+    </style>
 </head>
 <body>
     <?php 
+        session_name('USERS');
         session_start();
         if(!isset($_SESSION["username"])){
             header('location: ../btnhom/login.php');
         }
+        
         // include('../btnhom/connect.php');
     ?>
     
@@ -28,15 +39,15 @@
                 </form>
                 <nav class="header">
                     <ul>
-                        <li><a href="index.php?page=trangchu">Trang chủ</a></li>
-                        <li><a href="index.php?page=hoso">Hồ sơ</a></li>
-                        <li><a href="index.php?page=themcongthuc">Thêm công thức</a></li>
-                        <li><a href="index.php?page=loc">Lọc</a></li>
+                        <li class="chon"><a href="index.php?page=trangchu">Trang chủ</a></li>
+                        <li class="chon"><a href="index.php?page=hoso&tab=hosocanhan">Hồ sơ</a></li>
+                        <li class="chon"><a href="index.php?page=themcongthuc">Thêm công thức</a></li>
+                        <li class="chon"><a href="index.php?page=loc">Lọc</a></li>
                     </ul>
                 </nav>
                 <div class="dangnhap">
                     <div class="dangnhap" style="background-color: #ffffff33;border-radius:50px;">
-                        <img src="img/(10).jpg" style="border-radius:50px; height:50px;">
+                        <img src="img/logo_nho.jpg" style="border-radius:50px; height:50px;">
                         <p style="font-weight:bold;margin:auto 10px;"><?php
                             echo $_SESSION["username"];
                         ?></p>
@@ -60,6 +71,12 @@
                             break;
                         case 'dstheoloaimon':
                             include "dstheoloaimon.php";
+                            break;
+                        case 'hoso':
+                            include "hoso/hoso.php";
+                            break;
+                        case 'chinhsuahoso':
+                            include "chinhsuahoso.php";
                             break;
                         default:
                             # code...
