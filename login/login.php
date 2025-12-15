@@ -154,7 +154,7 @@
 <body>
     <main>
         <div class="hinh">
-            <img src="img/login.png">
+            <img src="../img/login.png">
         </div>
         <div class="phai">
             <h1><b>Log In</b></h1>
