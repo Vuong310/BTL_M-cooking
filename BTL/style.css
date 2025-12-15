@@ -132,7 +132,13 @@ li{
     font-weight: bold;
 }
 
-
+.xemthem{
+    margin-right: 10px; 
+    color: black; 
+    border: 1px solid #9ab25d; 
+    border-radius: 30px; 
+    padding: 10px;
+}
 
 
 

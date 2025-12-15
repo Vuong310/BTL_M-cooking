@@ -15,14 +15,17 @@
         }
         // include('../btnhom/connect.php');
     ?>
+    
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
         <header class="dautrang">
             <div class="dautrang1">
                 <img src="img/logo.png">
-                <div class="thanhtimkiem">
+                <form method="GET" action="index.php">
                     <i class="fa fa-search" aria-hidden="true"></i>
-                    <input type="search" class="timkiem" placeholder="Search...">
-                </div>
+                    <input type="search" name="search" class="timkiem" placeholder="Search..." required>
+                    <input type="hidden" name="page" value="trangchu">
+
+                </form>
                 <nav class="header">
                     <ul>
                         <li><a href="index.php?page=trangchu">Trang chủ</a></li>
@@ -54,6 +57,9 @@
                             break;
                         case 'chitietmonan':
                             include "chitietmonan.php";
+                            break;
+                        case 'dstheoloaimon':
+                            include "dstheoloaimon.php";
                             break;
                         default:
                             # code...

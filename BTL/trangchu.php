@@ -17,6 +17,41 @@
         </div>
         <?php
             include('../btnhom/connect.php');
+            if(isset($_GET['search'])){
+                $search = $_GET['search'];
+                $sql = "SELECT * FROM mon_an WHERE trang_thai = 'da_duyet' AND ten_mon_an LIKE ?";
+                $stmt = $conn->prepare($sql);
+                $key = "%$search%";
+                $stmt->bind_param("s", $key);
+                $stmt->execute();
+                $result = $stmt->get_result();
+        ?>
+            <div style="display:flex; flex-wrap:wrap; gap:30px;">
+                <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                ?>
+                            <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
+                                <div class="monan">
+                                    <img src="img/logo.png">
+                                    <div class="mota">
+                                        <p><b><?php echo $row['ten_mon_an']; ?></b></p>
+                                    </div>
+                                </div>
+                            </a>
+                <?php
+                        }
+                    }
+                    else{echo "<p>Không tìm thấy món ăn nào phù hợp </p>";}
+                ?>
+            </div>
+
+        <?php
+            }
+            else{
+        ?>   
+        <?php
+            include('../btnhom/connect.php');
             $sql_lm = "SELECT * from loai_mon";
             $result_lm = mysqli_query($conn, $sql_lm);
             while($lm = mysqli_fetch_array($result_lm)){
@@ -32,10 +67,11 @@
                     continue;
                 }
         ?>
-        <div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <h1><?php echo $lm['ten_loai'] ?></h1>
+            <a href="index.php?page=dstheoloaimon&id=<?php echo $lm['id']?>" class="xemthem">Xem thêm ></a>
         </div>
-        <div style="display: flex; gap: 30px; text-align: center;">
+        <div style="display: flex; gap: 30px; text-align: center; overflow-x: scroll;">
             <?php 
                 while($row = mysqli_fetch_array($result)){
             ?>
@@ -50,6 +86,9 @@
         <?php } ?> 
         </div>
     <?php }?>
+    <?php
+            }
+        ?>
     </main>
 </body>
 </html>
