@@ -17,6 +17,8 @@
         }
         .thanhcongcu{
             width:20%;
+            position: fixed;
+            top: 10vh; 
         }
         .thanhcongcu,.chinh{
             margin:auto;
@@ -29,13 +31,16 @@
             padding-inline-start:0;
             align-items:baseline;
             margin:10px;
-            color:#324f23;
             font-weight:bold;
+        }
+        .thanhcongcu a{
+            color:#324f23;
+            font-size:20px;
         }
         .chinh{
             width:75%;
             padding:10px;
-            margin-left:5px;
+            margin-left:22%;
         }
     </style>
 </head>

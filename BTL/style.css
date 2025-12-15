@@ -83,15 +83,16 @@ input::placeholder{
     border-radius: 10px 10px 0 0 ;
 }
 .monan{
-    flex:1 1 50px;
+    text-align:center;
 }
 .monan:hover{
     box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     border-radius: 10px;
+    
 }
 .mota{
     background-color: #e0d9bf;
-    width: 270px;
+    width: 260px;
     border-radius: 0 0 10px 10px;
     padding: 5px 10px;
     margin-top:-4px;

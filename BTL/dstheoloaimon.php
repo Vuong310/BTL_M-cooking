@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .menu{
+            display:flex;
+            flex-wrap:wrap;
+            gap:20px;
+            /* align-items:center; */
+        }
+    </style>
 </head>
 <body style="margin-top: 10vh;">
     <?php
@@ -22,7 +30,8 @@
     <div>
         <h1>Loại món: <?php echo $loaiMon['ten_loai'] ?></h1>
     </div>
-    <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
+    <div class="menu">
+        <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
         <div class="monan">
             <img src="img/logo.png">
             <div class="mota">
@@ -30,7 +39,9 @@
                 
             </div>
         </div>
-    <?php } ?>
+        <?php } ?>
+    </div>
+    
 
 </body>
 </html>
