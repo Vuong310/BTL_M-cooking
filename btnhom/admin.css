@@ -19,6 +19,7 @@ header{
     z-index: 1000;
     box-shadow: 4px 0 15px rgba(0,0,0,0.3);
 }
+
 .dautrang1{
     display: flex;
     justify-content: space-around;
@@ -97,6 +98,9 @@ li{
     text-decoration: none;
     color:#f1e9d2;
     font-weight: bold;
+}
+a:hover{
+    border-bottom: white 2px solid;
 }
 
 
