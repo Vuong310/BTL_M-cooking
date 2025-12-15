@@ -17,14 +17,17 @@
                 JOIN loai_mon lm ON malm.loai_mon_id = lm.id
                 WHERE lm.id = $id";
         $result = mysqli_query($conn, $sql);
-        // $loaiMon = mysqli_fetch_array($result);
+        $loaiMon = mysqli_fetch_array($result);
     ?>
+    <div>
+        <h1>Loại món: <?php echo $loaiMon['ten_loai'] ?></h1>
+    </div>
     <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
         <div class="monan">
             <img src="img/logo.png">
             <div class="mota">
                 <p><?php echo $loaiMon['ten_mon_an']; ?></p>
-                <small>Loại: <?php echo $loaiMon['ten_loai']; ?></small>
+                
             </div>
         </div>
     <?php } ?>
