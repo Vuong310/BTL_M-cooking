@@ -1,13 +1,21 @@
 <?php
-    // Kết nối CSDL bằng PDO
-    $dsn = "mysql:host=localhost;dbname=quan_ly_web_nauan;charset=utf8mb4";
-    $user = "root";
-    $pass = "30122005";
-    $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ];
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $servername = "localhost";
+    $username = "root";
+    $password = "30122005";
+    $database = "quan_ly_web_nauan";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    // echo "Connected successfully";
+
+
+    // Thiết lập charset
+    $conn->set_charset("utf8mb4");
 
     // Lấy dữ liệu từ form
     $ten_mon = isset($_GET['ten_mon']) ? trim($_GET['ten_mon']) : "";
@@ -17,11 +25,14 @@
         $sql = "SELECT ma.id, ma.ten_mon_an, ma.mo_ta, ma.thoi_gian_nau, ma.ngay_dang, nd.ho_ten
                 FROM mon_an ma
                 JOIN nguoi_dung nd ON nd.id = ma.nguoi_dang_id
-                WHERE ma.ten_mon_an LIKE :ten_mon";
+                WHERE ma.ten_mon_an LIKE ?";
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':ten_mon' => "%$ten_mon%"]);
-        $rows = $stmt->fetchAll();
+        $stmt = $conn->prepare($sql);
+        $like = "%$ten_mon%";
+        $stmt->bind_param("s", $like);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
     } else {
         $rows = [];
     }
