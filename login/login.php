@@ -8,29 +8,21 @@
         $result = mysqli_query($conn, $sql);
 
         if(mysqli_num_rows($result)>0){
+            session_start();
+            $_SESSION['username'] = $username;
             if ($username === 'admin' && $password === 'admin123') {
-                // Đặt tên session riêng cho admin
-                session_name("ADMIN");
-                session_start();
-                $_SESSION['admin'] = $username;
+                $_SESSION['vaitro'] = 'admin';
                 header('Location: ../gdadmin/admin.php?page=nguoidung');
                 exit;
             } 
             else {
-                // Đặt tên session riêng cho user
-                session_name("USERS");
-                session_start();
-                $_SESSION['username'] = $username;
+                $_SESSION['vaitro'] = 'user';
                 header('Location: ../gdnguoidung/index.php?page=trangchu');
                 exit;
             }
         }
         else{
-            // echo "<p class='warning'>Sai thông tin đăng nhập</p>";
             $warning = True;
-            // <?php
-            //     echo "<script>alert('Xin chào! Đây là thông báo từ PHP');</script>";
-            // 
         }
     }
 ?>
@@ -43,7 +35,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body{
-            /* background-color: #f1e9d2; */
             display:flex;
             align-items:center;
             flex-direction:column;
@@ -53,7 +44,6 @@
             font-family: 'Courier New', Courier, monospace;
             color:#f1e9d2;
             background-color: #f1e9d2;
-            /* background-image: url('img/nen_signup.jpg'); */
         }
         main{
             background-color:#9ab25d;
@@ -72,7 +62,6 @@
         a{
             color:#f1e9d2;
             text-decoration: none;
-            /* font-weight: bold; */
         }
         .nhap input{
             border:0;
@@ -92,13 +81,11 @@
             justify-content: flex-start;
             align-items: end;
             gap:20px;
-            /* border: white 3px solid; */
         }
         .nutbam button{
             border-radius: 8px;
             background-color:#324f23;
             padding:10px 20px;
-            /* margin: 50px auto; */
             font-size: 16px;
             cursor: pointer;
             color:#f1e9d2;
@@ -131,23 +118,14 @@
             text-align: center;
             margin:20px;
             margin-right: 40px;
-            /* border:3px solid black; */
         }
         .hinh img{
             border-radius: 10px;
             width:100%;
             height:auto;
         }
-        /* .chanmain{
-            display:flex;
-            justify-content: space-around;
-            gap:5px;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        } */
         .phai{
             margin-right:20px;
-            /* border:3px black solid; */
         }
     </style>
 </head>

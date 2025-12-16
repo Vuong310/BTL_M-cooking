@@ -9,10 +9,9 @@
 </head>
 <body>
     <?php 
-        session_name('ADMIN');
         session_start();
-        if(!isset($_SESSION['admin'])){
-            header('location:../login.php');
+        if(!isset($_SESSION['username'])){
+            header('location:../login/login.php');
         }
         include('../connect.php');
     ?>
@@ -29,7 +28,7 @@
                 </ul>
             </nav>
             <div class="dangnhap">
-                <p style="font-weight:bold; color:#f1e9d2"><?php echo "Xin chào " . $_SESSION['admin'];?></p>
+                <p style="font-weight:bold; color:#f1e9d2"><?php echo "Xin chào " . $_SESSION['username'];?></p>
                 <button><a href="../login/login.php" style="text-decoration:none; color:#f1e9d2; font-weight:bold;">Đăng xuất</a></button>
             </div>
         </div>

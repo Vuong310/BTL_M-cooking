@@ -29,7 +29,8 @@
             <td><?php echo $row['ten_nguyen_lieu']?></td>
             <td class="chucnang">
                 <a href="admin.php?page=capnhatnguyenlieu&id=<?php echo $row['id']?>" class="nutcapnhat">Cập nhật</a>
-                <a href="nguyenlieu/xoanguyenlieu.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
+                <a href="nguyenlieu/xoanguyenlieu.php?id=<?php echo $row['id']?>" class="nutxoa"
+                onclick="return confirm('Bạn có chắc muốn xóa nguyên liệu này?')">Xóa</a>
             </td>
         </tr>
         <?php }?>

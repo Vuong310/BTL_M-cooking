@@ -54,7 +54,8 @@
                 <a href="admin.php?page=capnhatcongthuc&id=<?php echo $cong_thuc['mon_an_id']?>" class="nutcapnhat">
                     Cập nhật
                 </a>
-                <a href="congthuc/xoacongthuc.php?id=<?php echo $cong_thuc['mon_an_id']?>" class="nutxoa">
+                <a href="congthuc/xoacongthuc.php?id=<?php echo $cong_thuc['mon_an_id']?>" class="nutxoa"
+                onclick="return confirm('Bạn có chắc muốn xóa công thức này?')">
                     Xóa
                 </a>
             </td>

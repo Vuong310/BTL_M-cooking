@@ -54,7 +54,7 @@
             <select name="gioi-tinh">
                 <option value="0">--Chọn giới tính--</option>
                 <option value="Nam">Nam</option>
-                <option value="Nu">Nữ</option>
+                <option value="Nữ">Nữ</option>
                 <option value="Khac">Khác</option>
             </select>
         </div>

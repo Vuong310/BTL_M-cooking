@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS mon_an(
 	ngay_dang DATE,
 	hinh_anh VARCHAR(255),
     trang_thai VARCHAR(20),
-	FOREIGN KEY (nguoi_dang_id) REFERENCES nguoi_dung(id)
+	FOREIGN KEY (nguoi_dang_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE
 );
 
 -- 5. Bảng nguyên liệu
@@ -47,33 +47,33 @@ CREATE TABLE IF NOT EXISTS nguyen_lieu(
 	ten_nguyen_lieu VARCHAR(50)
 );
 
--- 6. Bảng liên kết công thức với nguyên liệu
+-- 6. Bảng liên kết món ăn với nguyên liệu
 CREATE TABLE IF NOT EXISTS mon_an_nguyen_lieu(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,
 	nguyen_lieu_id INT,
 	so_luong VARCHAR(50),
-	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id),
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE,
 	FOREIGN KEY (nguyen_lieu_id) REFERENCES nguyen_lieu(id)
 );
--- 7. Bảng liên kết công thức với loại món
+-- 7. Bảng liên kết món ăn với loại món
 CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,
 	loai_mon_id INT,
 	FOREIGN KEY (loai_mon_id) REFERENCES loai_mon(id),
-	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS cong_thuc(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     mon_an_id INT,
     buoc_lam TEXT,
-    foreign key (mon_an_id) references mon_an(id)
+    FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE
 );
 
 
 SET FOREIGN_KEY_CHECKS = 0;
-truncate table cong_thuc;
+TRUNCATE TABLE cong_thuc;
 TRUNCATE TABLE mon_an_loai_mon;
 TRUNCATE TABLE mon_an_nguyen_lieu;
 TRUNCATE TABLE mon_an;
@@ -303,7 +303,7 @@ INSERT INTO mon_an_loai_mon(mon_an_id, loai_mon_id) VALUES
 (40, 22), (40, 23), (40, 36), (40, 2),
 (41, 22), (41, 38), (41, 3),
 (42, 22), (42, 21), (42, 23), (42, 1),
-(43, 22), (43, 21), (42, 23), (42, 2),
+(43, 22), (43, 21), (43, 23), (43, 2),
 (44, 22), (44, 23), (44, 36), (44, 2),
 (45, 22), (45, 23), (45, 36), (45, 2);
 

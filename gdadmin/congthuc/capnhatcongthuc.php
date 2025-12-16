@@ -1,7 +1,10 @@
 <?php
+    // session_start();
+    $username = $_SESSION['username'];
+    $vaiTro = $_SESSION['vaitro'];
     include('../connect.php');
     $id = $_GET['id'];
-    $sql = "SELECT ma.*,
+    $sql = "SELECT ma.*, nd.ten_dang_nhap,
                 GROUP_CONCAT(DISTINCT lm.id) AS loai_ids,
                 GROUP_CONCAT(DISTINCT CONCAT(nl.id,':',manl.so_luong)) AS nl_data,
                 GROUP_CONCAT(DISTINCT ct.buoc_lam SEPARATOR '||') AS buoc_data
@@ -11,6 +14,7 @@
             LEFT JOIN mon_an_nguyen_lieu manl ON ma.id = manl.mon_an_id
             LEFT JOIN nguyen_lieu nl ON manl.nguyen_lieu_id = nl.id
             LEFT JOIN cong_thuc ct ON ma.id = ct.mon_an_id
+            LEFT JOIN nguoi_dung nd ON ma.nguoi_dang_id = nd.id
             WHERE ma.id='$id'
             GROUP BY ma.id";
     $result = mysqli_query($conn,$sql);
@@ -64,8 +68,17 @@
                 }
             }
         }
-        header('Location: admin.php?page=congthuc');
-        exit();
+        if($username == $data['ten_dang_nhap'] || $vaiTro === 'admin'){
+            if($vaiTro === 'admin'){
+                header('Location: admin.php?page=congthuc');
+                exit();
+            }
+            else{
+                header('Location: ../gdnguoidung/index.php?page=hoso&tab=dadang');
+                exit();
+            }
+        }
+       
     }
 ?>
 <!DOCTYPE html>
@@ -146,7 +159,7 @@
         </div>
 
         <div class="them">
-            <button type="button" onclick="themLoaiMon()">Thêm loại món</button>
+            <button type="button" class="nut" onclick="themLoaiMon()">Thêm loại món</button>
         </div>
 
 
@@ -174,7 +187,7 @@
         </div>
 
         <div class="them">
-            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+            <button type="button" class="nut" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
         </div>
 
         <!-- CÁC BƯỚC -->
@@ -188,7 +201,7 @@
         </ol>
 
         <div class="them">
-            <button type="button" onclick="themBuoc()">Thêm bước</button>
+            <button type="button" class="nut" onclick="themBuoc()">Thêm bước</button>
         </div>
         <div class="them">
             <input type="submit" value="Cập nhật món">

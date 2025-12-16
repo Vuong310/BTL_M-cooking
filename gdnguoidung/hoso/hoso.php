@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         main{
-            width:100%;
+            width:90%;
         }
         .hoso{
             display:flex;
@@ -18,7 +17,7 @@
         .thanhcongcu{
             width:20%;
             position: fixed;
-            top: 10vh; 
+            top: 15vh; 
         }
         .thanhcongcu,.chinh{
             margin:auto;
@@ -40,7 +39,7 @@
         .chinh{
             width:75%;
             padding:10px;
-            margin-left:22%;
+            margin-left:25%;
         }
     </style>
 </head>
@@ -53,7 +52,7 @@
                     <li><a href="index.php?page=hoso&tab=dadang" class="">Món ăn đã thêm</a></li>
                     <li><a href="index.php?page=hoso&tab=yeuthich" class="">Món ăn yêu thích</a></li>
                     <li><a href="index.php?page=hoso&tab=lichsu" class="">Món ăn đã xem</a></li>
-                    <li><a href="index.php?page=hoso&tab=xoahoso" class="">Xóa tài khoản</a></li>
+                    <!-- <li><a href="index.php?page=hoso&tab=xoahoso" class="">Xóa tài khoản</a></li> -->
                 </ul>
             </nav>
         </div>
