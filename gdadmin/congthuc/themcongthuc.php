@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="them">
-            <button type="button" onclick="themLoaiMon()">Thêm loại món</button>
+            <button type="button" class="nut" onclick="themLoaiMon()">Thêm loại món</button>
         </div>
 
         <p>Nguyên liệu</p>
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="them">
-            <button type="button" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
+            <button type="button" class="nut" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
         </div>
 
         <p>Các bước thực hiện</p>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <li><textarea name="buoc[]"></textarea></li>
         </ol>
         <div class="them">
-            <button type="button" onclick="themBuoc()">Thêm bước</button>
+            <button type="button" class="nut" onclick="themBuoc()">Thêm bước</button>
         </div>
 
         <div class="them">

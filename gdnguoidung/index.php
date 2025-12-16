@@ -14,14 +14,19 @@
         .chon:hover{
             border-bottom: 2px solid white;
         }
+        form.nostyle{
+            all:unset;
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
     </style>
 </head>
 <body>
-    <?php 
-        session_name('USERS');
+    <?php
         session_start();
         if(!isset($_SESSION["username"])){
-            header('location: ../login.php');
+            header('location: ../login/login.php');
         }
         
         // include('../connect.php');
@@ -30,8 +35,8 @@
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
         <header class="dautrang">
             <div class="dautrang1">
-                <img src="img/logo.png">
-                <form method="GET" action="index.php">
+                <img src="../img/logo.png">
+                <form class="nostyle" method="GET" action="index.php">
                     <i class="fa fa-search" aria-hidden="true"></i>
                     <input type="search" name="search" class="timkiem" placeholder="Search..." required>
                     <input type="hidden" name="page" value="trangchu">
@@ -39,7 +44,7 @@
                 </form>
                 <nav class="header">
                     <ul>
-                        <li class="chon"><a href="trangchu/index.php?page=trangchu">Trang chủ</a></li>
+                        <li class="chon"><a href="index.php?page=trangchu">Trang chủ</a></li>
                         <li class="chon"><a href="index.php?page=hoso&tab=hosocanhan">Hồ sơ</a></li>
                         <li class="chon"><a href="index.php?page=themcongthuc">Thêm công thức</a></li>
                         <li class="chon"><a href="index.php?page=loc">Lọc</a></li>
@@ -47,7 +52,7 @@
                 </nav>
                 <div class="dangnhap">
                     <div class="dangnhap" style="background-color: #ffffff33;border-radius:50px;">
-                        <img src="img/logo_nho.jpg" style="border-radius:50px; height:50px;">
+                        <img src="../img/logo_nho.jpg" style="border-radius:50px; height:50px;">
                         <p style="font-weight:bold;margin:auto 10px;"><?php
                             echo $_SESSION["username"];
                         ?></p>
@@ -75,8 +80,11 @@
                         case 'hoso':
                             include "hoso/hoso.php";
                             break;
-                        case 'chinhsuahoso':
-                            include "chinhsuahoso.php";
+                        case 'capnhatcongthuc':
+                            include "../gdadmin/congthuc/capnhatcongthuc.php";
+                            break;
+                        case 'hosonguoidang':
+                            include "hoso/hosonguoidang.php";
                             break;
                         default:
                             # code...

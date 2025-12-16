@@ -132,7 +132,7 @@
             <!-- <button><b><a href="../login.php">Đăng ký</a></b></button> -->
         </form>
         <div style="margin:10px;">
-            <a style="text-decoration: none;color:white;" href="../login.php">Already have an account</a>
+            <a style="text-decoration: none;color:white;" href="../login/login.php">Bạn đã có tài khoản? Đăng nhập</a>
         </div>
     </main>
 </body>

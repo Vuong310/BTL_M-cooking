@@ -19,6 +19,7 @@
         }
         a{
             text-decoration:none;
+            color:#f1e9d2;
         }
         p{
             font-weight: bold;
@@ -69,16 +70,15 @@
         $monAn = mysqli_fetch_array($result);
     ?>
     <div class="container">
-        <!-- <h1><?php echo $monAn['ten_mon_an']; ?></h1> -->
         <div class = "tendangnhap">
             <div>
                 <!-- <img src="<?php echo $monAn['hinh_anh']?>" alt=""> -->
-                 <img src="img/login.png" alt="" style="width:300px; height:300px">
+                 <img src="../img/login.png" alt="" style="width:300px; height:300px">
             </div>
             <div>
                 <h1 style="font-size:50px"><?php echo $monAn['ten_mon_an']; ?></h1>
                 <p><?php echo $monAn['mo_ta']; ?></p>
-                <p>Người đăng: <?php echo " " . $monAn['ho_ten']; ?></p>
+                <p><a href="index.php?page=hosonguoidang&id=<?php echo $monAn['nguoi_dang_id']?>">Người đăng: <?php echo " " . $monAn['ho_ten']; ?></p></a>
                 <p>Ngày đăng: <?php echo " " . $monAn['ngay_dang']; ?></p>
                 <p>Thời gian nấu: <?php echo " " . $monAn['thoi_gian_nau'] . " phút"; ?></p>
             </div>

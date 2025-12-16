@@ -23,8 +23,7 @@
                 SET `ten_dang_nhap`='$tenDangNhap',`ho_ten`='$hoTen',gioi_tinh='$gioiTinh',`email`='$email',`sdt`='$sdt',`ngay_sinh`='$ngaySinh' 
                 WHERE ten_dang_nhap = '$username'";
         mysqli_query($conn, $sql);
-        header('location: index.php?page=hoso&tab=hosocanhan');
-        exit;
+        echo "<script>window.location.href='index.php?page=hoso&tab=hosocanhan';</script>";
     }
 ?>
 <!DOCTYPE html>

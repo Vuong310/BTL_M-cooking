@@ -42,11 +42,15 @@
             <td><?php echo $row["trang_thai"] ?></td>
             <td class="chucnang">
                 <a href="admin.php?page=capnhatmonan&id=<?php echo $row['id']?>" class="nutcapnhat">Cập nhật</a>
-                <a href="monan/xoamonan.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
+                <a href="monan/xoamonan.php?id=<?php echo $row['id']?>" class="nutxoa" 
+                onclick="return confirm('Bạn có chắc muốn xóa món ăn này?')">
+                    Xóa
+                </a>
             </td>
         </tr>
         <?php } ?>
     </table>
+    
 </body>
 </html>
 

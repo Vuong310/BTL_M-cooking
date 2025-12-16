@@ -33,7 +33,7 @@
     <div class="menu">
         <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
         <div class="monan">
-            <img src="img/logo.png">
+            <img src="../img/logo.png">
             <div class="mota">
                 <p><?php echo $loaiMon['ten_mon_an']; ?></p>
                 

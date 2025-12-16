@@ -10,7 +10,7 @@
 <body>
     <main>
         <div>
-            <img src="img/logo.png" style="width: 100%; margin-top: 10vh; margin-bottom: 50px;">
+            <img src="../img/logo.png" style="width: 100%; margin-top: 10vh; margin-bottom: 50px;">
         </div>
         <div style="text-align: center;">
             <b style="font-size: 50px">Hãy chọn món ăn mà bạn muốn</b>
@@ -33,7 +33,7 @@
                 ?>
                             <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
                                 <div class="monan">
-                                    <img src="img/logo.png">
+                                    <img src="../img/logo.png">
                                     <div class="mota">
                                         <p><b><?php echo $row['ten_mon_an']; ?></b></p>
                                     </div>
@@ -77,7 +77,7 @@
             ?>
             <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
                 <div class="monan">
-                    <img src="img/logo.png" style="">
+                    <img src="../img/logo.png" style="">
                     <div class="mota">
                         <p><?php echo $row['ten_mon_an']?></p>
                     </div>

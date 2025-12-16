@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $userName = "root";
-$password = "30122005";
+$password = "Tamihaya198";
 $database = "quan_ly_web_nauan";
 
 // Create connection

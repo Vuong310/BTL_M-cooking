@@ -19,7 +19,11 @@
             flex-wrap:wrap;
             gap:20px;
         }
+        .chucnang{
+            flex-direction:column;
+        }
     </style>
+    <link rel="stylesheet" href="../gdadmin/cacbang.css">
 </head>
 <body>
     <?php
@@ -35,15 +39,22 @@
         <?php
             while($row = mysqli_fetch_assoc($result)){
         ?>
-        <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
-            <div class="monan">
-                <img src="img/logo.png" style="">
-                <div class="mota">
-                    <p><?php echo $row['ten_mon_an']?></p>
-                    <p>Ngày đăng: <?php echo $row['ngay_dang']?></p>
+        <div class="chucnang">
+            <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
+                <div class="monan">
+                    <img src="../img/logo.png">
+                    <div class="mota">
+                        <p><?php echo $row['ten_mon_an']?></p>
+                        <p>Ngày đăng: <?php echo $row['ngay_dang']?></p>
+                    </div>
                 </div>
+            </a>
+            <div>
+                <a href="index.php?page=capnhatcongthuc&id=<?php echo $row['id']?>" class="nutcapnhat">Cập nhật</a>
+                <a href="../gdadmin/monan/xoamonan.php?id=<?php echo $row['id']?>" class="nutxoa" 
+                onclick="return confirm('Bạn có chắc muốn xóa món ăn này?')">Xóa</a>
             </div>
-        </a>
+        </div>
         <?php }?>
     </div>
     
