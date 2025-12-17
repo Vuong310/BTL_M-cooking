@@ -8,12 +8,12 @@
             !empty($_POST['ngay-dang']) && 
             !empty($_POST['trang-thai']) 
         ){
-            $tenMonAn = $_POST['ten-mon-an'];
-            $moTa = $_POST['mo-ta'];
-            $thoiGianNau = $_POST['thoi-gian-nau'];
-            $nguoiDang = $_POST['nguoi-dang'];
-            $ngayDang = $_POST['ngay-dang'];
-            $trangThai = $_POST['trang-thai'];
+        $tenMonAn = $_POST['ten-mon-an'];
+        $moTa = $_POST['mo-ta'];
+        $thoiGianNau = $_POST['thoi-gian-nau'];
+        $nguoiDang = $_POST['nguoi-dang'];
+        $ngayDang = $_POST['ngay-dang'];
+        $trangThai = $_POST['trang-thai'];
 
         #Bắt đầu xử lý thêm ảnh
         // Xử lý ảnh

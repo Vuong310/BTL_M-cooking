@@ -24,7 +24,7 @@
 </head>
 <body>
     <?php
-        session_name('USERS');
+        // session_name('USERS');
         session_start();
         if(!isset($_SESSION["username"])){
             header('location: ../login/login.php');

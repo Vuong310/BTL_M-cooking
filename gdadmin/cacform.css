@@ -36,6 +36,10 @@ input, select, textarea{
 button{
     font-family: 'Courier New', Courier, monospace;
 }
+img{
+    width:100px;
+    height:auto;
+}
 input[type="submit"]{
     color: #f1e9d2;
     background-color: #324f23;
@@ -54,4 +58,9 @@ input[type="submit"]{
     margin-left: 10px;
     font-weight:bold;
     /* cursor: pointer;đổi con trỏ thành hình bàn tay */
+}
+.warning{
+    color:red;
+    font-weight:bold;
+    text-align: center;
 }

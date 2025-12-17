@@ -51,12 +51,46 @@
             align-items:flex-start;
             gap:10px;
         }
+        .yeu-thich {
+            cursor: pointer;
+            background-color: #324f23;
+            color: #f1e9d2;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #324f23;
+            border-radius: 10px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+        .yeu-thich:hover {
+            background-color: #f1e9d2;
+            color: #324f23;
+        }
+        img{
+            width:300px; height:auto;
+            border-radius:10px;
+        }
     </style>
 </head>
 <body>
     <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         include('../connect.php');
         $id = $_GET['id'];
+
+        //GHI LỊCH SỬ XEM MÓN
+        if (isset($_SESSION['nguoi_dung_id'])) {
+            $nguoi_dung_id = (int)$_SESSION['nguoi_dung_id'];
+
+            // Thêm lịch sử mới
+            $sql = "INSERT INTO lich_su (nguoi_dung_id, mon_an_id) VALUES ($nguoi_dung_id, $id) ON DUPLICATE KEY UPDATE thoi_gian_xem = CURRENT_TIMESTAMP";
+            mysqli_query($conn, $sql);
+        }
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
                 join cong_thuc ct on ma.id = ct.mon_an_id
@@ -72,8 +106,7 @@
     <div class="container">
         <div class = "tendangnhap">
             <div>
-                <!-- <img src="<?php echo $monAn['hinh_anh']?>" alt=""> -->
-                 <img src="../img/login.png" alt="" style="width:300px; height:300px">
+                <img src="../gdadmin/<?php echo $monAn['hinh_anh']?>">
             </div>
             <div>
                 <h1 style="font-size:50px"><?php echo $monAn['ten_mon_an']; ?></h1>
@@ -81,6 +114,9 @@
                 <p><a href="index.php?page=hosonguoidang&id=<?php echo $monAn['nguoi_dang_id']?>">Người đăng: <?php echo " " . $monAn['ho_ten']; ?></p></a>
                 <p>Ngày đăng: <?php echo " " . $monAn['ngay_dang']; ?></p>
                 <p>Thời gian nấu: <?php echo " " . $monAn['thoi_gian_nau'] . " phút"; ?></p>
+                <button class="yeu-thich" id="btn-yeuthich" data-id="<?= $monAn['id'] ?>">
+                    Yêu thích
+                </button>
             </div>
         </div>
         <div class="tendangnhap">
@@ -119,6 +155,25 @@
             </div>
         </div>
     </div>
+    <script>
+        const btn = document.getElementById("btn-yeuthich");
+        btn.addEventListener("click", function() {
+            const monAnId = this.getAttribute("data-id");
+            const isLiked = this.innerHTML === "Đã yêu thích";
+
+            fetch("hoso/yeuthich/updateYeuThich.php", {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: "mon_an_id=" + monAnId + "&liked=" + (isLiked ? 0 : 1)
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.innerHTML = isLiked ? "Yêu thích" : "Đã yêu thích";
+                console.log("Cập nhật:", data);
+            })
+            .catch(err => console.error(err));
+        });
+    </script>
     
 </body>
 </html>
