@@ -56,18 +56,7 @@ CREATE TABLE IF NOT EXISTS mon_an_nguyen_lieu(
 	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE,
 	FOREIGN KEY (nguyen_lieu_id) REFERENCES nguyen_lieu(id)
 );
-
--- 7. Bảng lịch sử
-CREATE TABLE IF NOT EXISTS lich_su(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nguoi_dung_id INT,
-	mon_an_id INT,
-	thoi_gian_xem DATETIME DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
-	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
-);
-
--- 8. Bảng liên kết món ăn với loại món
+-- 7. Bảng liên kết món ăn với loại món
 CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,

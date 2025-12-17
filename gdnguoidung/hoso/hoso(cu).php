@@ -73,10 +73,7 @@
                             include "hoso_yeuthich.php";
                             break;
                         case 'lichsu':
-                            include "hoso/lichsu/monandaxem.php";
-                            break;
-                        case 'xoalichsu':
-                            include "hoso/lichsu/xoa.php";
+                            include "hoso_daxem.php";
                             break;
                     }
                 }

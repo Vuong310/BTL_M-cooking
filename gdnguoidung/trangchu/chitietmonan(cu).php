@@ -57,16 +57,6 @@
     <?php
         include('../connect.php');
         $id = $_GET['id'];
-
-        // GHI LỊCH SỬ XEM MÓN
-        if (isset($_SESSION['nguoi_dung_id'])) {
-            $nguoi_dung_id = (int)$_SESSION['nguoi_dung_id'];
-
-            // Thêm lịch sử mới
-            $sql = "INSERT INTO lich_su (nguoi_dung_id, mon_an_id) VALUES ($nguoi_dung_id, $id) ON DUPLICATE KEY UPDATE thoi_gian_xem = CURRENT_TIMESTAMP";
-            mysqli_query($conn, $sql);
-        }
-
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
                 join cong_thuc ct on ma.id = ct.mon_an_id
