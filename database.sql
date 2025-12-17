@@ -67,7 +67,17 @@ CREATE TABLE IF NOT EXISTS lich_su(
 	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
 );
 
--- 8. Bảng liên kết món ăn với loại món
+-- 8. Bảng món ăn yêu thích
+CREATE TABLE mon_an_yeu_thich ( 
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	nguoi_dung_id INT NOT NULL, 
+	mon_an_id INT NOT NULL, 
+	ngay_them DATETIME DEFAULT CURRENT_TIMESTAMP, 
+	UNIQUE (nguoi_dung_id, mon_an_id), 
+	FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id) ON DELETE CASCADE, 
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE 
+);
+-- 9. Bảng liên kết món ăn với loại món
 CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	mon_an_id INT,
@@ -75,6 +85,7 @@ CREATE TABLE IF NOT EXISTS mon_an_loai_mon(
 	FOREIGN KEY (loai_mon_id) REFERENCES loai_mon(id),
 	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE
 );
+-- 10. Bảng liên kết công thức với món ăn
 CREATE TABLE IF NOT EXISTS cong_thuc(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     mon_an_id INT,

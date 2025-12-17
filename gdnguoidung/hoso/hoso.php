@@ -78,6 +78,9 @@
                         case 'xoalichsu':
                             include "hoso/lichsu/xoa.php";
                             break;
+                        case 'yeuthich':
+                            include "hoso/yeuthich/monan.php";
+                            break;
                     }
                 }
             ?>
