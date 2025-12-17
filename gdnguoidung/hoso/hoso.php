@@ -69,17 +69,17 @@
                         case 'dadang':
                             include "hoso/monandadang.php";
                             break;
-                        case 'yeuthich':
-                            include "hoso_yeuthich.php";
-                            break;
                         case 'lichsu':
                             include "hoso/lichsu/monandaxem.php";
                             break;
                         case 'xoalichsu':
-                            include "hoso/lichsu/xoa.php";
+                            include "hoso/lichsu/xoamonan.php";
                             break;
                         case 'yeuthich':
-                            include "hoso/yeuthich/monan.php";
+                            include "yeuthich/monanyeuthich.php";
+                            break;
+                        case 'capnhatyeuthich':
+                            include "yeuthich/capnhatmonanyeuthich.php";
                             break;
                     }
                 }

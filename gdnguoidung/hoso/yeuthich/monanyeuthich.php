@@ -69,7 +69,7 @@ function bindYeuThichBtns() {
     document.querySelectorAll("#list-yeu-thich .yeu-thich").forEach(btn => {
         btn.addEventListener("click", function() {
             const monAnId = this.getAttribute("data-id");
-            fetch("updateYeuThich.php", {
+            fetch("capnhatmonanyeuthich.php", {
                 method: "POST",
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 body: "mon_an_id=" + monAnId + "&liked=0"
