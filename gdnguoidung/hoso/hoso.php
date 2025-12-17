@@ -69,9 +69,6 @@
                         case 'dadang':
                             include "hoso/monandadang.php";
                             break;
-                        case 'yeuthich':
-                            include "hoso_yeuthich.php";
-                            break;
                         case 'lichsu':
                             include "hoso/lichsu/monandaxem.php";
                             break;

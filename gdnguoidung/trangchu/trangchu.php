@@ -33,7 +33,7 @@
                 ?>
                             <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
                                 <div class="monan">
-                                    <img src="../img/logo.png">
+                                    <img src="../gdadmin/<?php echo $row['hinh_anh']?>">
                                     <div class="mota">
                                         <p><b><?php echo $row['ten_mon_an']; ?></b></p>
                                     </div>
@@ -77,7 +77,7 @@
             ?>
             <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
                 <div class="monan">
-                    <img src="../img/logo.png" style="">
+                    <img src="../gdadmin/<?php echo $row['hinh_anh']?>" style="">
                     <div class="mota">
                         <p><?php echo $row['ten_mon_an']?></p>
                     </div>

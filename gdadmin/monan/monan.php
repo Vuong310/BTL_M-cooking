@@ -38,7 +38,7 @@
             <td><?php echo $row["thoi_gian_nau"] ?></td>
             <td><?php echo $row["ho_ten"] ?></td>
             <td><?php echo $row["ngay_dang"] ?></td>
-            <td><img src="<?php echo $row["hinh_anh"] ?>" alt=""></td>
+            <td><img src="<?php echo $row["hinh_anh"] ?>"></td>
             <td><?php echo $row["trang_thai"] ?></td>
             <td class="chucnang">
                 <a href="admin.php?page=capnhatmonan&id=<?php echo $row['id']?>" class="nutcapnhat">Cập nhật</a>

@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS lich_su(
 	mon_an_id INT,
 	thoi_gian_xem DATETIME DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (nguoi_dung_id) REFERENCES nguoi_dung(id),
-	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id)
+	FOREIGN KEY (mon_an_id) REFERENCES mon_an(id) ON DELETE CASCADE
 );
 
 -- 8. Bảng món ăn yêu thích
@@ -616,3 +616,49 @@ INSERT INTO cong_thuc(mon_an_id, buoc_lam) VALUES
 (45, 'Đổ soda từ từ vào để giữ độ gas.'),
 (45, 'Khuấy nhẹ tay.'),
 (45, 'Trang trí bằng lá bạc hà và 1 lát chanh trên miệng ly.');
+
+-- UPDATE mon_an SET hinh_anh = 'uploads/phobo.jpg' WHERE id = 1;
+-- UPDATE mon_an SET hinh_anh = 'uploads/buncha.jpg' WHERE id = 2;
+-- UPDATE mon_an SET hinh_anh = 'uploads/sushi.jpg' WHERE id = 3;
+-- UPDATE mon_an SET hinh_anh = 'uploads/pizza.jpg' WHERE id = 4;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhmi.jpg' WHERE id = 5;
+-- UPDATE mon_an SET hinh_anh = 'uploads/tacos.jpg' WHERE id = 6;
+-- UPDATE mon_an SET hinh_anh = 'uploads/comtam.jpg' WHERE id = 7;
+-- UPDATE mon_an SET hinh_anh = 'uploads/padthai.jpg' WHERE id = 8;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhxeo.jpg' WHERE id = 9;
+-- UPDATE mon_an SET hinh_anh = 'uploads/kimchi.jpg' WHERE id = 10;
+-- UPDATE mon_an SET hinh_anh = 'uploads/bokho.jpg' WHERE id = 11;
+-- UPDATE mon_an SET hinh_anh = 'uploads/hamburger.jpg' WHERE id = 12;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhcuon.jpg' WHERE id = 13;
+-- UPDATE mon_an SET hinh_anh = 'uploads/cari.jpg' WHERE id = 14;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhchung.jpg' WHERE id = 15;
+-- UPDATE mon_an SET hinh_anh = 'uploads/spagetti.jpg' WHERE id = 16;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhbao.jpg' WHERE id = 17;
+-- UPDATE mon_an SET hinh_anh = 'uploads/falafel.jpg' WHERE id = 18;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhtet.jpg' WHERE id = 19;
+-- UPDATE mon_an SET hinh_anh = 'uploads/ramen.jpg' WHERE id = 20;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhkhot.jpg' WHERE id = 21;
+-- UPDATE mon_an SET hinh_anh = 'uploads/paella.jpg' WHERE id = 22;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhduc.jpg' WHERE id = 23;
+-- UPDATE mon_an SET hinh_anh = 'uploads/shawarma.jpg' WHERE id = 24;
+-- UPDATE mon_an SET hinh_anh = 'uploads/ucgaapchao.jpg' WHERE id = 25;
+-- UPDATE mon_an SET hinh_anh = 'uploads/daukhonam.jpg' WHERE id = 26;
+-- UPDATE mon_an SET hinh_anh = 'uploads/canhchuachay.jpg' WHERE id = 27;
+-- UPDATE mon_an SET hinh_anh = 'uploads/mienxaochay.jpg' WHERE id = 28;
+-- UPDATE mon_an SET hinh_anh = 'uploads/carichay.jpg' WHERE id = 29;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhkem.jpg' WHERE id = 30;
+-- UPDATE mon_an SET hinh_anh = 'uploads/saladhilap.jpg' WHERE id = 31;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhquybo.jpg' WHERE id = 32;
+-- UPDATE mon_an SET hinh_anh = 'uploads/chedauxanh.jpg' WHERE id = 33;
+-- UPDATE mon_an SET hinh_anh = 'uploads/banhsukem.jpg' WHERE id = 34;
+-- UPDATE mon_an SET hinh_anh = 'uploads/kemvani.jpg' WHERE id = 35;
+-- UPDATE mon_an SET hinh_anh = 'uploads/mochi.jpg' WHERE id = 36;
+-- UPDATE mon_an SET hinh_anh = 'uploads/pannacotta.jpg' WHERE id = 37;
+-- UPDATE mon_an SET hinh_anh = 'uploads/flan.jpg' WHERE id = 38;
+-- UPDATE mon_an SET hinh_anh = 'uploads/trachanh.jpg' WHERE id = 39;
+-- UPDATE mon_an SET hinh_anh = 'uploads/nuocepcam.jpg' WHERE id = 40;
+-- UPDATE mon_an SET hinh_anh = 'uploads/caphesuada.jpg' WHERE id = 41;
+-- UPDATE mon_an SET hinh_anh = 'uploads/trasuatranchau.jpg' WHERE id = 42;
+-- UPDATE mon_an SET hinh_anh = 'uploads/sinhtodau.jpg' WHERE id = 43;
+-- UPDATE mon_an SET hinh_anh = 'uploads/nuoceptao.jpg' WHERE id = 44;
+-- UPDATE mon_an SET hinh_anh = 'uploads/sodachanhbacha.jpg' WHERE id = 45;

@@ -42,7 +42,7 @@
         <div class="chucnang">
             <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
                 <div class="monan">
-                    <img src="../img/logo.png">
+                    <img src="../gdadmin/<?php echo $row['hinh_anh']?>">
                     <div class="mota">
                         <p><?php echo $row['ten_mon_an']?></p>
                         <p>Ngày đăng: <?php echo $row['ngay_dang']?></p>

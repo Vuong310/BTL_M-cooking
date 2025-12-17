@@ -29,19 +29,61 @@
             $nguoiDang = $_POST['nguoi-dang'];
             $ngayDang = $_POST['ngay-dang'];
             $trangThai = $_POST['trang-thai'];
+            #Bắt đầu xử lý thêm ảnh
+            // Xử lý ảnh
+            $poster = $_FILES["fileToUploads"]["name"];
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1;
 
-            $sql = "UPDATE `mon_an` SET `ten_mon_an`='$tenMonAn',`mo_ta`='$moTA',`thoi_gian_nau`='$thoiGianNau',`nguoi_dang_id`='$nguoiDang',`trang_thai`='$trangThai' WHERE `id`='$id'";
-            //echo $sql;
-            mysqli_query($conn, $sql);
-            header('location: admin.php?page=monan');    
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            // Nếu có file thì mới kiểm tra
+            if (!empty($_FILES["fileToUpload"]["tmp_name"])) {
+                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                if ($check === false) {
+                    echo "File không phải là ảnh.";
+                    $uploadOk = 0;
+                }
+                if ($_FILES["fileToUpload"]["size"] > 50000000) {
+                    echo "File quá lớn";
+                    $uploadOk = 0;
+                }
+                if(!in_array($imageFileType, ["jpg","jpeg","png","gif"])) {
+                    echo "Chỉ JPG, JPEG, PNG & GIF được chấp nhận.";
+                    $uploadOk = 0;
+                }
+            }
+
+            // Nếu có file hợp lệ thì upload và update kèm ảnh
+            if ($uploadOk == 1 && !empty($_FILES["fileToUpload"]["tmp_name"])) {
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    $sql = "UPDATE mon_an 
+                            SET hinh_anh='$target_file', ten_mon_an='$tenMonAn', mo_ta='$moTa',
+                                thoi_gian_nau='$thoiGianNau', nguoi_dang_id='$nguoiDang', trang_thai='$trangThai'
+                            WHERE id='$id'";
+                    mysqli_query($conn, $sql);
+                }
+            } 
+            else {
+                // Nếu không có file thì update nhưng bỏ hinh_anh
+                $sql = "UPDATE mon_an 
+                        SET ten_mon_an='$tenMonAn', mo_ta='$moTa', thoi_gian_nau='$thoiGianNau',
+                            nguoi_dang_id='$nguoiDang', trang_thai='$trangThai'
+                        WHERE id='$id'";
+                mysqli_query($conn, $sql);
+            }
+            header('location: admin.php?page=monan');
+            exit;
         }
         else{
-            echo "<p class='warning'>Vui lòng nhập đầy đủ thông tin</p>";
+            $warning = True;
         }
+        
     ?>
             
 
-    <form action="admin.php?page=capnhatmonan&id=<?php echo $id ?>" method="post">
+    <form action="admin.php?page=capnhatmonan&id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
         <div>
             <p>Tên món ăn</p>
             <input type="text" name="ten-mon-an" value="<?php echo $monAn['ten_mon_an']?>">
@@ -63,7 +105,8 @@
             <input type="text" name="ngay-dang" value="<?php echo $monAn['ngay_dang']?>">
         </div>
         <div>
-            <p>poster</p>
+            <p>Poster</p>
+            <img src="<?php echo $monAn['hinh_anh']?>">
             <input type="file" name="fileToUpload" >
         </div>
         <div>
@@ -74,8 +117,13 @@
             </select>
         </div>
         <div>
-            <input type="submit" name="submit" value="Thêm mới">
+            <input type="submit" name="submit" value="Cập nhật">
         </div>
-    </form>        
+    </form>   
+    <?php
+        if($warning === True){
+            echo "<p class='warning'>Vui lòng nhập đầy đủ thông tin</p>";
+        }
+    ?>     
 </body>
 </html>
