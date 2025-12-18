@@ -183,7 +183,53 @@
             .catch(err => console.error(err));
         });
     </script>
-    
+    <script>
+        let cheDo = true;
+
+        function doiNen(){
+            //nếu cheDo = sáng (true) sẽ -> = tối (false)
+            if (cheDo == true){
+                document.getElementsByTagName('body')[0].style = 'background-color: #324f23';
+                
+                document.getElementsByTagName('header')[0].style = 'background-color: #f1e9d2';
+                document.getElementsByTagName('img')[0].src = '../img/logo2.png';
+                document.getElementsByClassName('timkiem')[0].style = 'background-color: #324f23; border: 2px solid #324f23;';
+                document.querySelectorAll('.header a').forEach(function(link) {
+                    link.style.color = '#324f23';
+                });
+
+                document.head.insertAdjacentHTML( //phương thức cho phép chèn thêm HTML vào vị trí cụ thể trong phần tử
+                    'beforeend', //vị trí thêm
+                    '<style>.timkiem::placeholder { color: #f1e9d2; }</style>'
+                );
+
+                document.getElementsByTagName('footer')[0].style = 'background-color: #9ab25d';
+                document.getElementsByClassName('chan1')[0].style = 'background-color: #f1e9d2; color: #324f23';
+              
+                cheDo = false;
+            }
+            else{
+                document.getElementsByTagName('body')[0].style = 'background-color: #f1e9d2';
+                
+                document.getElementsByTagName('header')[0].style = 'background-color: #9ab25d';
+                document.getElementsByTagName('img')[0].src = '../img/logo.png';
+                document.getElementsByClassName('timkiem')[0].style = 'background-color: #f1e9d2; border: 2px solid #f1e9d2;';
+                document.querySelectorAll('.header a').forEach(function(link) {
+                    link.style.color = '#f1e9d2';
+                });
+
+                document.head.insertAdjacentHTML(
+                    'beforeend',
+                    '<style>.timkiem::placeholder { color: #324f23; }</style>'
+                );
+
+                document.getElementsByTagName('footer')[0].style = 'background-color: #324f23';
+                document.getElementsByClassName('chan1')[0].style = 'background-color: #9ab25d; color: white';
+              
+                cheDo = true;
+            }
+        }
+    </script>
     
 </body>
 </html>
