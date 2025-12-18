@@ -24,22 +24,22 @@
 <body>
     <div>
         <div class="form">
-            <h3>Tên tài khoản: <?php echo $row['ten_dang_nhap']?></h3>
+            <h3>📃 Tên tài khoản: <?php echo $row['ten_dang_nhap']?></h3>
         </div>
         <div class="form">
-            <h3>Tên người dùng: <?php echo $row['ho_ten']?></h3>
+            <h3>👤 Tên người dùng: <?php echo $row['ho_ten']?></h3>
         </div>
         <div class="form">
-            <h3>Ngày sinh: <?php echo $row['ngay_sinh']?></h3>
+            <h3>📆 Ngày sinh: <?php echo $row['ngay_sinh']?></h3>
         </div>
         <div class="form">
-            <h3>Giới tính: <?php echo $row['gioi_tinh']?></h3>
+            <h3>⚧️ Giới tính: <?php echo $row['gioi_tinh']?></h3>
         </div>
         <div class="form">
-            <h3>Số điện thoại: <?php echo $row['sdt']?></h3>
+            <h3>📱 Số điện thoại: <?php echo $row['sdt']?></h3>
         </div>
         <div class="form">
-            <h3>Email: <?php echo $row['email']?></h3>
+            <h3>📪 Email: <?php echo $row['email']?></h3>
         </div>
     </div>
 </body>

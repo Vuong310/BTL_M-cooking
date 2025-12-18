@@ -42,9 +42,9 @@
 <body>
     <div class="tren">
         <h1>Thông tin cơ bản</h1>
-        <p>Họ tên: <?php echo $nguoiDang['ho_ten']?></p>
-        <p>Email: <?php echo $nguoiDang['email']?></p>
-        <p>Số món đã đăng: <?php echo $nguoiDang['so_mon']?></p>
+        <p>👤 Tên người dùng: <?php echo $nguoiDang['ho_ten']?></p>
+        <p>📪 Email: <?php echo $nguoiDang['email']?></p>
+        <p>🍽️ Số món đã đăng: <?php echo $nguoiDang['so_mon']?></p>
     </div>
     <div class="danhsach">
         <?php
@@ -54,7 +54,7 @@
         ?>
         <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
             <div class="monan">
-                <img src="../img/logo.png">
+                <img src="../gdadmin/<?php echo $row['hinh_anh']?>">
                 <div class="mota">
                     <p><?php echo $row['ten_mon_an']?></p>
                     <p>Ngày đăng: <?php echo $row['ngay_dang']?></p>
