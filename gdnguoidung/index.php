@@ -24,13 +24,9 @@
 </head>
 <body>
     <?php
-        // session_name('USERS');
-        session_start();
-        if(!isset($_SESSION["username"])){
-            header('location: ../login/login.php');
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
-        
-        // include('../connect.php');
     ?>
     
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -52,6 +48,9 @@
                     </ul>
                 </nav>
                 <div class="dangnhap">
+                <?php
+                    if(!empty($_SESSION["username"])):
+                ?>
                     <div class="dangnhap" style="background-color: #ffffff33;border-radius:50px;">
                         <img src="../img/logo_nho.jpg" style="border-radius:50px; height:50px;">
                         <p style="font-weight:bold;margin:auto 10px;"><?php
@@ -59,9 +58,11 @@
                         ?></p>
                     </div>
                     
-                    <button class="header"><a href="../login/login.php" class="">Log Out</a></button>
-                    <!-- <button><b>Sign Up</b></button>
-                    <button><b>Log In</b></button> -->
+                    <button class="header"><a href="../login/login.php" class="">Đăng xuất</a></button>
+                <?php else: ?>
+                    <button class="header"><a href="../login/login.php" class="">Đăng nhập</a></button>
+                    <button class="header"><a href="../signup/signup.php" class="">Đăng ký</a></button>
+                <?php endif;?>
                 </div>
             </div>
         </header>
