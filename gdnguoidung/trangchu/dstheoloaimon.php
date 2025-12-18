@@ -19,7 +19,8 @@
         $id = $_GET['id'];
         $sql = "SELECT ma.id AS mon_an_id,
                     ma.ten_mon_an,
-                    lm.ten_loai
+                    lm.ten_loai,
+                    ma.hinh_anh
                 FROM mon_an ma
                 JOIN mon_an_loai_mon malm ON ma.id = malm.mon_an_id
                 JOIN loai_mon lm ON malm.loai_mon_id = lm.id
@@ -33,7 +34,7 @@
     <div class="menu">
         <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
         <div class="monan">
-            <img src="../img/logo.png">
+            <img src="../gdadmin/<?php echo $loaiMon['hinh_anh']?>" style="">
             <div class="mota">
                 <p><?php echo $loaiMon['ten_mon_an']; ?></p>
                 

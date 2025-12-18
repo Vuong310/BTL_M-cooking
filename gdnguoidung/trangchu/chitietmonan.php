@@ -83,14 +83,23 @@
         include('../connect.php');
         $id = $_GET['id'];
 
-        //GHI LỊCH SỬ XEM MÓN
-        if (isset($_SESSION['nguoi_dung_id'])) {
-            $nguoi_dung_id = (int)$_SESSION['nguoi_dung_id'];
+        // GHI LỊCH SỬ XEM MÓN
+        if (isset($_SESSION['username'])) {
+            $ten_dn = $_SESSION['username'];
 
-            // Thêm lịch sử mới
-            $sql = "INSERT INTO lich_su (nguoi_dung_id, mon_an_id) VALUES ($nguoi_dung_id, $id) ON DUPLICATE KEY UPDATE thoi_gian_xem = CURRENT_TIMESTAMP";
-            mysqli_query($conn, $sql);
+            //Truy xuất ID người dùng từ tên đăng nhập
+            $sql_user = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$ten_dn'";
+            $result_user = mysqli_query($conn, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
+
+            if($row_user){
+                $user_id = $row_user['id'];
+                // Thêm lịch sử mới
+                $sql_ls = "INSERT INTO lich_su (nguoi_dung_id, mon_an_id) VALUES ($user_id, $id) ON DUPLICATE KEY UPDATE thoi_gian_xem = CURRENT_TIMESTAMP";
+                mysqli_query($conn, $sql_ls);
+            }
         }
+        
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
                 join cong_thuc ct on ma.id = ct.mon_an_id

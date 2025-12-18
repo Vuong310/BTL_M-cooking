@@ -1,15 +1,18 @@
 <?php    
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
     include __DIR__ . '/../../../connect.php';
 
-    if (!isset($_SESSION['nguoi_dung_id'])) {
+    if (!isset($_SESSION['username'])) {
         echo "<p>Chưa có lịch sử.</p>";
         exit;
     }
 
-    $user_id = (int)$_SESSION['nguoi_dung_id'];
+    $ten_dn = $_SESSION['username'];
+
+    $sql_id = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$ten_dn'";
+    $result_id = mysqli_query($conn, $sql_id);
+    $row_id = mysqli_fetch_assoc($result_id);
+    $user_id = $row_id['id'];
+
     $sql = "SELECT ls.id, ls.thoi_gian_xem, ls.mon_an_id, ma.ten_mon_an, ma.hinh_anh
             FROM lich_su ls
             JOIN mon_an ma ON ls.mon_an_id = ma.id
