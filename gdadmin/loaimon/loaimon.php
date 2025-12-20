@@ -16,6 +16,7 @@
         <tr>
             <th>STT</th>
             <th>Loại món</th>
+            <th>Chức năng</th>
         </tr>
         <?php
             include('../connect.php');

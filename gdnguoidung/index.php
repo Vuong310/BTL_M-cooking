@@ -68,7 +68,11 @@
                             ?></p>
                         </div>
                         
-                        <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../login/login.php">Đăng xuất</a></button>
+                        <button onclick="return confirm('Bạn có chắc muốn đăng xuất?')">
+                            <a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../logout/logout.php">
+                                Đăng xuất
+                            </a>
+                        </button>
                     <?php else: ?>
                         <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../login/login.php">Đăng nhập</a></button>
                         <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../signup/signup.php">Đăng ký</a></button>
@@ -102,6 +106,9 @@
                             # code...
                             break;
                     }
+                }
+                else{
+                    header('location:index.php?page=trangchu');
                 }
             ?>
         </main>
