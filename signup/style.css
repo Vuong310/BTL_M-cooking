@@ -5,7 +5,7 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin:10vh auto;
+    margin:5vh auto;
 }
 header{
     color: white;
@@ -17,7 +17,6 @@ header{
     margin:auto;
     border-radius: 8px;
     margin-bottom: 4px;
-    /* box-shadow: 0 10px 15px rgba(0,0,0,0.3); */
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
     max-width: 500px;
@@ -31,7 +30,6 @@ main{
     margin: auto;
     background-color:#99b063;
     text-align:center;
-    justify-content:center;
     box-shadow: 0 10px 15px rgba(0,0,0,0.3);
 }
 .hang1 h2,p {
@@ -46,7 +44,7 @@ hr{
 }
 .name{
     display:flex;
-    margin:10px;
+    margin:5px 10px;
     gap:5px;
 }
 input[type="text"]{
@@ -58,6 +56,11 @@ input[type="text"]{
 input{
     font-family: 'Courier New', Courier, monospace;
     color:#99b063;
+    width:91.5%;
+    border: 1px solid #99b063;
+    border-radius:5px;
+    padding:5px;
+    margin:5px;
 }
 .nut{
     border-radius: 8px;
@@ -71,7 +74,6 @@ input{
     font-weight:bold;
     border: 1px solid #f1e9d2;
 }
-
 .birth p{
     text-align:initial;
     padding:10px;
@@ -83,20 +85,19 @@ input{
 }
 select{
     padding:5px;
-    width:150px;
+    width:130px;
     border-radius:5px;
     font-family: 'Courier New', Courier, monospace;
     border: 1px solid #99b063;
 }
-
 .gender p{
     text-align: initial;
     padding:5px;
 }
 .luachon{
     display:flex;
-    gap:10px;
-    margin:10px;
+    gap:5px;
+    margin:15px;
     margin-top: 5px;
 }
 .vien{
@@ -104,22 +105,17 @@ select{
     display:flex;
     border:1px solid #f1e9d2;
     border-radius:5px;
-    justify-content: space-between;
-    padding:5px;
-}
-input{
-    width:91.5%;
-    border: 1px solid #99b063;
-    border-radius:5px;
-    padding:5px;
-    margin-top:5px;
-}
-.noidung{
-    text-align:initial;
-    margin:10px;
-    font-size:11px;
+    /* justify-content: space-around; */
+    padding:auto;
 }
 a{
     text-decoration:none;
     color:#f1e9d2;
+}
+.warning{
+    color:red;
+    font-weight: bold;
+}
+.dangky p{
+    font-weight: bold;
 }

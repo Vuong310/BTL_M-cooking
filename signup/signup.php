@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .luachon p{
+            font-weight:normal;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -41,14 +46,15 @@
             if($matKhau === $xacMinhMK){
                 $sql = "INSERT INTO `nguoi_dung`(`ten_dang_nhap`, `mat_khau`, `ho_ten`, `gioi_tinh`, `email`, `sdt`, `vai_tro_id`, `ngay_sinh`) VALUES ('$tenTK','$matKhau','$hoTen','$gioiTinh','$email','$sdt','2','$ngaySinh')";
                 mysqli_query($conn, $sql);
+                header('location:../login.php');
             }
             else{
                 $saiMK = True;
             }
-            header('location:../login.php');
+            
         }
         else{
-            echo "<br><h2>Vui lòng nhập đầy đủ thông tin!</h2>";
+            $warning = True;
         }
     ?>
     <header>
@@ -61,11 +67,12 @@
             <p>Nhanh chóng và dễ dàng</p>
             <hr>
         </div>
-        <form action="signup.php" method="post">
+        <form action="signup.php" method="post" class="dangky">
             <div>
-                <p>Tên tài khoản</p>
+                <p style="text-align:left; margin-left:10px;">Tên tài khoản</p>
                 <input type="text" name="tentk" placeholder="Nhập tên tài khoản của bạn">
             </div>
+            <p style="text-align:left; margin-left:10px;">Tên người dùng</p>
             <div class="name">
                 <input type="text" name="lastname" placeholder="Họ">
                 <input type="text" name="firstname" placeholder="Tên">
@@ -120,20 +127,20 @@
                 <input type="password" name="xacminhmk" placeholder="Nhập lại mật khẩu mới">
                 <?php
                     if($saiMK == True){
-                        echo "<p>Mật khẩu không khớp. Vui lòng nhập lại mật khẩu mới khớp với mật khẩu bạn đã đặt!</p>";
+                        echo "<p class='warning'>Mật khẩu không khớp. Vui lòng nhập lại mật khẩu mới khớp với mật khẩu bạn đã đặt!</p>";
                     }
                 ?>
             </div>
-            <div class="noidung">
-                <p style="margin-bottom: 10px;">People who use our service may have uploaded your contact information to Cooking. Learn more</p>
-                <p>By clicking Sign Up, you argee to our Terms, Privacy Policy and Cookies Policy. You may receive SMS notifications from us and can opt out at any time</p>
-            </div>
-            <input class = "nut" type="submit" value="Đăng ký">
-            <!-- <button><b><a href="../login.php">Đăng ký</a></b></button> -->
+            <input class="nut" type="submit" value="Đăng ký">
         </form>
         <div style="margin:10px;">
-            <a style="text-decoration: none;color:white;" href="../login/login.php">Bạn đã có tài khoản? Đăng nhập</a>
+            <a style="text-decoration: none;color:white;" href="../login/login.php">Bạn đã có tài khoản? <b>Đăng nhập</b></a>
         </div>
     </main>
+    <?php 
+        if($warning == True){
+            echo "<br><h2 class='warning'>Vui lòng nhập đầy đủ thông tin!</h2>";
+        }
+    ?>
 </body>
 </html>
