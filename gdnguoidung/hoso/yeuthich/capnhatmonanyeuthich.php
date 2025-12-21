@@ -1,38 +1,34 @@
 <?php
-if(session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['username'])) {
+    echo "Vui lòng đăng nhập";
+    exit;
+}
 include __DIR__ . '/../../../connect.php';
+$username = $_SESSION['username'];
+$monAnId = (int)$_POST['mon_an_id'];
+$liked = (int)$_POST['liked'];
 
-$userId = $_SESSION['user_id'] ?? 1;
+// lấy user id
+$sqlUser = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$username'";
+$resultUser = mysqli_query($conn, $sqlUser);
 
-if(isset($_POST['mon_an_id'], $_POST['liked'])){
-    $monAnId = intval($_POST['mon_an_id']);
-    $liked = intval($_POST['liked']);
+$user = mysqli_fetch_assoc($resultUser);
+$userId = (int)$user['id'];
 
-    if($liked){
-    $query = "INSERT INTO mon_an_yeu_thich (nguoi_dung_id, mon_an_id)
-              VALUES ($userId, $monAnId)
-              ON DUPLICATE KEY UPDATE ngay_them=NOW()";
-    $result = mysqli_query($conn, $query);
-    if(!$result){
-        echo json_encode(['error' => mysqli_error($conn)]);
-        exit;
-    }
-
-    $res = mysqli_query($conn, "SELECT ma.id, ma.ten_mon_an, ma.mo_ta, ma.hinh_anh, nd.ho_ten 
-                                FROM mon_an ma 
-                                JOIN nguoi_dung nd ON nd.id = ma.nguoi_dang_id
-                                WHERE ma.id = $monAnId");
-    $row = mysqli_fetch_assoc($res);
-    echo json_encode($row);
-
+if($liked === 1){
+    // thêm yêu thích
+    $sql = "INSERT INTO mon_an_yeu_thich (nguoi_dung_id, mon_an_id, ngay_them) 
+            VALUES ($userId, $monAnId, NOW())";
+    $result = mysqli_query($conn, $sql);
+    echo "added";
 } else {
-    $query = "DELETE FROM mon_an_yeu_thich WHERE nguoi_dung_id=$userId AND mon_an_id=$monAnId";
-    $result = mysqli_query($conn, $query);
-    if(!$result){
-        echo json_encode(['error' => mysqli_error($conn)]);
-    } else {
-        echo json_encode(['removed' => true]);
-    }
+    // bỏ yêu thích
+    $sql = "DELETE FROM mon_an_yeu_thich 
+            WHERE nguoi_dung_id = $userId AND mon_an_id = $monAnId";
+    $result = mysqli_query($conn, $sql);
+    echo "removed";
 }
-
-}
+?>

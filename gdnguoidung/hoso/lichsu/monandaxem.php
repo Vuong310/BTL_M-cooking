@@ -34,7 +34,7 @@
         .timeline {
             width: 80%;
             margin: 20px 0;
-            padding: auto 20px;
+            padding-left: 85px;
         }
         .timeline-item {
             display: flex;
@@ -87,10 +87,9 @@
     <div class="timeline">
     <?php while($row = $result->fetch_assoc()) { ?>
         <div class="timeline-item">
-            <div class="content">         
-                <img src="../gdadmin/<?php echo $row['hinh_anh']?>">
-
-                <a href="../index.php?page=chitietmonan&id=<?= $row['mon_an_id'] ?>">
+            <div class="content">
+                <img src="/BTL_M-cooking/gdadmin/<?= $row['hinh_anh'] ?>" alt="">                 
+                <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
                     <?= $row['ten_mon_an'] ?>
                 </a>
             </div>
@@ -100,7 +99,7 @@
                     <?= date('d/m/Y H:i', strtotime($row['thoi_gian_xem'])) ?>
                 </div>
                 
-                <a href="hoso/lichsu/xoamonan.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
+                <a href="/BTL_M-cooking/gdnguoidung/hoso/lichsu/xoa.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
             </div>
         </div>
     <?php } ?>

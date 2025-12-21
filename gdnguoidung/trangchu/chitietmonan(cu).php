@@ -99,7 +99,6 @@
                 mysqli_query($conn, $sql_ls);
             }
         }
-        $userId = (int)$row_user['id']; //cái này quyên dùng
         
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
@@ -124,27 +123,9 @@
                 <p><a href="index.php?page=hosonguoidang&id=<?php echo $monAn['nguoi_dang_id']?>">Người đăng: <?php echo " " . $monAn['ho_ten']; ?></p></a>
                 <p>Ngày đăng: <?php echo " " . $monAn['ngay_dang']; ?></p>
                 <p>Thời gian nấu: <?php echo " " . $monAn['thoi_gian_nau'] . " phút"; ?></p>
-                
-                <!-- thêm yêu thích -->
-                <?php
-                // Lấy thông tin món ăn
-                $sql_monan = "SELECT ma.id AS mon_id, ma.ten_mon_an, ma.mo_ta, ma.hinh_anh, nd.ho_ten
-                        FROM mon_an ma
-                        JOIN nguoi_dung nd ON ma.nguoi_dang_id = nd.id
-                        WHERE ma.id = $id";
-                $result_monan = mysqli_query($conn, $sql_monan);
-                $monAn = mysqli_fetch_assoc($result_monan);
-
-                //kiểm tra món này đã được yêu thích chưa
-                $sql = "SELECT * FROM mon_an_yeu_thich 
-                        WHERE nguoi_dung_id = $userId AND mon_an_id = $id";
-                $result = mysqli_query($conn, $sql);
-                $daYeuThich = mysqli_num_rows($result) > 0;
-                ?>
-                <button class="yeu-thich" id="btn-yeuthich" value="<?php echo (int)$monAn['mon_id'] ?>">
-                    <?php echo $daYeuThich ? "Đã yêu thích" : "Yêu thích" ?>
+                <button class="yeu-thich" id="btn-yeuthich" data-id="<?= $monAn['id'] ?>">
+                    Yêu thích
                 </button>
-
             </div>
         </div>
         <div class="tendangnhap">
@@ -185,19 +166,22 @@
     </div>
     <script>
         const btn = document.getElementById("btn-yeuthich");
-        btn.onclick = function() {
-            let monAnId = btn.value;  //lấy id món ăn tuè data-id
-            let daYeuThich = btn.innerText === "Đã yêu thích"; // kiểm tra nút đã là đã yêu thích chưa
-            // gửi dl lên php
-            fetch("hoso/yeuthich/capnhatmonanyeuthich.php", {
-                method: "POST", 
-                headers: {"Content-Type": "application/x-www-form-urlencoded"},
-                body: "mon_an_id=" + monAnId + "&liked=" + (daYeuThich ? 0 : 1)})
-            
-            .then(() => {
-                btn.innerText = daYeuThich ? "Yêu thích" : "Đã yêu thích";
+        btn.addEventListener("click", function() {
+            const monAnId = this.getAttribute("data-id");
+            const isLiked = this.innerHTML === "Đã yêu thích";
+
+            fetch("hoso/yeuthich/updateYeuThich.php", {
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: "mon_an_id=" + monAnId + "&liked=" + (isLiked ? 0 : 1)
             })
-        };
+            .then(res => res.json())
+            .then(data => {
+                this.innerHTML = isLiked ? "Yêu thích" : "Đã yêu thích";
+                console.log("Cập nhật:", data);
+            })
+            .catch(err => console.error(err));
+        });
     </script>
     <script>
         let cheDo = true;

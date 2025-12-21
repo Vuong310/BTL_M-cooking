@@ -20,16 +20,22 @@
             align-items:center;
             gap:5px;
         }
+        .timkiem::placeholder {
+            color: #324f23;
+        }
+        .chan1{
+            background-color: #9ab25d; 
+            color: white; 
+            border-top-left-radius: 10px ;
+            border-top-right-radius: 10px ;
+        }
     </style>
 </head>
 <body>
     <?php
-        session_start();
-        if(!isset($_SESSION["username"])){
-            header('location: ../login/login.php');
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
-        
-        // include('../connect.php');
     ?>
     
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -51,16 +57,22 @@
                     </ul>
                 </nav>
                 <div class="dangnhap">
-                    <div class="dangnhap" style="background-color: #ffffff33;border-radius:50px;">
-                        <img src="../img/logo_nho.jpg" style="border-radius:50px; height:50px;">
-                        <p style="font-weight:bold;margin:auto 10px;"><?php
-                            echo $_SESSION["username"];
-                        ?></p>
-                    </div>
-                    
-                    <button class="header"><a href="../login/login.php" class="">Log Out</a></button>
-                    <!-- <button><b>Sign Up</b></button>
-                    <button><b>Log In</b></button> -->
+                    <button style="background-color: #f1e9d2; color: #324f23; font-weight: bold; font-family: 'Courier New', Courier, monospace;" onclick="doiNen()">Đổi nền</button>
+                    <?php
+                        if(!empty($_SESSION["username"])):
+                    ?>
+                        <div class="dangnhap" style="background-color: #ffffff33;border-radius:50px;">
+                            <img src="../img/logo_nho.jpg" style="border-radius:50px; height:50px;">
+                            <p style="font-weight:bold;margin:auto 10px;"><?php
+                                echo $_SESSION["username"];
+                            ?></p>
+                        </div>
+                        
+                        <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../login/login.php">Đăng xuất</a></button>
+                    <?php else: ?>
+                        <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../login/login.php">Đăng nhập</a></button>
+                        <button><a style="text-decoration: none; color:#f1e9d2; font-weight: bold;" href="../signup/signup.php">Đăng ký</a></button>
+                    <?php endif;?>
                 </div>
             </div>
         </header>
@@ -94,7 +106,7 @@
             ?>
         </main>
         <footer>
-            <div style="background-color: #9ab25d; color: white; border-top-left-radius: 10px ;border-top-right-radius: 10px ;">
+            <div class="chan1">
                 <div style="padding: 30px;">
                     <b>Lời muốn nói</b>
                     <p>Gửi lời cảm ơn chân thành đến các bạn!</p>

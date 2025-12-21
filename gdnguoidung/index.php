@@ -20,22 +20,17 @@
             align-items:center;
             gap:5px;
         }
-        .timkiem::placeholder {
-            color: #324f23;
-        }
-        .chan1{
-            background-color: #9ab25d; 
-            color: white; 
-            border-top-left-radius: 10px ;
-            border-top-right-radius: 10px ;
-        }
     </style>
 </head>
 <body>
     <?php
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        // session_name('USERS');
+        session_start();
+        if(!isset($_SESSION["username"])){
+            header('location: ../login/login.php');
         }
+        
+        // include('../connect.php');
     ?>
     
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -53,7 +48,7 @@
                         <li class="chon"><a href="index.php?page=trangchu">Trang chủ</a></li>
                         <li class="chon"><a href="index.php?page=hoso&tab=hosocanhan">Hồ sơ</a></li>
                         <li class="chon"><a href="index.php?page=themcongthuc">Thêm công thức</a></li>
-                        <li class="chon"><a href="index.php?page=loc">Lọc</a></li>
+                        <li class="chon"><a href="index.php?page=loc">Gợi ý món ăn</a></li>
                     </ul>
                 </nav>
                 <div class="dangnhap">
@@ -102,6 +97,9 @@
                         case 'hosonguoidang':
                             include "hoso/hosonguoidang.php";
                             break;
+                        case 'loc':
+                            include "locmonan/goiy.php";
+                            break;
                         default:
                             # code...
                             break;
@@ -113,7 +111,7 @@
             ?>
         </main>
         <footer>
-            <div class="chan1">
+            <div style="background-color: #9ab25d; color: white; border-top-left-radius: 10px ;border-top-right-radius: 10px ;">
                 <div style="padding: 30px;">
                     <b>Lời muốn nói</b>
                     <p>Gửi lời cảm ơn chân thành đến các bạn!</p>
