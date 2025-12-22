@@ -1,5 +1,9 @@
-
 <?php
+    session_start();
+    if(!isset($_SESSION['username'])){
+        header('location:../login/login.php');
+        exit;
+    }
     include ("../connect.php");
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tenMonAn = $_POST['ten-mon-an'];
@@ -103,16 +107,13 @@
 
     }
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm món ăn mới</title>
-    <link rel="stylesheet" href="cacform.css">
+    <link rel="stylesheet" href="../gdadmin/cacform.css">
     <style>
         body{
             display: flex;
@@ -121,10 +122,11 @@
             margin:10vh auto;
             margin-bottom:0;
         }
-        form{width:70%; background-color: #9ab25b;border-radius: 10px; box-shadow: 0 15px 20px rgba(0,0,0,0.3); margin:auto;flex-direction:column; gap:5px; padding:30px;}
+        form{width:70%; 
+            flex-direction:column; gap:5px; padding:30px; 
+        }
         input, select, textarea{border:none; width:100%; padding:5px; }
         .nguyenlieu, .loaimon{display:flex; gap:10px; margin-bottom:5px; width:50%}
-        .them{ justify-content:center; margin-top:10px;}
         h1{text-align:center;}
         .muc{width:100%}
         .cacmuc{display:flex; align-items:center;}
@@ -140,7 +142,7 @@
                 <h3>Thêm hình ảnh</h3>
                 <input type="file" name="fileToUpload" >
             </div>
-            <div style="height:500px; flex:1">
+            <div style="height:auto; flex:1">
                 <div class="cacmuc">
                     <h3>Tên món ăn</h3>
                     <input type="text" name="ten-mon-an" placeholder="Nhập tên món ăn" required>
@@ -178,7 +180,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="them">
+                <div>
                     <button type="button" class="nut" onclick="themLoaiMon()">Thêm loại món</button>
                 </div>
             </div>
@@ -197,7 +199,7 @@
                         <input type="text" name="soluong[]" placeholder="Định lượng">
                     </div>
                 </div>
-                <div class="them">
+                <div>
                     <button type="button" class="nut" onclick="themNguyenLieu()">Thêm nguyên liệu</button>
                 </div>
             </div>
@@ -207,12 +209,12 @@
                     <li><textarea name="buoc[]"></textarea></li>
                     <li><textarea name="buoc[]"></textarea></li>
                 </ol>
-                <div class="them">
+                <div>
                     <button type="button" class="nut" onclick="themBuoc()">Thêm bước</button>
                 </div>
             </div>
         </div>
-        <div class="them">
+        <div>
             <input type="submit" value="Thêm món">
         </div>
     </form>

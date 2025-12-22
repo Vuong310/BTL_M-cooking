@@ -24,13 +24,7 @@
 </head>
 <body>
     <?php
-        // session_name('USERS');
         session_start();
-        if(!isset($_SESSION["username"])){
-            header('location: ../login/login.php');
-        }
-        
-        // include('../connect.php');
     ?>
     
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -96,6 +90,9 @@
                             break;
                         case 'hosonguoidang':
                             include "hoso/hosonguoidang.php";
+                            break;
+                        case 'themcongthuc':
+                            include "themcongthuc/themcongthuc.php";
                             break;
                         case 'loc':
                             include "locmonan/goiy.php";
