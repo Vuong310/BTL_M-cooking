@@ -20,6 +20,16 @@
             align-items:center;
             gap:5px;
         }
+        .timkiem::placeholder {
+            color: #324f23;
+        }
+        .chan1{
+            background-color: #9ab25d; 
+            color: white; 
+            border-top-left-radius: 10px ;
+            border-top-right-radius: 10px ;
+        }
+    </styl
     </style>
 </head>
 <body>
@@ -108,7 +118,7 @@
             ?>
         </main>
         <footer>
-            <div style="background-color: #9ab25d; color: white; border-top-left-radius: 10px ;border-top-right-radius: 10px ;">
+            <div class="chan1">
                 <div style="padding: 30px;">
                     <b>Lời muốn nói</b>
                     <p>Gửi lời cảm ơn chân thành đến các bạn!</p>
