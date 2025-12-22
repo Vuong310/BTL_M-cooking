@@ -184,7 +184,8 @@
         });
     </script>
     <script>
-        let cheDo = true;
+        // let cheDo = true;
+        let cheDo = localStorage.getItem("cheDo") === "false" ? false : true;
 
         function doiNen(){
             //nếu cheDo = sáng (true) sẽ -> = tối (false)
@@ -228,7 +229,16 @@
               
                 cheDo = true;
             }
-        }
+        localStorage.setItem("cheDo", cheDo); // Lưu trạng thái vào localStorage
+
+        };
+        // Khi trang load, kiểm tra trạng thái và áp dụng ngay
+        window.onload = function(){
+            if(localStorage.getItem("cheDo") === "false"){
+                cheDo = true; // để khi gọi doiNen() nó chạy vào nhánh tối
+                doiNen();
+            }
+        };
     </script>
     
 </body>
