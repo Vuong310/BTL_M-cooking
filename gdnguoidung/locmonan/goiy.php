@@ -8,6 +8,7 @@
         body{
             width: 100%;
             height: auto;
+            margin-top:10vh;
         }
         .daxem-logo{
             display:flex;

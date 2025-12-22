@@ -88,7 +88,7 @@
     <?php while($row = $result->fetch_assoc()) { ?>
         <div class="timeline-item">
             <div class="content">
-                <img src="/BTL_M-cooking/gdadmin/<?= $row['hinh_anh'] ?>" alt="">                 
+                <img src="../gdadmin/<?= $row['hinh_anh'] ?>" alt="">                 
                 <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
                     <?= $row['ten_mon_an'] ?>
                 </a>
@@ -99,7 +99,7 @@
                     <?= date('d/m/Y H:i', strtotime($row['thoi_gian_xem'])) ?>
                 </div>
                 
-                <a href="/BTL_M-cooking/gdnguoidung/hoso/lichsu/xoa.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
+                <a href="../gdnguoidung/hoso/lichsu/xoamonan.php?id=<?php echo $row['id']?>" class="nutxoa">Xóa</a>
             </div>
         </div>
     <?php } ?>

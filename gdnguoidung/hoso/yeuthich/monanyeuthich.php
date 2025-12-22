@@ -22,7 +22,6 @@ $sql1 = "SELECT ma.*
         ORDER BY yt.ngay_them DESC";
 $result = mysqli_query($conn, $sql1);
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -74,7 +73,7 @@ $result = mysqli_query($conn, $sql1);
             <div class="chucnang">
                 <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
                     <div class="monan1">
-                    <img src="../img/logo.png">
+                    <img src="../gdadmin/<?php echo $row['hinh_anh'];?>">
                     <div class="mota-monan">
                         <p><?php echo $row['ten_mon_an']?></p>
                         <p>Mô tả: <?php echo $row['mo_ta']?></p>
