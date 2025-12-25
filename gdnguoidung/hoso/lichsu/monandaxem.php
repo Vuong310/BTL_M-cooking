@@ -17,6 +17,12 @@
             FROM lich_su ls
             JOIN mon_an ma ON ls.mon_an_id = ma.id
             WHERE ls.nguoi_dung_id = $user_id
+            AND ls.thoi_gian_xem = (            /* Chỉ lấy bản ghi mới nhất */
+                SELECT MAX(thoi_gian_xem)       /* Lấy thời gian xem gần nhất */
+                FROM lich_su
+                WHERE nguoi_dung_id = $user_id
+                AND mon_an_id = ls.mon_an_id
+            )
             ORDER BY ls.thoi_gian_xem DESC;";
     $result = mysqli_query($conn, $sql);
 ?>
@@ -50,9 +56,9 @@
         }
         .content img {
             width: 200px;
-            height: 150px;
+            height: 200px;
+            flex-shrink: 0; /* thêm đúng 1 dòng này là được */
             border-radius: 10px;
-            flex-shrink:0;
             object-fit: cover;
         }
         .content a {
@@ -90,7 +96,7 @@
         <div class="timeline-item">
             <div class="content">
                 <img src="../gdadmin/<?= $row['hinh_anh'] ?>" alt="">                 
-                <a href="index.php?page=chitietmonan&id=<?php echo $row['id']; ?>">
+                <a href="index.php?page=chitietmonan&id=<?php echo $row['mon_an_id']; ?>">
                     <?= $row['ten_mon_an'] ?>
                 </a>
             </div>

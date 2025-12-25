@@ -62,7 +62,7 @@
         <?php }
             }
             else{
-                echo "<h3>Bạn chưa đăng món ăn nào.</h3>";
+                echo "<h2>Bạn chưa đăng món ăn nào.</h2>";
             }
         ?>
     
