@@ -1,21 +1,29 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['username'])){
-        header('location:../login/login.php');
-        exit;
-    }
     include ("../connect.php");
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tenMonAn = $_POST['ten-mon-an'];
         $moTa = $_POST['mo-ta'];
         $thoiGianNau = $_POST['thoi-gian-nau'];
-        $nguoiDang = $_POST['nguoi-dang'];
-        $ngayDang = $_POST['ngay-dang'];
+        $nguoiDang = $_SESSION['username'];
+        $ngayDang = date('Y-m-d');
         $ds_loaiMon = $_POST['loai-mon'] ?? [];
         $ds_buocLam = $_POST['buoc'] ??[];
-        $trangThai = $_POST['trang-thai'];
+        $trangThai = 'chua_duyet';
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
+        if (isset($_SESSION['username'])){
+            $ten_dn = $_SESSION['username'];
+
+            //Truy xuất ID người dùng từ tên đăng nhập
+            $sql_user = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$nguoiDang'";
+            $result_user = mysqli_query($conn, $sql_user);
+            $row_user = mysqli_fetch_assoc($result_user);
+            $nguoiDangId = (int)$row_user['id'];
+        }
+        
         #Bắt đầu xử lý thêm ảnh
         // Xử lý ảnh
         $poster = $_FILES["fileToUpload"]["name"];
@@ -62,11 +70,13 @@
         else{
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                 //Đoạn code xử lý login ban đầu
-                $sql = "INSERT INTO `mon_an`(`ten_mon_an`, `mo_ta`, `thoi_gian_nau`, `nguoi_dang_id`, `ngay_dang`, `hinh_anh`, `trang_thai`) 
-                VALUES ('$tenMonAn','$moTa','$thoiGianNau','$nguoiDang','$ngayDang','$target_file','chua_duyet')";
+                $sql = "INSERT INTO `mon_an`(`ten_mon_an`, `mo_ta`, `thoi_gian_nau`,`nguoi_dang_id`, `ngay_dang`, `hinh_anh`, `trang_thai`) 
+                VALUES ('$tenMonAn','$moTa','$thoiGianNau','$nguoiDangId' ,'$ngayDang','$target_file','chua_duyet')";
                 //echo $sql;
                 mysqli_query($conn, $sql);
                 $monAnId = mysqli_insert_id($conn);
+
+
 
                 // 4. Thêm loại món (mon_an_loai_mon)
                 for ($i = 0; $i < count($ds_loaiMon); $i++) {
@@ -153,11 +163,11 @@
                 </div>
                 <div class="cacmuc">
                     <h3>Người đăng</h3>
-                    <input type="text" name="nguoi-dang" placeholder="Người đăng - id">
+                    <input type="text" value="<?php echo $_SESSION['username']; ?>" readonly>
                 </div>
                 <div class="cacmuc">
                     <h3>Ngày đăng</h3>
-                    <input type="text" name="ngay-dang" placeholder="Ngày đăng">
+                    <input type="text" value="<?php echo date('d/m/Y'); ?>" readonly>
                 </div>
                 <div class="cacmuc">
                     <h3>Thời gian nấu</h3>
