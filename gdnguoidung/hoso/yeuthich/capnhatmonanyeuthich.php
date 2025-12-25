@@ -16,18 +16,18 @@ $sqlUser = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$username'";
 $resultUser = mysqli_query($conn, $sqlUser);
 
 $user = mysqli_fetch_assoc($resultUser);
-$userId = (int)$user['id'];
+$user_id = (int)$user['id'];
 
 if($liked === 1){
     // thêm yêu thích
     $sql = "INSERT INTO mon_an_yeu_thich (nguoi_dung_id, mon_an_id, ngay_them) 
-            VALUES ($userId, $monAnId, NOW())";
+            VALUES ($user_id, $monAnId, NOW())";
     $result = mysqli_query($conn, $sql);
     echo "added";
 } else {
     // bỏ yêu thích
     $sql = "DELETE FROM mon_an_yeu_thich 
-            WHERE nguoi_dung_id = $userId AND mon_an_id = $monAnId";
+            WHERE nguoi_dung_id = $user_id AND mon_an_id = $monAnId";
     $result = mysqli_query($conn, $sql);
     echo "removed";
 }

@@ -99,7 +99,6 @@
                 mysqli_query($conn, $sql_ls);
             }
         }
-        $userId = (int)$row_user['id']; //cái này quyên dùng
         
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
@@ -137,7 +136,7 @@
 
                 //kiểm tra món này đã được yêu thích chưa
                 $sql = "SELECT * FROM mon_an_yeu_thich 
-                        WHERE nguoi_dung_id = $userId AND mon_an_id = $id";
+                        WHERE nguoi_dung_id = $user_id AND mon_an_id = $id";
                 $result = mysqli_query($conn, $sql);
                 $daYeuThich = mysqli_num_rows($result) > 0;
                 ?>
