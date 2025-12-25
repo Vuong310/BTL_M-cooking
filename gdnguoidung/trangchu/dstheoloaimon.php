@@ -33,13 +33,14 @@
     </div>
     <div class="menu">
         <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
-        <div class="monan">
-            <img src="../gdadmin/<?php echo $loaiMon['hinh_anh']?>" style="">
-            <div class="mota">
-                <p><?php echo $loaiMon['ten_mon_an']; ?></p>
-                
+        <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
+            <div class="monan">
+                <img src="../gdadmin/<?php echo $loaiMon['hinh_anh']?>" style="">
+                <div class="mota">
+                    <p><?php echo $loaiMon['ten_mon_an']?></p>
+                </div>
             </div>
-        </div>
+        </a>
         <?php } ?>
     </div>
     <script>
