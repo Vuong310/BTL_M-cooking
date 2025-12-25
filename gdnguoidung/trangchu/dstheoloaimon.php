@@ -24,7 +24,7 @@
                 FROM mon_an ma
                 JOIN mon_an_loai_mon malm ON ma.id = malm.mon_an_id
                 JOIN loai_mon lm ON malm.loai_mon_id = lm.id
-                WHERE lm.id = $id";
+                WHERE lm.id = $id AND ma.trang_thai = 'da_duyet'";
         $result = mysqli_query($conn, $sql);
         $loaiMon = mysqli_fetch_array($result);
     ?>
