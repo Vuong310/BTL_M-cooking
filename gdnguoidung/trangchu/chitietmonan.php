@@ -10,7 +10,7 @@
             display: flex;
             flex-direction: column;
             color:#324f23;
-            margin:20vh auto;
+            margin:12vh auto;
             margin-bottom:0;
         }
         h2{
@@ -50,6 +50,7 @@
             justify-content: space-around;
             align-items:flex-start;
             gap:10px;
+            margin:auto 30px;
         }
         .yeu-thich {
             cursor: pointer;
@@ -99,7 +100,6 @@
                 mysqli_query($conn, $sql_ls);
             }
         }
-        
         $sql = "SELECT ma.*, ct.buoc_lam ,nl.ten_nguyen_lieu, nd.ho_ten
                 from mon_an ma
                 join cong_thuc ct on ma.id = ct.mon_an_id
@@ -136,7 +136,7 @@
 
                 //kiểm tra món này đã được yêu thích chưa
                 $sql = "SELECT * FROM mon_an_yeu_thich 
-                        WHERE nguoi_dung_id = $user_id AND mon_an_id = $id";
+                        WHERE mon_an_id = $id";
                 $result = mysqli_query($conn, $sql);
                 $daYeuThich = mysqli_num_rows($result) > 0;
                 ?>
