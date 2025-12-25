@@ -33,7 +33,7 @@
     </div>
     <div class="menu">
         <?php while ($loaiMon = mysqli_fetch_array($result)) { ?>
-        <a href="index.php?page=chitietmonan&id=<?php echo $row['id']?>">
+        <a href="index.php?page=chitietmonan&id=<?php echo $id?>">
             <div class="monan">
                 <img src="../gdadmin/<?php echo $loaiMon['hinh_anh']?>" style="">
                 <div class="mota">
