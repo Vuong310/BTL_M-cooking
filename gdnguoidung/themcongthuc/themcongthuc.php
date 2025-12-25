@@ -1,4 +1,8 @@
 <?php
+    if(!isset($_SESSION['username'])){
+        header('location: ../login/login.php');
+        exit;
+    }
     include ("../connect.php");
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tenMonAn = $_POST['ten-mon-an'];
