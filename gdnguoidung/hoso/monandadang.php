@@ -18,6 +18,8 @@
             display:flex;
             flex-wrap:wrap;
             gap:20px;
+            width:85%;
+            margin:auto;
         }
         .chucnang{
             flex-direction:column;

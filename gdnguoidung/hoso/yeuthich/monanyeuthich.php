@@ -30,28 +30,33 @@ $result = mysqli_query($conn, $sql1);
 <style>
 .danhsach { 
     display: flex;
-    flex-wrap:wrap; /* cho phép xuống dòng*/
-    padding: 20px;
+    flex-direction:column;
+    width:85%;
+    margin:auto;
 }
 .monan1 {
     display: flex;
     border-radius: 12px;
     padding: 15px;
     gap: 20px;
-    width: 100%;
+    
 }
 .monan1 img {
     width: 200px;
     height: 200px;
     border-radius: 10px;
-    flex-shrink: 0;
+    flex:1;
 }
 .mota-monan {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
     background-color: #e0d9bf;
     width: 480px;
     border-radius: 10px;
-    padding: 10px 10px;
+    padding: 0 10px;
     color:#324f23;
+    flex:2;
 }
 .mota-monan p{
     font-weight:bold;
@@ -60,7 +65,7 @@ $result = mysqli_query($conn, $sql1);
 </style>
 </head>
 <body>
-<h1>Các món ăn bạn đã yêu thích</h1>
+<h1 style="text-align:center;">Các món ăn bạn đã yêu thích</h1>
 
 <div class="danhsach">
     <?php
@@ -74,7 +79,7 @@ $result = mysqli_query($conn, $sql1);
                     <div class="monan1">
                     <img src="../gdadmin/<?php echo $row['hinh_anh'];?>">
                     <div class="mota-monan">
-                        <p><?php echo $row['ten_mon_an']?></p>
+                        <h3><?php echo $row['ten_mon_an']?></h3>
                         <p>Mô tả: <?php echo $row['mo_ta']?></p>
                     </div>
                 </div>

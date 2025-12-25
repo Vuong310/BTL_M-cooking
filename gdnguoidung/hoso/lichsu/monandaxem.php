@@ -32,23 +32,24 @@
             font-size: 36px;
         }
         .timeline {
-            width: 80%;
-            margin: 20px 0;
-            padding-left: 85px;
+            width: 90%;
+            margin: 20px auto;
         }
         .timeline-item {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
             position: relative;
+            z-index:2;
         }
         .content {
             display: flex;
             align-items: center;
             gap: 15px;
+            width: 50%;
         }
         .content img {
-            width: 150px;
+            width: 200px;
             height: 150px;
             border-radius: 10px;
             object-fit: cover;
@@ -69,7 +70,6 @@
             font-size: 16px;
             color: #666;
             margin-top: 5px;
-            margin-left: 50%; 
         }
         .nutxoa{
             color: #f1e9d2;
