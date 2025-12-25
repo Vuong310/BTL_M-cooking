@@ -12,13 +12,13 @@ $tenDangNhap = $_SESSION['username'];
 $sql = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = '$tenDangNhap'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$userId = (int)$row['id'];
+$user_id = (int)$row['id'];
 
 // Lấy danh sách các món đã yêu thích của nd
 $sql1 = "SELECT ma.*
         FROM mon_an ma
         JOIN mon_an_yeu_thich yt ON yt.mon_an_id = ma.id
-        WHERE yt.nguoi_dung_id = $userId
+        WHERE yt.nguoi_dung_id = $user_id
         ORDER BY yt.ngay_them DESC";
 $result = mysqli_query($conn, $sql1);
 ?>
@@ -52,7 +52,7 @@ $result = mysqli_query($conn, $sql1);
     flex-direction:column;
     justify-content: center;
     background-color: #e0d9bf;
-    width:100%;
+    width: 480px;
     border-radius: 10px;
     padding: 0 10px;
     color:#324f23;
