@@ -18,7 +18,7 @@
             display:flex;
             flex-wrap:wrap;
             gap:20px;
-            width:85%;
+            width:90%;
             margin:auto;
         }
         .chucnang{
@@ -37,7 +37,9 @@
         // echo $sql;
         $result = mysqli_query($conn, $sql);
     ?>
+    
     <div class="danhsach">
+    <?php if(mysqli_num_rows($result)>0){?>
         <?php
             while($row = mysqli_fetch_assoc($result)){
         ?>
@@ -57,7 +59,13 @@
                 onclick="return confirm('Bạn có chắc muốn xóa món ăn này?')">Xóa</a>
             </div>
         </div>
-        <?php }?>
+        <?php }
+            }
+            else{
+                echo "<h3>Bạn chưa đăng món ăn nào.</h3>";
+            }
+        ?>
+    
     </div>
     
 </body>

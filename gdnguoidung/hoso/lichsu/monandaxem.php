@@ -52,6 +52,7 @@
             width: 200px;
             height: 150px;
             border-radius: 10px;
+            flex-shrink:0;
             object-fit: cover;
         }
         .content a {
