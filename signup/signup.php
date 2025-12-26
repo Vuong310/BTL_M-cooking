@@ -46,7 +46,7 @@
             if($matKhau === $xacMinhMK){
                 $sql = "INSERT INTO `nguoi_dung`(`ten_dang_nhap`, `mat_khau`, `ho_ten`, `gioi_tinh`, `email`, `sdt`, `vai_tro_id`, `ngay_sinh`) VALUES ('$tenTK','$matKhau','$hoTen','$gioiTinh','$email','$sdt','2','$ngaySinh')";
                 mysqli_query($conn, $sql);
-                header('location:../login.php');
+                header('location:../login/login.php');
             }
             else{
                 $saiMK = True;
